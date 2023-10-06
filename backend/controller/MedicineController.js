@@ -81,7 +81,7 @@ const updateDetailsAndPrice =asyncHandler( async (req, res) => {
 })
 
 // View the Available quantity, and Sales of each medicine
-const viewQuantityAndSales = async (req, res) => {
+const viewQuantityAndSales =asyncHandler( async (req, res) => {
     try {
         const medicines = await Medicine.find({}, 'name quantity sales -_id');
         res.status(200).json(medicines)
@@ -90,10 +90,10 @@ const viewQuantityAndSales = async (req, res) => {
         res.status(400)
         throw new Error(error.message)
     }
-}
+})
 
 // Filter medicines based on Medicinal Use
-const filterMedicines = async (req,res) => {
+const filterMedicines =asyncHandler( async (req,res) => {
     const {medicinalUse} = req.params
     try{
         const medicines = await Medicine.find({medicinalUse: medicinalUse})
@@ -103,7 +103,7 @@ const filterMedicines = async (req,res) => {
         res.status(400)
         throw new Error(error.message)
     }
-}
+})
 
 module.exports = {
     addOrUpdateMedicine,
