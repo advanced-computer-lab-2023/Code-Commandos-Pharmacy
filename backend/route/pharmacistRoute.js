@@ -5,6 +5,6 @@ const{viewPharmacist,removePharmacist,viewUploadByPharmacist}= require('../contr
 //Task 22: Get a Pharmacist's Info
 admin.get('/pharmacist/:id', viewPharmacist)
 admin.delete('/pharmacist/:id', removePharmacist)
-admin.get('/UploadByPharmacist',viewUploadByPharmacist)
+admin.get('/UploadByPharmacist/:id',viewUploadByPharmacist)
 
 module.exports= admin
