@@ -41,10 +41,32 @@ const MedicineSchema = new Schema({
             type: Date,
             required: true
         },
+
+        // Antipyretic: Fever reducer
+        // Antiemetic: Prevents nausea and vomiting
+        // Sedative : Promotes relaxation and sleep
+        medicinalUse: {
+            type: String,
+            required: true,
+            enum: ['Pain Relief',
+                    'Anti-inflammatory',
+                    'Antipyretic',
+                    'Antidepressant',
+                    'Antidiabetic',
+                    'Antiemetic',
+                    'Muscle Relaxant',
+                    'Sedative',
+                    'Vitamin'
+                    ]
+        },
+        //the below attributes should be updated automatically when purchasing a medicine from the pharmacy
         customerReviews: {
             type: String,
         },
         customerRatings: {
+            type: Number
+        },
+        sales: {
             type: Number
         }
     },

@@ -4,7 +4,9 @@ const {
     addOrUpdateMedicine,
     viewAvailableMedicines,
     viewMedicine,
-    updateDetailsAndPrice
+    updateDetailsAndPrice,
+    viewQuantityAndSales,
+    filterMedicines
 } = require('../controller/MedicineController')
 const router = express.Router()
 
@@ -16,6 +18,7 @@ router.post('/addMedicine', addOrUpdateMedicine)
 router.get('/viewAvailableMedicines', viewAvailableMedicines)
 
 // View the Available quantity, and Sales of each medicine
+router.get('/viewQuantityAndSales/:name', viewQuantityAndSales)
 
 // Search for Medicine based on name
 router.get('/viewMedicine/:name', viewMedicine)
@@ -24,5 +27,6 @@ router.get('/viewMedicine/:name', viewMedicine)
 router.patch('/updateDetailsAndPrice/:name', updateDetailsAndPrice)
 
 // Filter medicines based on Medicinal Use
+router.get('/filterMedicines/:medicinalUse', filterMedicines)
 
 module.exports = router
