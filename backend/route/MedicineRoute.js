@@ -3,7 +3,7 @@ const express = require('express')
 const {
     addOrUpdateMedicine,
     viewAvailableMedicines,
-    viewMedicine,
+    viewMedicineByName,
     updateDetailsAndPrice,
     viewQuantityAndSales,
     filterMedicines
@@ -18,13 +18,13 @@ router.post('/addMedicine', addOrUpdateMedicine)
 router.get('/viewAvailableMedicines', viewAvailableMedicines)
 
 // View the Available quantity, and Sales of each medicine
-router.get('/viewQuantityAndSales/:name', viewQuantityAndSales)
+router.get('/viewQuantityAndSales', viewQuantityAndSales)
 
 // Search for Medicine based on name
-router.get('/viewMedicine/:name', viewMedicine)
+router.get('/viewMedicineByName/:name', viewMedicineByName)
 
 // Edit medicine Details and Price
-router.patch('/updateDetailsAndPrice/:name', updateDetailsAndPrice)
+router.put('/updateDetailsAndPrice/:name', updateDetailsAndPrice)
 
 // Filter medicines based on Medicinal Use
 router.get('/filterMedicines/:medicinalUse', filterMedicines)

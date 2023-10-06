@@ -48,16 +48,16 @@ const MedicineSchema = new Schema({
         medicinalUse: {
             type: String,
             required: true,
-            enum: ['Pain Relief',
-                    'Anti-inflammatory',
-                    'Antipyretic',
-                    'Antidepressant',
-                    'Antidiabetic',
-                    'Antiemetic',
-                    'Muscle Relaxant',
-                    'Sedative',
-                    'Vitamin'
-                    ]
+            enum: ['PAIN-RELIEF',
+                    'ANTI-INFLAMMATORY',
+                    'ANTIPYRETIC',
+                    'ANTIDEPRESSANT',
+                    'ANTIDIABETIC',
+                    'ANTIEMETIC',
+                    'MUSCLE RELAXANT',
+                    'SEDATIVE',
+                    'VITAMIN'
+            ]
         },
         //the below attributes should be updated automatically when purchasing a medicine from the pharmacy
         customerReviews: {
