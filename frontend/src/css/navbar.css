@@ -10,7 +10,7 @@
     justify-content: flex-end;
 }
 .buttonNav {
-    background-color: red;
+    background-color: #D21312;
     border-radius: 0.3rem;
     padding: 0.6em 1.3em;
     color: white;
@@ -46,5 +46,5 @@
     display: block;
 }
 .nav-link:hover {
-     color: red;
+     color: #D21312;
 }
