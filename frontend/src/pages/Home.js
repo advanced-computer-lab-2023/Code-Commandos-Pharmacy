@@ -20,7 +20,7 @@ const Home = () => {
         <div className="available-medicines">
             {medicines && medicines.map((medicine) => (
                 <div key={medicine._id}>
-                    <img src={medicine.image} alt={medicine.name} />
+                    <img src={require(`../images/${medicine.image}`)} alt={medicine.name} />
                     <p>{medicine.name}</p>
                     <p>{medicine.price}</p>
                     <p>{medicine.description}</p>

@@ -7,12 +7,7 @@ const MedicineSchema = new Schema({
             type: String,
             unique: true,
             required: true,
-            image: {
-                type: String,
-                default: function () {
-                    return '../images/' + this.type + '.png';
-                }
-            }
+
         },
         description: {
             type: String,
@@ -65,6 +60,10 @@ const MedicineSchema = new Schema({
                     'SEDATIVE',
                     'VITAMIN'
             ]
+        },
+        image: {
+            type: String,
+            default: 'BiotinPlus.png'
         },
         //the below attributes should be updated automatically when purchasing a medicine from the pharmacy
         customerReviews: {
