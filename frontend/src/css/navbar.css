@@ -48,3 +48,19 @@
 .nav-link:hover {
      color: #D21312;
 }
+.search-form {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.search-btn{
+    background: #D21312;
+    color: white;
+}
+.search-btn:hover{
+    color: #D21312;
+    background: white;
+}
+.available-medicines{
+    margin-right: 12px;
+}

@@ -1,9 +1,17 @@
 import {useEffect, useState} from "react";
 
-
 // View AvailableMedicines
 const ViewAvailableMedicines = () => {
     const [medicines, setMedicines] = useState(null)
+
+    // const [searchQuery, setSearchQuery] = useState('');
+    // const [filteredMedicines, setFilteredMedicines] = useState([]);
+    //
+    // const handleSearch = () => {
+    //     const filtered = SearchMedicineByName(medicines, searchQuery);
+    //     setFilteredMedicines(filtered);
+    // };
+
     useEffect(() => {
         const fetchMedicines = async () => {
             const response = await fetch('/api/medicine/viewAvailableMedicines')
@@ -17,17 +25,38 @@ const ViewAvailableMedicines = () => {
     }, [])
 
     return (
-        <div className="available-medicines">
-            {medicines && medicines.map((medicine) => (
-                <div key={medicine._id}>
-                    <img src={require(`../images/${medicine.image}`)} alt={medicine.name} />
-                    <p>{medicine.name}</p>
-                    <p>{medicine.price}</p>
-                    <p>{medicine.description}</p>
+        <body>
+        <div className="filter col-3" >
+            <div className="container">
+                <div className="row">
+                    <div className="search-form">
+                        {/*OnChange: event to update the search query*/}
+                        <input type="text"  id="searchInput" class="form-control" placeholder="What are you looking for?"/>
+                        <button type="submit" class="btn btn-primary search-btn" onclick="" >Search</button>
+                    </div>
                 </div>
-            ))}
+
+
+            </div>
         </div>
+
+
+        <div className="container available-medicines col-9">
+            <div className="row">
+                {medicines && medicines.map((medicine) => (
+                    <div className="col-lg-4 col-md-4 col-sm-6" key={medicine._id}>
+                        <img src={require(`../images/${medicine.image}`)} alt={medicine.name} />
+                        <p>{medicine.name}</p>
+                        <p>{medicine.price} EGP</p>
+                        <p>{medicine.description}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+        </body>
+
     )
 }
+
 
 export default ViewAvailableMedicines

@@ -13,8 +13,7 @@ function App() {
         <div className="pages">
           <Routes>
             <Route
-            path="/medicines" element={<ViewAvailableMedicines/>}
-            />
+            path="/medicines" element={<ViewAvailableMedicines/>} />
             <Route path="/quantityAndSales" element={<SelectQuantityAndSales/>} />
           </Routes>
         </div>
