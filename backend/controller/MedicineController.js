@@ -34,7 +34,7 @@ const addOrUpdateMedicine =asyncHandler( async (req, res) => {
 // View Available Medicines
 const viewAvailableMedicines =asyncHandler( async (req, res) => {
     try {
-        const medicines = await Medicine.find({quantity: {$ne: 0}}).sort({createdAt: -1})
+        const medicines = await Medicine.find({quantity: {$ne: 0}}).sort({createdAt: 1})
         res.status(200).json(medicines)
     }
     catch (error){
@@ -105,11 +105,23 @@ const filterMedicines =asyncHandler( async (req,res) => {
     }
 })
 
+// Delete Medicine
+const deleteMedicine = asyncHandler( (async (req,res) => {
+    const {name} = req.params
+    const medicine = await Medicine.findOne({name})
+    if (!medicine) {
+        return res.status(404).json({ message: 'Medicine not found' });
+    }
+    await medicine.deleteOne({name})
+    res.json({ message: 'Medicine deleted successfully' });
+}) )
+
 module.exports = {
     addOrUpdateMedicine,
     viewAvailableMedicines,
     viewMedicineByName,
     updateDetailsAndPrice,
     viewQuantityAndSales,
-    filterMedicines
+    filterMedicines,
+    deleteMedicine
 }

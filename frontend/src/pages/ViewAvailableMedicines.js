@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
 
 
-//
-const Home = () => {
+// View AvailableMedicines
+const ViewAvailableMedicines = () => {
     const [medicines, setMedicines] = useState(null)
     useEffect(() => {
         const fetchMedicines = async () => {
@@ -30,4 +30,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default ViewAvailableMedicines

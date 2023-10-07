@@ -1,0 +1,50 @@
+.logo{
+    width: 230px;
+    height: 65px;
+}
+.nav-link{
+    color: black;
+}
+.LogInOrSignUp {
+    display: flex;
+    justify-content: flex-end;
+}
+.buttonNav {
+    background-color: red;
+    border-radius: 0.3rem;
+    padding: 0.6em 1.3em;
+    color: white;
+    font-size: 1.1rem;
+    transition-duration: 0.7s;
+    border: 1px solid transparent;
+}
+
+.font {
+    color: black;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-right: 20px;
+}
+.nav-item{
+    margin: 0px 20px;
+    font-weight: 500;
+}
+.items-nav{
+    justify-content: inherit;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+.pages{
+    margin-top: 100px;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+.nav-link:hover {
+     color: red;
+}
