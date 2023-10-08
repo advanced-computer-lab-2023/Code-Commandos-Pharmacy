@@ -26,6 +26,10 @@ const ViewAvailableMedicines = () => {
 
     return (
         <body>
+
+        <div className="row">
+
+        </div>
         <div className="filter col-3" >
             <div className="container">
                 <div className="row">
@@ -35,11 +39,23 @@ const ViewAvailableMedicines = () => {
                         <button type="submit" class="btn btn-primary search-btn" onclick="" >Search</button>
                     </div>
                 </div>
-
-
+                <div className="row">
+                    <p className="mt-4 fw-bold">Category</p>
+                    <p>Medicinal Use</p>
+                    <ul className="medicinal-use-list">
+                        <li>Pain-Relief</li>
+                        <li>Anti-Inflammatory</li>
+                        <li>Vitamin</li>
+                        <li>Muscle Relaxant</li>
+                        <li>Sedative</li>
+                        <li>Antidiabetic</li>
+                        <li>Antiemetic</li>
+                        <li>Antidepressant</li>
+                        <li>Antipyretic</li>
+                    </ul>
+                </div>
             </div>
         </div>
-
 
         <div className="container available-medicines col-9">
             <div className="row">

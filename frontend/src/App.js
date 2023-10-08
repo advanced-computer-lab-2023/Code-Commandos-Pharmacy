@@ -4,6 +4,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom"
 import ViewAvailableMedicines from "./pages/ViewAvailableMedicines";
 import SelectQuantityAndSales from "./pages/SelectQuantityAndSales";
 import Navbar from "./components/Navbar";
+import SearchMedicineByName from "./pages/SearchMedicineByName";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route
             path="/medicines" element={<ViewAvailableMedicines/>} />
             <Route path="/quantityAndSales" element={<SelectQuantityAndSales/>} />
+            <Route path="/searchMedicineByName" element={<SearchMedicineByName/>} />
           </Routes>
         </div>
       </BrowserRouter>
