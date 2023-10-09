@@ -1,6 +1,7 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import PharmacistRegistration from './pages/pharmacistUploadToRegister'
 import SearchByPharmacistId from './pages/SearchByPharmacistId'
+import PharmacistDeleteForm from  './components/pharmacistDeleteForm'
 
 function App() {
   return (
@@ -10,10 +11,13 @@ function App() {
         <Routes>
           <Route
             path="/pharmacistUploadToRegister"
-            element={<pharmacistUploadToRegister />}
+            element={<PharmacistRegistration />}
           />
 
-
+          <Route
+            path="/PharmacistDelete"
+            element={<PharmacistDeleteForm />}
+         />
           <Route
             path="/SearchByPharmacistId"
             element={<SearchByPharmacistId />}
