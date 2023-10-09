@@ -1,22 +1,36 @@
-import {useState} from "react";
+import {useState,useEffect} from "react";
 import axios from "axios";
+import MedicineDetails from "../components/MedicineDetails";
 
 
 const SearchMedicineByName = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [searchedMedicine, setSearchedMedicine] = useState(null);
-    const [isMedicineNotFound, setIsMedicineNotFound] = useState(false)
+    const [medicines, setMedicines] = useState(null)
+
+    useEffect(() => {
+        const fetchMedicines = async () => {
+            const response = await fetch('/api/medicine/viewAvailableMedicines')
+            const json = await response.json()
+            if (response.ok) {
+                setMedicines(json)
+            }
+        }
+        fetchMedicines()
+    }, [])
 
     const handleSearch = async () => {
         try {
-            const response = await axios.get(`/api/medicine/viewMedicineByName/${searchQuery}`)
+            const response = await axios.get(`/api/medicine/searchMedicineByName/${searchQuery}`)
             // Get the medicine from the response
             const foundMedicine = response.data
+            console.log(foundMedicine)
+
             setSearchedMedicine(foundMedicine)
+            setMedicines(null)
         }catch (error){
             console.error("No such medicine", error)
             setSearchedMedicine(null)
-            setIsMedicineNotFound(true)
         }
     }
 
@@ -52,19 +66,12 @@ const SearchMedicineByName = () => {
 
         <div className="container available-medicines col-9">
             <div className="row">
-                {searchedMedicine ? (
-                    <div className="col-lg-4 col-md-4 col-sm-6" key={searchedMedicine._id}>
-                        <img src={require(`../images/${searchedMedicine.image}`)} alt={searchedMedicine.name} />
-                        <p>{searchedMedicine.name}</p>
-                        <p>{searchedMedicine.price} EGP</p>
-                        <p>{searchedMedicine.description}</p>
-                    </div>
-                )
-                    :isMedicineNotFound ? (
-                        <div className="m-3"><h2>Medicine Not Found</h2></div>
-                    ) : null
-                }
-
+                {searchedMedicine && searchedMedicine.map((medicine) => (
+                    <MedicineDetails key={medicine._id} medicine={medicine}/>
+                ))}
+                {medicines && medicines.map((medicine) => (
+                    <MedicineDetails key={medicine._id} medicine={medicine}/>
+                ))}
             </div>
         </div>
         </body>

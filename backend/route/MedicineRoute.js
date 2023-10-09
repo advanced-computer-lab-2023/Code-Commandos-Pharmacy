@@ -3,7 +3,7 @@ const express = require('express')
 const {
     addOrUpdateMedicine,
     viewAvailableMedicines,
-    viewMedicineByName,
+    searchMedicineByName,
     updateDetailsAndPrice,
     viewQuantityAndSales,
     filterMedicines,
@@ -22,7 +22,7 @@ router.get('/viewAvailableMedicines', viewAvailableMedicines)
 router.get('/viewQuantityAndSales', viewQuantityAndSales)
 
 // Search for Medicine based on name
-router.get('/viewMedicineByName/:name', viewMedicineByName)
+router.get('/searchMedicineByName/:name', searchMedicineByName)
 
 // Edit medicine Details and Price
 router.put('/updateDetailsAndPrice/:name', updateDetailsAndPrice)
