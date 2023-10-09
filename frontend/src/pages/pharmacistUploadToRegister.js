@@ -1,10 +1,10 @@
-import DoctorRegistrationForm from '../components/pharmacistForm'
+import PharmacistForm from '../components/pharmacistForm'
 
 const PharmacistRegistration = () => {
 
     return (
         <div className="Pharmacist-registration">
-            <pharmacistForm />
+            <PharmacistForm />
         </div>
     )
 }

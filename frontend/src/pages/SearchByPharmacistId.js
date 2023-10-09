@@ -7,12 +7,12 @@ const SearchByPharmacistId = ()=> {
     const [selectedPharmacist,setSelectedPharmacist] = useState(null)
     const fetchResults = async () => {
         try{
-            let url = '/api/pharmacistRoute/viewPharmacist';
+            let url = 'http://localhost:4000/api/pharmacistRoute/viewPharmacist';
             if (!id) {
                 url += "/none";
             }
             else {
-                url += '/${id}'
+                url += `/${id}`
             }
 
             const response = await fetch(url,{
@@ -47,7 +47,7 @@ const SearchByPharmacistId = ()=> {
                 </label>
                 <input
                     type="text"
-                    id='_id'
+                    id='pharmacist._id'
                     className="form-control"
                     value={id !== null ? id : ''}
                     onChange={(e) => setId(e.target.value)}

@@ -17,7 +17,7 @@ const PharmacistForm = () => {
 
     const pharmacistRequest = {username: username, name: name, email: email, password: password, dateOfBirth: dateOfBirth, hourlyRate: hourlyRate, affiliation: affiliation, educationalBackground: educationalBackground}
 
-    const response = await fetch('/api/pharmacistRoute/uploadByPharmacist', {
+    const response = await fetch('/api/pharmacistRequestRoute/viewUploadByPharmacist', {
       method: 'POST',
       body: JSON.stringify(pharmacistRequest),
       headers: {
