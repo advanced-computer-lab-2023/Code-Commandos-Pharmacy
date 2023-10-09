@@ -1,13 +1,15 @@
 const express= require('express')
 
-const admin= express.Router()
-const{viewPharmacist,removePharmacist,viewUploadByPharmacist,addPharmacist,addPharmacistReq}= require('../controller/pharmacistController')
+const router = express.Router()
+const {
+    viewPharmacist,
+    removePharmacist,
+    addPharmacist
+}= require('../controller/pharmacistController')
 
 //Task 22: Get a Pharmacist's Info
-admin.get('/viewPharmacist/:id', viewPharmacist)
-admin.delete('/deletePharmacist/:id', removePharmacist)
-admin.get('/uploadByPharmacist/:id',viewUploadByPharmacist)
-admin.post('/addPharmacist', addPharmacist)
-admin.post('/addPharmacistReq', addPharmacistReq)
+router.get('/viewPharmacist/:id', viewPharmacist)
+router.delete('/removePharmacist/:id', removePharmacist)
+router.post('/addPharmacist', addPharmacist)
 
-module.exports= admin
+module.exports = router

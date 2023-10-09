@@ -35,6 +35,11 @@ const PharmacistRequestSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  status: {
+    type: String,
+    default: 'PENDING',
+    enum: ['PENDING','ACCEPTED','REJECTED']
+  }
 },{ timestamps: true });
 
 const PharmacistRequest = mongoose.model('PharmacistRequest', PharmacistRequestSchema);
