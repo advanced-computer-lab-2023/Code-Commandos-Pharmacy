@@ -9,6 +9,9 @@ const port = process.env.PORT
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 
+
+//routes
+
 server.listen(port,() => console.log(`Server is listening on port ${port}`))
 connectDB()
 
@@ -16,9 +19,11 @@ server.get('/',(req,res) => {
     res.status(200).json({message:"Hello from server"})
 })
 
+const MedicineRoute = require('./route/MedicineRoute')
 const pharmacistRoutes= require('./route/pharmacistRoute')
 const pharmacistRequestRoutes = require('./route/PharmacistRequestRoute')
 
+server.use('/api/medicine', MedicineRoute)
 server.use('/api/pharmacist',pharmacistRoutes)
 server.use('/api/pharmacistRequest',pharmacistRequestRoutes)
 
