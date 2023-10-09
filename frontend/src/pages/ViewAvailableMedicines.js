@@ -26,7 +26,6 @@ const ViewAvailableMedicines = () => {
             </div>
         </div>
         </div>
-
     )
 }
 

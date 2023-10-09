@@ -16,7 +16,7 @@ function App() {
             <Route
             path="/viewAvailableMedicines" element={<ViewAvailableMedicines/>} />
             <Route path="/quantityAndSales" element={<SelectQuantityAndSales/>} />
-            <Route path="/searchMedicineByName" element={<SearchMedicineByName/>} />
+            <Route path="/viewAllAndSearchMedicineByName" element={<SearchMedicineByName/>} />
           </Routes>
         </div>
       </BrowserRouter>
