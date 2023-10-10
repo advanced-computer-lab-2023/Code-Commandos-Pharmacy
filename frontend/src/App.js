@@ -7,6 +7,7 @@ import SearchMedicineByName from "./pages/SearchMedicineByName";
 import PharmacistRegistration from './pages/registerAsPharmacist';
 import PatientRegistration from './pages/registerAsPharmacyPatient';
 import AddAdmin from "./pages/AddAdmin";
+import ViewAndRemovePatients from "./pages/ViewAndRemovePatients";
 
 function App() {
   return (
@@ -30,6 +31,10 @@ function App() {
             <Route
               path="/AddAdmin"
               element={<AddAdmin/>}
+            />
+            <Route
+              path="/ViewAndRemovePatients"
+              element={<ViewAndRemovePatients/>}
             />
           </Routes>
         </div>

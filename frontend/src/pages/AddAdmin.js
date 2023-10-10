@@ -1,7 +1,7 @@
 import {useState} from "react";
 import AdminDetails from "../components/AdminDetails";
 
-const SearchByNameAndOrSpeciality = ()=> {
+const AddAdmin = ()=> {
     const [username,setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     const [admin,setAdmin] = useState(null)

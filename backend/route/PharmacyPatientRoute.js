@@ -16,10 +16,9 @@ router.get('/getPatients', getPatients)
 router.get('/getPatient/:id', getPatient)
 
 // create or POST a new patient
-router.post('/', createPatient)
+router.post('/createPatient', createPatient)
 
 // patient registration route
-router.route('/createPatient').post(createPatient)
 
 // DELETE a patient
 router.delete('/deletePatient/:id', deletePatient)
