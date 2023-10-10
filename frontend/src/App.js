@@ -8,6 +8,9 @@ import PharmacistRegistration from './pages/registerAsPharmacist';
 import PatientRegistration from './pages/registerAsPharmacyPatient';
 import AddAdmin from "./pages/AddAdmin";
 import ViewAndRemovePatients from "./pages/ViewAndRemovePatients";
+import AddPharmacist from "./pages/AddPharmacist";
+import ViewAndRemovePharmacists from "./pages/ViewAndRemovePharmacists";
+import ViewAllPharmacistRequests from "./pages/ViewAllPharmacistRequests";
 
 function App() {
   return (
@@ -35,6 +38,18 @@ function App() {
             <Route
               path="/ViewAndRemovePatients"
               element={<ViewAndRemovePatients/>}
+            />
+            <Route
+                path="/AddPharmacist"
+                element={<AddPharmacist/>}
+            />
+            <Route
+                path="/ViewAndRemovePharmacists"
+                element={<ViewAndRemovePharmacists/>}
+            />
+            <Route
+                path="/ViewAllPharmacistRequests"
+                element={<ViewAllPharmacistRequests/>}
             />
           </Routes>
         </div>

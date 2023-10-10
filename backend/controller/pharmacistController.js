@@ -58,9 +58,19 @@ const addPharmacist =asyncHandler( async(req,res) => {
     }
 })
 
+const viewAllPharmacists = asyncHandler(async (req,res) => {
+    try {
+        const pharmacists = await PharmacistModel.find()
+        res.status(200).json(pharmacists)
+    }
+    catch (error){
+        throw new Error(error.message)
+    }
+})
 
  module.exports={
     viewPharmacist,
     removePharmacist,
     addPharmacist,
+     viewAllPharmacists
  }

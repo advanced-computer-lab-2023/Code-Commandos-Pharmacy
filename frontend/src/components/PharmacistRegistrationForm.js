@@ -11,7 +11,6 @@ const PharmacistRegistrationForm = () => {
   const [hourlyRate, setHourlyRate] = useState('')
   const [affiliation, setAffiliation] = useState('')
   const [educationalBackground, setEducationalBackground] = useState('')
-  const [speciality, setSpeciality] = useState('')
   const [error, setError] = useState(null)
     const [newRequest, setNewRequest] = useState(null);
   const handleSubmit = async (e) => {
@@ -107,12 +106,6 @@ const PharmacistRegistrationForm = () => {
         value={educationalBackground} 
       /> <br />
 
-    <label>Speciality:</label>
-    <input
-        type="text"
-        onChange={(e) => setSpeciality(e.target.value)}
-        value={speciality}
-    /> <br />
 
       <button>Register</button>
       {error && <div className="error">{error}</div>}
