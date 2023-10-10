@@ -22,10 +22,11 @@ const MedicineRoute = require('./route/MedicineRoute')
 const pharmacistRoutes= require('./route/pharmacistRoute')
 const pharmacistRequestRoutes = require('./route/PharmacistRequestRoute')
 const patientRoutes = require('./route/PharmacyPatientRoute')
+const adminRoutes = require('./route/PharmacyAdminRoute')
 
 server.use('/api/pharmacist',pharmacistRoutes)
 server.use('/api/pharmacistRequest',pharmacistRequestRoutes)
 server.use('/api/pharmacyPatient', patientRoutes)
 server.use('/api/medicine', MedicineRoute)
-
+server.use('/api/admin',adminRoutes)
 server.use(ErrorHandler)
