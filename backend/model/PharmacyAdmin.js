@@ -12,5 +12,8 @@ const PharmacyAdminSchema = new mongoose.Schema({
     }
 },{ timestamps: true });
 
+
+
+
 const PharmacyAdmin = mongoose.model('PharmacyAdmin', PharmacyAdminSchema);
 module.exports = PharmacyAdmin;
