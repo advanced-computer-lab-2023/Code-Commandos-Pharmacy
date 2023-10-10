@@ -62,15 +62,15 @@ const SearchMedicineByName = () => {
                     <p className="mt-4 fw-bold">Category</p>
                     <p>Medicinal Use</p>
                     <ul className="medicinal-use-list">
-                        <li><a href="#" onClick={(e) => handleCategory('PAIN-RELIEF', e)}>Pain-Relief</a></li>
-                        <li>Anti-Inflammatory</li>
-                        <li><a href="#" onClick={(e) => handleCategory('VITAMIN',e)}>Vitamin</a></li>
-                        <li>Muscle Relaxant</li>
-                        <li><a href="#" onClick={(e) => handleCategory('SEDATIVE',e)}>Sedative</a></li>
-                        <li>Antidiabetic</li>
-                        <li>Antiemetic</li>
-                        <li>Antidepressant</li>
-                        <li>Antipyretic</li>
+                        <li><a href="#" className="list-font" onClick={(e) => handleCategory('PAIN-RELIEF', e)}>Pain-Relief</a></li>
+                        <li><a href="#" className="list-font" onClick={(e) => handleCategory('ANTI-INFLAMMATORY',e)}>Anti-inflammatory</a></li>
+                        <li><a href="#" className="list-font" onClick={(e) => handleCategory('VITAMIN',e)}>Vitamin</a></li>
+                        <li><a href="#" className="list-font" onClick={(e) => handleCategory('MUSCLE RELAXANT',e)}>Muscle Relaxant</a></li>
+                        <li><a href="#" className="list-font" onClick={(e) => handleCategory('SEDATIVE',e)}>Sedative</a></li>
+                        <li><a href="#" className="list-font" onClick={(e) => handleCategory('ANTIDIABETIC',e)}>Antidiabetic</a></li>
+                        <li><a href="#" className="list-font" onClick={(e) => handleCategory('ANTIEMETIC',e)}>Antiemetic</a></li>
+                        <li><a href="#" className="list-font" onClick={(e) => handleCategory('ANTIDEPRESSANT',e)}>Antidepressant</a></li>
+                        <li><a href="#" className="list-font" onClick={(e) => handleCategory('ANTIPYRETIC',e)}>Antipyretic</a></li>
                     </ul>
                 </div>
             </div>

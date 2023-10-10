@@ -5,6 +5,7 @@ import ViewAvailableMedicines from "./pages/ViewAvailableMedicines";
 import SelectQuantityAndSales from "./pages/SelectQuantityAndSales";
 import Navbar from "./components/Navbar";
 import SearchMedicineByName from "./pages/SearchMedicineByName";
+import AddMedicine from "./pages/AddMedicine";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             path="/viewAvailableMedicines" element={<ViewAvailableMedicines/>} />
             <Route path="/quantityAndSales" element={<SelectQuantityAndSales/>} />
             <Route path="/viewAllAndSearchMedicineByName" element={<SearchMedicineByName/>} />
+            <Route path="/addMedicine" element={<AddMedicine/>} />
           </Routes>
         </div>
       </BrowserRouter>
