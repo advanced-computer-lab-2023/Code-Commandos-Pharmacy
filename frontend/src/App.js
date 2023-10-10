@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import SearchMedicineByName from "./pages/SearchMedicineByName";
 import PharmacistRegistration from './pages/registerAsPharmacist';
 import PatientRegistration from './pages/registerAsPharmacyPatient';
+import AddAdmin from "./pages/AddAdmin";
 
 function App() {
   return (
@@ -26,6 +27,10 @@ function App() {
                   path="/PharmacyPatientRegistration"
                   element={<PatientRegistration />}
               />
+            <Route
+              path="/AddAdmin"
+              element={<AddAdmin/>}
+            />
           </Routes>
         </div>
       </BrowserRouter>
