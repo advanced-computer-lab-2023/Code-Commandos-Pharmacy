@@ -5,8 +5,8 @@ import MedicineDetails from "../components/MedicineDetails";
 
 const SearchMedicineByName = () => {
     const [searchQuery, setSearchQuery] = useState("");
-    const [searchedMedicine, setSearchedMedicine] = useState(null);
-    const [medicines, setMedicines] = useState(null)
+    const [searchedMedicine, setSearchedMedicine] = useState([]);
+    const [medicines, setMedicines] = useState([])
 
     useEffect(() => {
         const fetchMedicines = async () => {
@@ -27,12 +27,24 @@ const SearchMedicineByName = () => {
             console.log(foundMedicine)
 
             setSearchedMedicine(foundMedicine)
-            setMedicines(null)
+            setMedicines([])
         }catch (error){
             console.error("No such medicine", error)
             setSearchedMedicine(null)
         }
     }
+
+    const handleCategory = async (category) => {
+        try {
+            const response = await axios.get(`/api/medicine/filterMedicines/${category}`);
+            const filteredMedicines =  response.data;
+            setMedicines(filteredMedicines);
+        } catch (error) {
+            console.error("Error filtering medicines:", error);
+            setMedicines([]);
+        }
+    };
+
 
     return(
         <body>
@@ -50,11 +62,11 @@ const SearchMedicineByName = () => {
                     <p className="mt-4 fw-bold">Category</p>
                     <p>Medicinal Use</p>
                     <ul className="medicinal-use-list">
-                        <li>Pain-Relief</li>
+                        <li><a href="" onClick={() => handleCategory('PAIN-RELIEF')}>Pain-Relief</a></li>
                         <li>Anti-Inflammatory</li>
-                        <li>Vitamin</li>
+                        <li><a href="" onClick={() => handleCategory('VITAMIN')}>Vitamin</a></li>
                         <li>Muscle Relaxant</li>
-                        <li>Sedative</li>
+                        <li><a href="" onClick={() => handleCategory('SEDATIVE')}>Sedative</a></li>
                         <li>Antidiabetic</li>
                         <li>Antiemetic</li>
                         <li>Antidepressant</li>
@@ -64,6 +76,7 @@ const SearchMedicineByName = () => {
             </div>
         </div>
 
+
         <div className="container available-medicines col-9">
             <div className="row">
                 {searchedMedicine && searchedMedicine.map((medicine) => (
@@ -72,8 +85,10 @@ const SearchMedicineByName = () => {
                 {medicines && medicines.map((medicine) => (
                     <MedicineDetails key={medicine._id} medicine={medicine}/>
                 ))}
+
             </div>
         </div>
+
         </body>
     )
 }
