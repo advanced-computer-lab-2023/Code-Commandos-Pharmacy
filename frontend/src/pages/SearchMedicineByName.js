@@ -62,11 +62,11 @@ const SearchMedicineByName = () => {
                     <p className="mt-4 fw-bold">Category</p>
                     <p>Medicinal Use</p>
                     <ul className="medicinal-use-list">
-                        <li><a href="" onClick={() => handleCategory('PAIN-RELIEF')}>Pain-Relief</a></li>
+                        <li><a href="#" onClick={(e) => handleCategory('PAIN-RELIEF', e)}>Pain-Relief</a></li>
                         <li>Anti-Inflammatory</li>
-                        <li><a href="" onClick={() => handleCategory('VITAMIN')}>Vitamin</a></li>
+                        <li><a href="#" onClick={(e) => handleCategory('VITAMIN',e)}>Vitamin</a></li>
                         <li>Muscle Relaxant</li>
-                        <li><a href="" onClick={() => handleCategory('SEDATIVE')}>Sedative</a></li>
+                        <li><a href="#" onClick={(e) => handleCategory('SEDATIVE',e)}>Sedative</a></li>
                         <li>Antidiabetic</li>
                         <li>Antiemetic</li>
                         <li>Antidepressant</li>
