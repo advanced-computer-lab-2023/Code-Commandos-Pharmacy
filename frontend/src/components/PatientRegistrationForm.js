@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import PatientDetails from "./PatientDetails";
 
 const PatientRegistrationForm = () => {
   const [name, setName] = useState('')
@@ -13,7 +14,7 @@ const PatientRegistrationForm = () => {
   const [ecMobileNumber, setEcMobileNumber] = useState('')
   const [ecRelation, setEcRelation] = useState('')
   const [error, setError] = useState(null)
-
+    const [newPatient, setNewPatient] = useState(null);
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -42,13 +43,14 @@ const PatientRegistrationForm = () => {
       setEcFullName('')
       setEcMobileNumber('')
       setEcRelation('')
-      
+      setNewPatient(json)
       console.log('new patient registered:', json)
     }
 
   }
 
   return (
+      <div>
     <form className="create" onSubmit={handleSubmit}> 
       <h2>Registration:</h2>
 
@@ -152,6 +154,8 @@ const PatientRegistrationForm = () => {
       <button>Register</button>
       {error && <div className="error">{error}</div>}
     </form>
+    {newPatient && <PatientDetails patient={newPatient} />}
+      </div>
   )
 }
 

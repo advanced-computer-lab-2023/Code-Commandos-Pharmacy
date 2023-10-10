@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import PatientDetails from "./PatientDetails";
+import PharmacistRequestDetails from "./PharmacistRequestDetails";
 
 const PharmacistRegistrationForm = () => {
   const [name, setName] = useState('')
@@ -11,7 +13,7 @@ const PharmacistRegistrationForm = () => {
   const [educationalBackground, setEducationalBackground] = useState('')
   const [speciality, setSpeciality] = useState('')
   const [error, setError] = useState(null)
-
+    const [newRequest, setNewRequest] = useState(null);
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -38,12 +40,14 @@ const PharmacistRegistrationForm = () => {
       setHourlyRate('')
       setAffiliation('')
       setEducationalBackground('')
+        setNewRequest(json)
       console.log('new pharmacist registration request added:', json)
     }
 
   }
 
   return (
+      <div>
     <form className="create" onSubmit={handleSubmit}> 
       <h2>Apply as a pharmacist to join the platform:</h2>
 
@@ -113,6 +117,8 @@ const PharmacistRegistrationForm = () => {
       <button>Register</button>
       {error && <div className="error">{error}</div>}
     </form>
+          {newRequest && <PharmacistRequestDetails pharmacistRequest={newRequest} />}
+      </div>
   )
 }
 
