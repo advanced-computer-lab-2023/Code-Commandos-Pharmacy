@@ -46,11 +46,11 @@ const EditMedicine = () => {
             <form onSubmit={handleEdit}>
                 <div className="form-row row">
                     <div className="col">
-                        <input type="text" onChange={(e) => setDetails(e.target.value)} value={details}
+                        <input type="text" required="true" onChange={(e) => setDetails(e.target.value)} value={details}
                                className="form-control" placeholder="New Details"/>
                     </div>
                     <div className="col">
-                        <input type="text" onChange={(e) => setPrice(e.target.value)} value={price}
+                        <input type="text" required="true" onChange={(e) => setPrice(e.target.value)} value={price}
                                className="form-control" placeholder="New Price"/>
                     </div>
                 </div>
