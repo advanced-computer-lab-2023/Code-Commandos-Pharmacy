@@ -32,12 +32,7 @@ const Navbar = () => {
                                         Pharmacy
                                     </a>
                                     <ul className="dropdown-menu" aria-labelledby="servicesDropdown">
-                                        <li>
-                                            <Link to="/viewAllAndSearchMedicineByName" className="dropdown-item">View Available Medicines</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/quantityAndSales" className="dropdown-item">View Medicines Quantity and Sales</Link>
-                                        </li>
+
                                         <li>
                                             <Link to="/AddAdmin" className="dropdown-item">Add admin</Link>
                                         </li>
@@ -58,6 +53,15 @@ const Navbar = () => {
                                         </li>
                                         <li>
                                             <Link to="/ViewAllPharmacistRequests" className="dropdown-item">View All Pharmacist Requests</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/viewAllAndSearchMedicineByName" className="dropdown-item">View Available Medicines</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/quantityAndSales" className="dropdown-item">View Medicines Quantity and Sales</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/addMedicine" className="dropdown-item">Add Medicine</Link>
                                         </li>
                                     </ul>
                                 </li>

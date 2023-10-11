@@ -51,18 +51,19 @@ const MedicineSchema = new Schema({
             type: String,
             required: true,
             enum: ['PAIN-RELIEF',
-                    'ANTI-INFLAMMATORY',
-                    'ANTIPYRETIC',
-                    'ANTIDEPRESSANT',
-                    'ANTIDIABETIC',
-                    'ANTIEMETIC',
-                    'MUSCLE RELAXANT',
-                    'SEDATIVE',
-                    'VITAMIN'
+                'ANTI-INFLAMMATORY',
+                'ANTIPYRETIC',
+                'ANTIDEPRESSANT',
+                'ANTIDIABETIC',
+                'ANTIEMETIC',
+                'MUSCLE RELAXANT',
+                'SEDATIVE',
+                'VITAMIN'
             ]
         },
         image: {
             type: String,
+            required: true,
             default: 'BiotinPlus.png'
         },
         //the below attributes should be updated automatically when purchasing a medicine from the pharmacy

@@ -5,15 +5,23 @@ import MedicineDetails from "../components/MedicineDetails";
 
 const SearchMedicineByName = () => {
     const [searchQuery, setSearchQuery] = useState("");
-    const [searchedMedicine, setSearchedMedicine] = useState(null);
-    const [medicines, setMedicines] = useState(null)
+    const [searchedMedicine, setSearchedMedicine] = useState([]);
+    const [medicines, setMedicines] = useState([])
 
     useEffect(() => {
         const fetchMedicines = async () => {
-            const response = await fetch('/api/medicine/viewAvailableMedicines')
-            const json = await response.json()
-            if (response.ok) {
-                setMedicines(json)
+            try {
+                const response = await fetch('/api/medicine/viewAvailableMedicines')
+                const json = await response.json()
+                if (response.ok) {
+                    setMedicines(json)
+                }
+                else {
+                    alert(await response.text())
+                }
+            }
+            catch (error){
+                alert(error.message)
             }
         }
         fetchMedicines()
@@ -27,12 +35,26 @@ const SearchMedicineByName = () => {
             console.log(foundMedicine)
 
             setSearchedMedicine(foundMedicine)
-            setMedicines(null)
+            setMedicines([])
         }catch (error){
             console.error("No such medicine", error)
+            alert("No such medicine")
             setSearchedMedicine(null)
         }
     }
+
+    const handleCategory = async (category) => {
+        try {
+            const response = await axios.get(`/api/medicine/filterMedicines/${category}`);
+            const filteredMedicines =  response.data;
+            setMedicines(filteredMedicines);
+        } catch (error) {
+            console.error("Error filtering medicines:", error);
+            alert(error.message)
+            setMedicines([]);
+        }
+    };
+
 
     return(
         <body>
@@ -50,19 +72,20 @@ const SearchMedicineByName = () => {
                     <p className="mt-4 fw-bold">Category</p>
                     <p>Medicinal Use</p>
                     <ul className="medicinal-use-list">
-                        <li>Pain-Relief</li>
-                        <li>Anti-Inflammatory</li>
-                        <li>Vitamin</li>
-                        <li>Muscle Relaxant</li>
-                        <li>Sedative</li>
-                        <li>Antidiabetic</li>
-                        <li>Antiemetic</li>
-                        <li>Antidepressant</li>
-                        <li>Antipyretic</li>
+                        <li><a href="#" className="list-font" onClick={(e) => handleCategory('PAIN-RELIEF', e)}>Pain-Relief</a></li>
+                        <li><a href="#" className="list-font" onClick={(e) => handleCategory('ANTI-INFLAMMATORY',e)}>Anti-inflammatory</a></li>
+                        <li><a href="#" className="list-font" onClick={(e) => handleCategory('VITAMIN',e)}>Vitamin</a></li>
+                        <li><a href="#" className="list-font" onClick={(e) => handleCategory('MUSCLE RELAXANT',e)}>Muscle Relaxant</a></li>
+                        <li><a href="#" className="list-font" onClick={(e) => handleCategory('SEDATIVE',e)}>Sedative</a></li>
+                        <li><a href="#" className="list-font" onClick={(e) => handleCategory('ANTIDIABETIC',e)}>Antidiabetic</a></li>
+                        <li><a href="#" className="list-font" onClick={(e) => handleCategory('ANTIEMETIC',e)}>Antiemetic</a></li>
+                        <li><a href="#" className="list-font" onClick={(e) => handleCategory('ANTIDEPRESSANT',e)}>Antidepressant</a></li>
+                        <li><a href="#" className="list-font" onClick={(e) => handleCategory('ANTIPYRETIC',e)}>Antipyretic</a></li>
                     </ul>
                 </div>
             </div>
         </div>
+
 
         <div className="container available-medicines col-9">
             <div className="row">
@@ -72,8 +95,10 @@ const SearchMedicineByName = () => {
                 {medicines && medicines.map((medicine) => (
                     <MedicineDetails key={medicine._id} medicine={medicine}/>
                 ))}
+
             </div>
         </div>
+
         </body>
     )
 }

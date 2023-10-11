@@ -7,7 +7,6 @@ const ViewAvailableMedicines = () => {
     useEffect(() => {
         const fetchMedicines = async () => {
             try {
-
                 const response = await fetch('/api/medicine/viewAvailableMedicines')
                 // We get here an array of Medicine objects
                 const json = await response.json()
