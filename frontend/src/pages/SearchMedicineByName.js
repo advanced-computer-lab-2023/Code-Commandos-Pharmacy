@@ -10,10 +10,18 @@ const SearchMedicineByName = () => {
 
     useEffect(() => {
         const fetchMedicines = async () => {
-            const response = await fetch('/api/medicine/viewAvailableMedicines')
-            const json = await response.json()
-            if (response.ok) {
-                setMedicines(json)
+            try {
+                const response = await fetch('/api/medicine/viewAvailableMedicines')
+                const json = await response.json()
+                if (response.ok) {
+                    setMedicines(json)
+                }
+                else {
+                    alert(await response.text())
+                }
+            }
+            catch (error){
+                alert(error.message)
             }
         }
         fetchMedicines()
@@ -30,6 +38,7 @@ const SearchMedicineByName = () => {
             setMedicines([])
         }catch (error){
             console.error("No such medicine", error)
+            alert("No such medicine")
             setSearchedMedicine(null)
         }
     }
@@ -41,6 +50,7 @@ const SearchMedicineByName = () => {
             setMedicines(filteredMedicines);
         } catch (error) {
             console.error("Error filtering medicines:", error);
+            alert(error.message)
             setMedicines([]);
         }
     };

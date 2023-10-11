@@ -29,9 +29,11 @@ const EditMedicine = () => {
                 const data = await response.json()
                 console.log('Update Successful: ', data)
             } else {
+                alert(await response.text())
                 console.log('Update Failed: ', response.status)
             }
         } catch (error) {
+            alert(error.message)
             console.log('Error', error)
         }
     }

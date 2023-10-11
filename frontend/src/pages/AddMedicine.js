@@ -15,11 +15,9 @@ const AddMedicine = () => {
     const [medicinalUse, setMedicinalUse] = useState('')
     const [image, setImage] = useState('')
     const [sales, setSales] = useState('')
-    const [error, setError] = useState(null)
 
 
     const handleSubmit = async (e) => {
-        // To prevent the page from refreshing
         e.preventDefault()
 
         const medicine = {
@@ -36,33 +34,38 @@ const AddMedicine = () => {
             image,
             sales
         }
-        const response = await fetch('/api/medicine/addMedicine', {
-            method: 'POST',
-            //We can't send the object, we have to send a JSON
-            body: JSON.stringify(medicine),
-            headers: {
-                'Content-Type': 'application/json'
+        try {
+
+            const response = await fetch('/api/medicine/addMedicine', {
+                method: 'POST',
+                //We can't send the object, we have to send a JSON
+                body: JSON.stringify(medicine),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            const json = await response.json()
+            if (!response.ok) {
+                alert(await response.text())
             }
-        })
-        const json = await response.json()
-        if (!response.ok) {
-            setError(json.error)
+            if (response.ok) {
+                setName('')
+                setDescription('')
+                setDetails('')
+                setPrice('')
+                setQuantity('')
+                setManufacturer('')
+                setIngredients('')
+                setSideEffects('')
+                setExpiryDate('')
+                setMedicinalUse('')
+                setImage('')
+                setSales('')
+                console.log('New workout added', json)
+            }
         }
-        if (response.ok) {
-            setName('')
-            setDescription('')
-            setDetails('')
-            setPrice('')
-            setQuantity('')
-            setManufacturer('')
-            setIngredients('')
-            setSideEffects('')
-            setExpiryDate('')
-            setMedicinalUse('')
-            setImage('')
-            setSales('')
-            setError(null)
-            console.log('New workout added', json)
+        catch (error){
+            alert(error.message)
         }
     }
 

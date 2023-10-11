@@ -6,11 +6,19 @@ const ViewAvailableMedicines = () => {
     const [medicines, setMedicines] = useState(null)
     useEffect(() => {
         const fetchMedicines = async () => {
-            const response = await fetch('/api/medicine/viewAvailableMedicines')
-            // We get here an array of Medicine objects
-            const json = await response.json()
-            if (response.ok) {
-                setMedicines(json)
+            try {
+                const response = await fetch('/api/medicine/viewAvailableMedicines')
+                // We get here an array of Medicine objects
+                const json = await response.json()
+                if (response.ok) {
+                    setMedicines(json)
+                }
+                else {
+                    alert(await response.text())
+                }
+            }
+            catch (error){
+                alert(error.message)
             }
         }
         fetchMedicines()
