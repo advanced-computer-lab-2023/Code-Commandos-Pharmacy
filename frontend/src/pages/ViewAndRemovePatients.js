@@ -4,7 +4,6 @@ import PatientDetails from "../components/PatientDetails";
 const ViewAndRemovePatients = ()=> {
     const [patients, setPatients] = useState([]);
     const [selectedPatient,setSelectedPatient] = useState(null)
-    console.log("in method")
 
     useEffect(() => {
         fetchResults();

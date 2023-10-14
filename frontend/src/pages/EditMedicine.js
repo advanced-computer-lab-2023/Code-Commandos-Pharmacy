@@ -27,7 +27,7 @@ const EditMedicine = () => {
 
             if (response.ok) {
                 const data = await response.json()
-                console.log('Update Successful: ', data)
+                alert("Medicine updated successfully ")
             } else {
                 alert(await response.text())
                 console.log('Update Failed: ', response.status)

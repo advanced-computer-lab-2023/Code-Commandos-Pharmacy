@@ -39,7 +39,7 @@ const ViewAndRemovePharmacists = ()=> {
             });
             if (response.ok) {
                 fetchResults();
-                selectedPharmacist(null)
+                setSelectedPharmacist(null)
             } else {
                 const errorMessage = await response.text();
                 alert(errorMessage);

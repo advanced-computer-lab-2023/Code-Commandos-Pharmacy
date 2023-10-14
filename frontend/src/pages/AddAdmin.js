@@ -18,6 +18,7 @@ const AddAdmin = ()=> {
             if (response.ok){
                 const result = await response.json();
                 setAdmin(result)
+                alert("Admin added successfully ")
             }
             else {
                 const errorMessage = await response.text();

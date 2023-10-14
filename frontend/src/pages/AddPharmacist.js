@@ -26,6 +26,7 @@ const AddPharmacist = ()=> {
             if (response.ok){
                 const result = await response.json();
                 setPharmacist(result)
+                alert("Added successfully ")
             }
             else {
                 const errorMessage = await response.text();

@@ -29,6 +29,7 @@ const ViewAllPharmacistRequests = ()=> {
         }
         catch (error){
             setSelectedRequest(null)
+            alert(error.message)
         }
     };
 

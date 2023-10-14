@@ -11,7 +11,6 @@ const PharmacistRegistrationForm = () => {
   const [hourlyRate, setHourlyRate] = useState('')
   const [affiliation, setAffiliation] = useState('')
   const [educationalBackground, setEducationalBackground] = useState('')
-  const [error, setError] = useState(null)
     const [newRequest, setNewRequest] = useState(null);
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -27,14 +26,12 @@ const PharmacistRegistrationForm = () => {
           'Content-Type': 'application/json'
         }
       })
-      const json = await response.json()
 
       if (!response.ok) {
-        setError(json.message)
         alert(await response.text())
       }
       if (response.ok) {
-        setError(null)
+        const json = await response.json()
         setName('')
         setUsername('')
         setEmail('')
@@ -43,11 +40,11 @@ const PharmacistRegistrationForm = () => {
         setAffiliation('')
         setEducationalBackground('')
         setNewRequest(json)
-        console.log('new pharmacist registration request added:', json)
+        alert("Request submitted successfully ")
       }
     }
     catch (error){
-      alert(error.message)
+      alert(error)
     }
 
   }
@@ -154,7 +151,6 @@ const PharmacistRegistrationForm = () => {
           </div>
 
           <button className="btn btn-primary">Register</button>
-          {error && <div className="error">{error}</div>}
         </form>
         {newRequest && <PharmacistRequestDetails pharmacistRequest={newRequest} />}
       </div>
