@@ -101,7 +101,7 @@ const AddMedicine = () => {
                 </div>
                 <div className="form-row row mt-4">
                     <div className="col">
-                        <input type="text" onChange={(e) => setQuantity(e.target.value)} value={quantity}
+                        <input type="number" onChange={(e) => setQuantity(e.target.value)} value={quantity}
                                className="form-control" placeholder="Quantity"/>
                     </div>
                     <div className="col">
@@ -109,7 +109,7 @@ const AddMedicine = () => {
                                className="form-control" placeholder="Manufacturer"/>
                     </div>
                     <div className="col">
-                        <input type="text" onChange={(e) => setSales(e.target.value)} value={sales}
+                        <input type="number" onChange={(e) => setSales(e.target.value)} value={sales}
                                className="form-control" placeholder="Sales"/>
                     </div>
                 </div>
@@ -129,7 +129,7 @@ const AddMedicine = () => {
                                className="form-control" placeholder="Medicinal Use"/>
                     </div>
                     <div className="col">
-                        <input type="text" onChange={(e) => setExpiryDate(e.target.value)} value={expiryDate}
+                        <input type="date" onChange={(e) => setExpiryDate(e.target.value)} value={expiryDate}
                                className="form-control" placeholder="Expiry Date"/>
                     </div>
                 </div>

@@ -141,7 +141,7 @@ const PatientRegistrationForm = () => {
               Mobile Number:
             </label>
             <input
-                type="text"
+                type="number"
                 className="form-control"
                 id="mobileNumber"
                 onChange={(e) => setMobileNumber(e.target.value)}
@@ -165,7 +165,7 @@ const PatientRegistrationForm = () => {
               Emergency Contact Mobile Number:
             </label>
             <input
-                type="text"
+                type="number"
                 className="form-control"
                 id="ecMobileNumber"
                 onChange={(e) => setEcMobileNumber(e.target.value)}

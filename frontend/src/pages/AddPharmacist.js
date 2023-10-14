@@ -107,7 +107,7 @@ const AddPharmacist = ()=> {
                     Hourly Rate:
                 </label>
                 <input
-                    type="text"
+                    type="number"
                     id="hourlyRate"
                     className="form-control"
                     value={hourlyRate}

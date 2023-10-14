@@ -50,7 +50,7 @@ const EditMedicine = () => {
                                className="form-control" placeholder="New Details"/>
                     </div>
                     <div className="col">
-                        <input type="text" onChange={(e) => setPrice(e.target.value)} value={price}
+                        <input type="number" onChange={(e) => setPrice(e.target.value)} value={price}
                                className="form-control" placeholder="New Price"/>
                     </div>
                 </div>
