@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const AdminModel = require('../model/PharmacyAdmin')
+const AdminModel = require('../model/Admin')
 const asyncHandler = require('express-async-handler')
 
 const addAdmin = asyncHandler(async (req,res) => {

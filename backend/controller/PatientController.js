@@ -1,4 +1,4 @@
-const PatientModel = require('../model/PharmacyPatient')
+const PatientModel = require('../model/Patient')
 const mongoose = require('mongoose')
 const asyncHandler = require('express-async-handler')
 

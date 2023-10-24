@@ -11,7 +11,7 @@ const ViewAndRemovePatients = ()=> {
 
     const fetchResults = async () => {
         try{
-            const response = await fetch('api/pharmacyPatient/getPatients',{
+            const response = await fetch('api/patient/getPatients',{
                 method: 'GET',
                 headers: {
                     'Content-Type':'application/json',
@@ -35,7 +35,7 @@ const ViewAndRemovePatients = ()=> {
 
     const handleRemovePatient = async (patientId) => {
         try {
-            const response = await fetch(`/api/pharmacyPatient/deletePatient/${patientId}`, {
+            const response = await fetch(`/api/patient/deletePatient/${patientId}`, {
                 method: 'DELETE',
             });
             if (response.ok) {

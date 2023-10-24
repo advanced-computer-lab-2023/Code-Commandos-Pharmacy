@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const PharmacyPatientSchema = new mongoose.Schema({
+const PatientSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
@@ -49,5 +49,5 @@ const PharmacyPatientSchema = new mongoose.Schema({
   },
 },{ timestamps: true });
 
-const PharmacyPatient = mongoose.model('PharmacyPatient', PharmacyPatientSchema);
-module.exports = PharmacyPatient;
+const Patient = mongoose.model('Patient', PatientSchema);
+module.exports = Patient;

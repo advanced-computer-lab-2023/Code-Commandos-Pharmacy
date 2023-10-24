@@ -40,7 +40,7 @@ const Navbar = () => {
                                             <Link to="/ViewAndRemovePatients" className="dropdown-item">View And Remove Patients</Link>
                                         </li>
                                         <li>
-                                            <Link to="/PharmacyPatientRegistration" className="dropdown-item">Patient Registration</Link>
+                                            <Link to="/PatientRegistration" className="dropdown-item">Patient Registration</Link>
                                         </li>
                                         <li>
                                             <Link to="/PharmacistRegistration" className="dropdown-item">Pharmacist Registration</Link>

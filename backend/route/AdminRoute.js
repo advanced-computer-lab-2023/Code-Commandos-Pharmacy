@@ -3,7 +3,7 @@ const router = express.Router()
 
 const {
     addAdmin
-} = require('../controller/PharmacyAdminController')
+} = require('../controller/AdminController')
 
 router.post('/addAdmin',addAdmin)
 

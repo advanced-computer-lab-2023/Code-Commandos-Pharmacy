@@ -21,7 +21,7 @@ const PatientRegistrationForm = () => {
 
     try {
 
-      const response = await fetch('/api/pharmacyPatient/createPatient', {
+      const response = await fetch('/api/patient/createPatient', {
         method: 'POST',
         body: JSON.stringify(patient),
         headers: {
