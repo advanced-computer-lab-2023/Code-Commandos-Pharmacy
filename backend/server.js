@@ -19,7 +19,6 @@ server.get('/',(req,res) => {
     res.status(200).json({message:"Hello from server"})
 })
 
-
 const MedicineRoute = require('./route/MedicineRoute')
 const pharmacistRoutes= require('./route/pharmacistRoute')
 const pharmacistRequestRoutes = require('./route/PharmacistRequestRoute')
