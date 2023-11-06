@@ -5,7 +5,7 @@ import SelectQuantityAndSales from "./pages/SelectQuantityAndSales";
 import Navbar from "./components/Navbar";
 import SearchMedicineByName from "./pages/SearchMedicineByName";
 import PharmacistRegistration from './pages/registerAsPharmacist';
-import PatientRegistration from './pages/registerAsPatient';
+import PatientRegistration from './pages/registerAsPharmacyPatient';
 import AddAdmin from "./pages/AddAdmin";
 import ViewAndRemovePatients from "./pages/ViewAndRemovePatients";
 import AddPharmacist from "./pages/AddPharmacist";
@@ -30,7 +30,7 @@ function App() {
                   element={<PharmacistRegistration />}
               />
               <Route
-                  path="/PatientRegistration"
+                  path="/PharmacyPatientRegistration"
                   element={<PatientRegistration />}
               />
             <Route
