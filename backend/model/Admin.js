@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const PharmacyAdminSchema = new mongoose.Schema({
+const AdminSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
@@ -12,5 +12,8 @@ const PharmacyAdminSchema = new mongoose.Schema({
     }
 },{ timestamps: true });
 
-const PharmacyAdmin = mongoose.model('PharmacyAdmin', PharmacyAdminSchema);
-module.exports = PharmacyAdmin;
+
+
+
+const Admin = mongoose.model('Admin', AdminSchema);
+module.exports = Admin;

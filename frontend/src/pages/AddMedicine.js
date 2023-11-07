@@ -35,7 +35,7 @@ const AddMedicine = () => {
             sales
         }
         try {
-
+            console.log(medicine)
             const response = await fetch('/api/medicine/addMedicine', {
                 method: 'POST',
                 //We can't send the object, we have to send a JSON
@@ -44,7 +44,7 @@ const AddMedicine = () => {
                     'Content-Type': 'application/json'
                 }
             })
-            const json = await response.json()
+
             if (!response.ok) {
                 alert(await response.text())
             }
@@ -61,7 +61,7 @@ const AddMedicine = () => {
                 setMedicinalUse('')
                 setImage('')
                 setSales('')
-                console.log('New workout added', json)
+                alert("Added successfully ")
             }
         }
         catch (error){
@@ -83,7 +83,7 @@ const AddMedicine = () => {
                                className="form-control" placeholder="Name"/>
                     </div>
                     <div className="col">
-                        <input type="text" onChange={(e) => setPrice(e.target.value)} value={price}
+                        <input type="number" onChange={(e) => setPrice(e.target.value)} value={price}
                                className="form-control" placeholder="Price"/>
                     </div>
                 </div>
@@ -101,7 +101,7 @@ const AddMedicine = () => {
                 </div>
                 <div className="form-row row mt-4">
                     <div className="col">
-                        <input type="text" onChange={(e) => setQuantity(e.target.value)} value={quantity}
+                        <input type="number" onChange={(e) => setQuantity(e.target.value)} value={quantity}
                                className="form-control" placeholder="Quantity"/>
                     </div>
                     <div className="col">
@@ -109,7 +109,7 @@ const AddMedicine = () => {
                                className="form-control" placeholder="Manufacturer"/>
                     </div>
                     <div className="col">
-                        <input type="text" onChange={(e) => setSales(e.target.value)} value={sales}
+                        <input type="number" onChange={(e) => setSales(e.target.value)} value={sales}
                                className="form-control" placeholder="Sales"/>
                     </div>
                 </div>
@@ -125,11 +125,26 @@ const AddMedicine = () => {
                                className="form-control" placeholder="Image"/>
                     </div>
                     <div className="col">
-                        <input type="text" onChange={(e) => setMedicinalUse(e.target.value)} value={medicinalUse}
-                               className="form-control" placeholder="Medicinal Use"/>
+                        <select
+                            value={medicinalUse}
+                            onChange={(e) => setMedicinalUse(e.target.value)}
+                            className="form-control"
+                            placeholder="Medicinal Use"
+                        >
+                            <option value="">Select Medicinal Use</option>
+                            <option value="PAIN-RELIEF">Pain Relief</option>
+                            <option value="ANTI-INFLAMMATORY">Anti-Inflammatory</option>
+                            <option value="ANTIPYRETIC">Antipyretic</option>
+                            <option value="ANTIDEPRESSANT">Antidepressant</option>
+                            <option value="ANTIDIABETIC">Antidiabetic</option>
+                            <option value="ANTIEMETIC">Antiemetic</option>
+                            <option value="MUSCLE RELAXANT">Muscle Relaxant</option>
+                            <option value="SEDATIVE">Sedative</option>
+                            <option value="VITAMIN">Vitamin</option>
+                        </select>
                     </div>
                     <div className="col">
-                        <input type="text" onChange={(e) => setExpiryDate(e.target.value)} value={expiryDate}
+                        <input type="date" onChange={(e) => setExpiryDate(e.target.value)} value={expiryDate}
                                className="form-control" placeholder="Expiry Date"/>
                     </div>
                 </div>

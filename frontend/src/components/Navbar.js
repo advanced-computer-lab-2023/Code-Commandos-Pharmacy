@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from '../images/logo.png';
 import '../css/navbar.css';
 import { Link } from 'react-router-dom';
+import ViewAndRemovePharmacists from "../pages/ViewAndRemovePharmacists";
 
 
 const Navbar = () => {
@@ -31,6 +32,28 @@ const Navbar = () => {
                                         Pharmacy
                                     </a>
                                     <ul className="dropdown-menu" aria-labelledby="servicesDropdown">
+
+                                        <li>
+                                            <Link to="/AddAdmin" className="dropdown-item">Add admin</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/ViewAndRemovePatients" className="dropdown-item">View And Remove Patients</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/PatientRegistration" className="dropdown-item">Patient Registration</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/PharmacistRegistration" className="dropdown-item">Pharmacist Registration</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/AddPharmacist" className="dropdown-item">Add Pharmacist</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/ViewAndRemovePharmacists" className="dropdown-item">View And Remove Pharmacists</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/ViewAllPharmacistRequests" className="dropdown-item">View All Pharmacist Requests</Link>
+                                        </li>
                                         <li>
                                             <Link to="/viewAllAndSearchMedicineByName" className="dropdown-item">View Available Medicines</Link>
                                         </li>
