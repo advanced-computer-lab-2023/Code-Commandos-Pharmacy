@@ -1,4 +1,6 @@
 const express = require('express')
+const router = express.Router()
+
 const {
   getPatients, 
   getPatient, 
@@ -7,23 +9,22 @@ const {
   updatePatient
 } = require('../controller/PatientController')
 
-const router = express.Router()
+const {
+  checkPatientRole,
+  checkDoctorRole,
+  checkAdminRole
+} = require('../middleware/AccessHandler')
 
-// GET all patients
-router.get('/getPatients', getPatients)
+const {protect} = require('../middleware/AuthenticationHandler')
 
-// GET a single patient
+router.get('/getPatients',protect,checkAdminRole, getPatients)
+
 router.get('/getPatient/:id', getPatient)
 
-// create or POST a new patient
 router.post('/createPatient', createPatient)
 
-// patient registration route
-
-// DELETE a patient
 router.delete('/deletePatient/:id', deletePatient)
 
-// update or PATCH a patient
 router.patch('/updatePatient/:id', updatePatient)
 
 module.exports = router

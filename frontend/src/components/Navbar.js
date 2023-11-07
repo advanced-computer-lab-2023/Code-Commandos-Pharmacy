@@ -1,11 +1,21 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from '../images/logo.png';
 import '../css/navbar.css';
-import { Link } from 'react-router-dom';
-import ViewAndRemovePharmacists from "../pages/ViewAndRemovePharmacists";
-
+import {Link, useNavigate} from 'react-router-dom';
+import { useCookies } from "react-cookie";
 
 const Navbar = () => {
+
+    const navigate = useNavigate();
+    const [cookies, removeCookie] = useCookies([]);
+
+    const handleLogout = async () =>{
+        console.log("in handle logout")
+        removeCookie("token",{path:'/'});
+        window.localStorage.removeItem("logged");
+        navigate('/Login')
+    }
+
     return (
         <header>
             <nav className="navbar navbar-expand-md navbar-dark bg-light fixed-top">
@@ -67,14 +77,14 @@ const Navbar = () => {
                                 </li>
                             </ul>
 
-                            <ul class="navbar-nav">
-                                <li>
-                                    <a href="" className="nav-link font">Log in</a>
-                                </li>
-                                <li>
-                                    <button className="buttonNav">Sign Up</button>
-                                </li>
-                            </ul>
+                        <ul className="navbar-nav">
+                            <li>
+                                <button onClick={handleLogout} className="buttonNav logout">Log out</button>
+                            </li>
+                            <li>
+                                <button className="buttonNav">Sign Up</button>
+                            </li>
+                        </ul>
 
                     </div>
                 </div>
