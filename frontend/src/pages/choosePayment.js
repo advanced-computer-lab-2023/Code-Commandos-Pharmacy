@@ -9,7 +9,7 @@ const PaymentForm = () => {
   const handlePayment = async () => {
     try {
       const response = await fetch('/api/paymentMethod', {
-        method: 'GET',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },

@@ -14,6 +14,8 @@ import ViewAllPharmacistRequests from "./pages/ViewAllPharmacistRequests";
 import AddMedicine from "./pages/AddMedicine";
 import EditMedicine from "./pages/EditMedicine";
 import EditPatient from "./pages/EditPatient";
+import choosePayment from "./pages/choosePayment";
+
 
 function App() {
   return (
@@ -57,6 +59,7 @@ function App() {
             <Route path="/addMedicine" element={<AddMedicine/>} />
             <Route path="/editMedicine/:medicineName" element={<EditMedicine/>}/>
             <Route path="/editPatient/:patientName" element={<EditPatient/>}/>
+            <Route path="/choosePayment" element={<choosePayment/>}/>
           </Routes>
         </div>
       </BrowserRouter>

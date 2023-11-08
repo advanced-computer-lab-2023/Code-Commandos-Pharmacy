@@ -8,7 +8,7 @@ const {
   updatePatient,
   addPatientAddresses,
   viewAvailableAddresses,
-  paymentMethod
+  choosePayment 
 } = require('../controller/PatientController')
 
 
@@ -35,6 +35,6 @@ router.post('/addPatientAddresses/:name', addPatientAddresses);
 //view addresses
 router.get('/viewAvailableAddresses/:id',  viewAvailableAddresses);
 
-router.get('/paymentMethod',  paymentMethod);
+router.post('/paymentMethod', choosePayment);
 
 module.exports = router
