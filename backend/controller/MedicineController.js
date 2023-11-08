@@ -190,6 +190,21 @@ const viewMedicineInCart = asyncHandler((async (req,res)=>{
         throw new Error(error.message)
     }
 }))
+
+// Set the addedToCart to false (Remove medicine from cart)
+const removeMedicineFromCart = asyncHandler(async (req,res)=>{
+    const {name} = req.params;
+    const medicine = await Medicine.findOne({name})
+    if (medicine) {
+        medicine.addedToCart = false;
+        await medicine.save();
+        res.status(200).json({ success: true });
+    } else {
+        res.status(404).json({ error: 'Medicine not found' });
+    }
+})
+
+
 module.exports = {
     addOrUpdateMedicine,
     viewAvailableMedicines,
@@ -200,5 +215,6 @@ module.exports = {
     deleteMedicine,
     setAddedToCart,
     viewMedicineInCart,
-    updateAmount
+    updateAmount,
+    removeMedicineFromCart
 }

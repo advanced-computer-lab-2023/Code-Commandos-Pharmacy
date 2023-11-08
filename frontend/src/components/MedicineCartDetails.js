@@ -4,6 +4,21 @@ import '../css/navbar.css'
 import {Link} from "react-router-dom";
 
 const MedicineCartDetails = ({medicine}) => {
+    const handleRemove = async () => {
+        try {
+            const response = await fetch(`/api/medicine/removeMedicineFromCart/${medicine.name}`, {
+                method: 'PUT',
+            });
+            if (!response.ok) {
+                throw new Error('Error removing from cart');
+            }
+            const updatedMedicine = await response.json();
+            alert("Medicine removed from cart")
+            console.log(updatedMedicine);
+        } catch (error) {
+            console.error(error);
+        }
+    };
     return (
         <div className="col-lg-4 col-md-4 col-sm-6">
             <div className="image-container">
@@ -19,6 +34,7 @@ const MedicineCartDetails = ({medicine}) => {
             <p>{medicine.price} EGP</p>
             <p>{medicine.description}</p>
             <p>Amount: {medicine.amount}</p>
+            <p><button className="remove-btn" onClick={handleRemove}>Remove</button></p>
         </div>
     )
 }
