@@ -4,7 +4,6 @@ import {useParams} from "react-router-dom";
 const EditPatient = () => {
 const [details, setDetails] = useState('')
 const [addresses, setAddresses] = useState('')
-
 const {patientId} = useParams()
 const {patientName} = useParams()
 const handleEdit = async (e) => {
@@ -40,7 +39,7 @@ const handleEdit = async (e) => {
 return (
     <body>
     <div className="container container-form">
-        <h2 className="title-form">Edit {patientId}</h2>
+        <h2 className="title-form">Add New Addresses {patientId}</h2>
         <form onSubmit={handleEdit}>
             <div className="form-row row">
                 <div className="col">

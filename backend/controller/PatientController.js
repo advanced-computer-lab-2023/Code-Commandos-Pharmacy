@@ -148,23 +148,23 @@ const viewAvailableAddresses = asyncHandler(async (req, res) => {
 
 
 
-const choosePayment = asyncHandler(async (req, res) => {
+const paymentMethod = asyncHandler(async (req, res) => {
   try {
     let intent;
 
     // Handle payment based on the chosen method
-    if (choosePayment === 'wallet') {
+    if (paymentMethod === 'wallet') {
       // Process payment using wallet logic
       // Implement your wallet payment logic here
       res.status(200).json({message: "wallet "});
       intent = await processWalletPayment(amount);
-    } else if (choosePayment=== 'credit_card') {
+    } else if (paymentMethod=== 'credit_card') {
       // Process payment using Stripe for credit card payments
       intent = await stripe.paymentIntents.create({
         amount: amount * 100, // Amount in cents
         currency: 'EGP', 
       });
-    } else if (choosePayment === 'cash_on_delivery') {
+    } else if (paymentMethod === 'cash_on_delivery') {
       res.status(200).json({message: "Cash On Delivery "});
       intent = await processCashOnDeliveryPayment(amount);
     } else {
@@ -189,5 +189,5 @@ module.exports = {
     updatePatient,
     addPatientAddresses,
     viewAvailableAddresses,
-    choosePayment
+    paymentMethod
 }
