@@ -13,6 +13,8 @@ import ViewAndRemovePharmacists from "./pages/ViewAndRemovePharmacists";
 import ViewAllPharmacistRequests from "./pages/ViewAllPharmacistRequests";
 import AddMedicine from "./pages/AddMedicine";
 import EditMedicine from "./pages/EditMedicine";
+import AddToCart from "./pages/AddToCart";
+import MyCart from "./pages/MyCart";
 
 function App() {
   return (
@@ -55,6 +57,8 @@ function App() {
             />
             <Route path="/addMedicine" element={<AddMedicine/>} />
             <Route path="/editMedicine/:medicineName" element={<EditMedicine/>}/>
+            <Route path="/addMedicineToCart/:medicineName" element={<AddToCart/>}/>
+            <Route path="/myCart" element={<MyCart/>}/>
           </Routes>
         </div>
       </BrowserRouter>

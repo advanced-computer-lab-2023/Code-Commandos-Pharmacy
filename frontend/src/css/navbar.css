@@ -110,3 +110,25 @@
 .edit-logo{
     width: 35px;
 }
+.edit-addToCart{
+    width: 35px;
+    margin-top:100px;
+
+}
+.cart-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+.cart-icon {
+    width: 20px;
+    height: 20px;
+}
+.cart-text {
+    margin-right: 8px;
+    margin-left: 10px;
+}

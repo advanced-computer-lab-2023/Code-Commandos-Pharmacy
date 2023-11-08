@@ -74,6 +74,14 @@ const Navbar = () => {
                                 <li>
                                     <button className="buttonNav">Sign Up</button>
                                 </li>
+                                <li>
+                                    <button className="cart-button">
+                                        <Link to="/myCart">
+                                            <span className="cart-text">Cart</span>
+                                            <img className="cart-icon" src={require(`../images/addToCart.png`)} alt="Cart"/>
+                                        </Link>
+                                    </button>
+                                </li>
                             </ul>
 
                     </div>

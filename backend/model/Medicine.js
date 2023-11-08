@@ -61,10 +61,9 @@ const MedicineSchema = new Schema({
                 'VITAMIN'
             ]
         },
-        image: {
+        imageUpload: {
             type: String,
-            required: true,
-            default: 'BiotinPlus.png'
+            required: true
         },
         //the below attributes should be updated automatically when purchasing a medicine from the pharmacy
         customerReviews: {

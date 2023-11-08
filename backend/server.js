@@ -8,6 +8,8 @@ const port = process.env.PORT
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 
+server.use('/uploads', express.static('uploads'));
+
 //routes
 
 server.listen(port,() => console.log(`Server is listening on port ${port}`))
