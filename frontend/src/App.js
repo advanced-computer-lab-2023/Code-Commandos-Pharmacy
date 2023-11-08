@@ -13,6 +13,7 @@ import ViewAndRemovePharmacists from "./pages/ViewAndRemovePharmacists";
 import ViewAllPharmacistRequests from "./pages/ViewAllPharmacistRequests";
 import AddMedicine from "./pages/AddMedicine";
 import EditMedicine from "./pages/EditMedicine";
+import EditPatient from "./pages/EditPatient";
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
             />
             <Route path="/addMedicine" element={<AddMedicine/>} />
             <Route path="/editMedicine/:medicineName" element={<EditMedicine/>}/>
+            <Route path="/editPatient/:patientName" element={<EditPatient/>}/>
           </Routes>
         </div>
       </BrowserRouter>

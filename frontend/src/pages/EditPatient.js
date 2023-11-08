@@ -2,23 +2,22 @@ import {useState} from "react";
 import {useParams} from "react-router-dom";
 
 const EditPatient = () => {
-const [address, setAddress] = useState('')
+const [details, setDetails] = useState('')
+const [addresses, setAddresses] = useState('')
 
-const {patientID} = useParams()
-
+const {patientId} = useParams()
+const {patientName} = useParams()
 const handleEdit = async (e) => {
     e.preventDefault()
 
-    // Set the input in details and price in the medicine with name medicineName
-
     try {
-        const response = await fetch(`/api/patient/addPatientAddress/${patientId}`,
+        const response = await fetch(`/api/patient/addPatientAddresses/${patientId}`,
             {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({  address }),
+                body: JSON.stringify({  addresses }),
 
             })
 
@@ -37,4 +36,22 @@ const handleEdit = async (e) => {
 
 
 
+
+return (
+    <body>
+    <div className="container container-form">
+        <h2 className="title-form">Edit {patientId}</h2>
+        <form onSubmit={handleEdit}>
+            <div className="form-row row">
+                <div className="col">
+                    <input type="text" required="true" onChange={(e) => setAddresses(e.target.value)} value={addresses}
+                           className="form-control" placeholder="New Addresses"/>
+                </div>
+            </div>
+            <button type="submit" className="btn submit-btn">Submit</button>
+        </form>
+    </div>
+    </body>
+)
 }
+export default EditPatient

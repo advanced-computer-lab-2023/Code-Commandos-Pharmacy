@@ -73,6 +73,7 @@ const deletePatient = asyncHandler(async (req, res) => {
 // update a patient
 const updatePatient = asyncHandler(async (req, res) => {
   const { id } = req.params
+  
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400)
     throw new Error('Patient not found')
@@ -147,7 +148,7 @@ const viewAvailableAddresses = asyncHandler(async (req, res) => {
 
 
 
-/*const paymentMethod = asyncHandler(async (req, res) => {
+const paymentMethod = asyncHandler(async (req, res) => {
   try {
     let intent;
 
@@ -155,6 +156,7 @@ const viewAvailableAddresses = asyncHandler(async (req, res) => {
     if (paymentMethod === 'wallet') {
       // Process payment using wallet logic
       // Implement your wallet payment logic here
+      res.status(200).json({message: "wallet "});
       intent = await processWalletPayment(amount);
     } else if (paymentMethod === 'credit_card') {
       // Process payment using Stripe for credit card payments
@@ -163,8 +165,7 @@ const viewAvailableAddresses = asyncHandler(async (req, res) => {
         currency: 'EGP', 
       });
     } else if (paymentMethod === 'cash_on_delivery') {
-      // Process cash on delivery payment logic
-      // Implement your cash on delivery payment logic here
+      res.status(200).json({message: "Cash On Delivery "});
       intent = await processCashOnDeliveryPayment(amount);
     } else {
       return res.status(400).json({ error: 'Invalid payment method' });
@@ -176,7 +177,7 @@ const viewAvailableAddresses = asyncHandler(async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Payment failed' });
   }
-});*/
+});
 
 
 
@@ -187,5 +188,6 @@ module.exports = {
     deletePatient,
     updatePatient,
     addPatientAddresses,
-    viewAvailableAddresses
+    viewAvailableAddresses,
+    paymentMethod
 }

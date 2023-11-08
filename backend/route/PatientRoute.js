@@ -1,4 +1,5 @@
 const express = require('express')
+const router = express.Router()
 const {
   getPatients, 
   getPatient, 
@@ -6,10 +7,10 @@ const {
   deletePatient, 
   updatePatient,
   addPatientAddresses,
-  viewAvailableAddresses
+  viewAvailableAddresses,
+  paymentMethod
 } = require('../controller/PatientController')
 
-const router = express.Router()
 
 // GET all patients
 router.get('/getPatients', getPatients)
@@ -29,10 +30,11 @@ router.delete('/deletePatient/:id', deletePatient)
 router.patch('/updatePatient/:id', updatePatient)
 
 // add patient adress
-router.post('/addPatientAddresses/:id', addPatientAddresses);
+router.post('/addPatientAddresses/:name', addPatientAddresses);
 
 //view addresses
 router.get('/viewAvailableAddresses/:id',  viewAvailableAddresses);
 
+router.get('/paymentMethod',  paymentMethod);
 
 module.exports = router
