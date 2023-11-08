@@ -49,13 +49,9 @@ const PaymentMethod = () => {
               <option value="wallet">Wallet</option>
               <option value="cash_on_delivery">Cash on Delivery</option>
             </select>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Amount"
-              onChange={(e) => setAmount(e.target.value)}
-              required
-            />
+      
+             
+          
           </div>
           </div>
           <button type="submit" className="btn submit-btn">Process Payment</button>

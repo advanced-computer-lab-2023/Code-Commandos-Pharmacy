@@ -6,7 +6,6 @@ const EditMedicine = () => {
     // To store the updated details and price entered by the user
     const [details, setDetails] = useState('')
     const [price, setPrice] = useState('')
-
     const {medicineName} = useParams()
 
     const handleEdit = async (e) => {

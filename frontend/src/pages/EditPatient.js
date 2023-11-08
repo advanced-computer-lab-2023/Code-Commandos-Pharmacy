@@ -1,56 +1,101 @@
-import {useState} from "react";
-import {useParams} from "react-router-dom";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 const EditPatient = () => {
-const [details, setDetails] = useState('')
-const [addresses, setAddresses] = useState('')
-const {patientId} = useParams()
-const {patientName} = useParams()
-const handleEdit = async (e) => {
-    e.preventDefault()
+  const [addresses, setAddresses] = useState([{ street: "", city: "", country: "" }]);
+  const { patientId } = useParams();
+  const { patientName } = useParams();
 
+  const handleAddAddress = () => {
+    setAddresses([...addresses, { street: "", city: "", country: "" }]);
+  };
+
+  const handleAddressChange = (index, field, value) => {
+    const updatedAddresses = [...addresses];
+    updatedAddresses[index][field] = value;
+    setAddresses(updatedAddresses);
+  };
+
+  const handleEdit = async (e) => {
+    e.preventDefault();
     try {
-        const response = await fetch(`/api/patient/addPatientAddresses/${patientId}`,
-            {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({  addresses }),
+      const response = await fetch(`/api/patient/addPatientAddresses/${patientName}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ addresses }),
+      });
 
-            })
-
-        if (response.ok) {
-            const data = await response.json()
-            alert("Patient updated successfully ")
-        } else {
-            alert(await response.text())
-            console.log('Update Failed: ', response.status)
-        }
+      if (response.ok) {
+        const data = await response.json();
+        alert("Patient addresses updated successfully");
+      } else {
+        alert(await response.text());
+        console.log('Update Failed: ', response.status);
+      }
     } catch (error) {
-        alert(error.message)
-        console.log('Error', error)
+      alert(error.message);
+      console.log('Error', error);
     }
-}
+  };
 
-
-
-
-return (
-    <body>
+  return (
     <div className="container container-form">
-        <h2 className="title-form">Add New Addresses {patientId}</h2>
-        <form onSubmit={handleEdit}>
-            <div className="form-row row">
-                <div className="col">
-                    <input type="text" required="true" onChange={(e) => setAddresses(e.target.value)} value={addresses}
-                           className="form-control" placeholder="New Addresses"/>
-                </div>
+      <h2 className="title-form">Add Address </h2>
+      <form onSubmit={handleEdit}>
+        {addresses.map((address, index) => (
+          <div key={index} className="form-row row">
+            <div className="col">
+              <input
+                type="text"
+                required="true"
+                value={patientName}
+                className="form-control"
+                placeholder="Patient"
+              />
             </div>
-            <button type="submit" className="btn submit-btn">Submit</button>
-        </form>
+            <div className="col">
+              <input
+                type="text"
+                required="true"
+                value={address.street}
+                onChange={(e) => handleAddressChange(index, 'street', e.target.value)}
+                className="form-control"
+                placeholder="Street"
+              />
+            </div>
+            <div className="col">
+              <input
+                type="text"
+                required="true"
+                value={address.city}
+                onChange={(e) => handleAddressChange(index, 'city', e.target.value)}
+                className="form-control"
+                placeholder="City"
+              />
+            </div>
+            <div className="col">
+              <input
+                type="text"
+                required="true"
+                value={address.country}
+                onChange={(e) => handleAddressChange(index, 'country', e.target.value)}
+                className="form-control"
+                placeholder="Country"
+              />
+            </div>
+          </div>
+        ))}
+        <button type="button" className="btn btn-secondary" onClick={handleAddAddress}>
+          Add Address
+        </button>
+        <button type="submit" className="btn submit-btn">
+          Submit
+        </button>
+      </form>
     </div>
-    </body>
-)
-}
-export default EditPatient
+  );
+};
+
+export default EditPatient;

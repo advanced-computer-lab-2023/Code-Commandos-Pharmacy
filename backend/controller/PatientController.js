@@ -93,15 +93,15 @@ const updatePatient = asyncHandler(async (req, res) => {
 
 //add a new delivery address (or multiple addresses)
 const addPatientAddresses = asyncHandler(async (req, res) => {
-  const { id } = req.params;
+  const { name } = req.params;
   const { addresses } = req.body;
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    res.status(400).json({ error: 'Invalid patient ID' });
-    return;
-  }
+  //if (!mongoose.Types.ObjectId.isValid(id)) {
+    //res.status(400).json({ error: 'Invalid patient ID' });
+    //return;
+  //}
   try {
     // Find the patient by ID and add new addresses to the addresses array
-    const patient = await PatientModel.findByIdAndUpdate(id,
+    const patient = await PatientModel.findOneAndUpdate({name: name},
       { $push: { addresses: { $each: addresses } } },
       { new: true }
     );
@@ -146,38 +146,41 @@ const viewAvailableAddresses = asyncHandler(async (req, res) => {
 
 
 
-
-
 const paymentMethod = asyncHandler(async (req, res) => {
+  const { paymentMethod, amount } = req.body; // Extract payment method and amount from request body
   try {
     let intent;
-
     // Handle payment based on the chosen method
     if (paymentMethod === 'wallet') {
-      // Process payment using wallet logic
-      // Implement your wallet payment logic here
-      res.status(200).json({message: "wallet "});
-      intent = await processWalletPayment(amount);
-    } else if (paymentMethod=== 'credit_card') {
-      // Process payment using Stripe for credit card payments
+        wallet=wallet-amount;
+      res.status(200).json({ success: true, message: 'Wallet payment processed successfully' });
+    }
+     else if (paymentMethod === 'credit_card') {
+      // Implement credit card payment logic using Stripe API
       intent = await stripe.paymentIntents.create({
         amount: amount * 100, // Amount in cents
-        currency: 'EGP', 
+        currency: 'EGP',
       });
-    } else if (paymentMethod === 'cash_on_delivery') {
-      res.status(200).json({message: "Cash On Delivery "});
-      intent = await processCashOnDeliveryPayment(amount);
-    } else {
+    } 
+    else if (paymentMethod === 'cash_on_delivery') {
+      // Implement cash on delivery payment logic
+      // For demonstration purposes, returning a success message
+      res.status(200).json({ success: true, message: 'Cash on delivery payment processed successfully' });
+    } 
+    else {
       return res.status(400).json({ error: 'Invalid payment method' });
     }
 
     // Return the client secret to confirm the payment on the client-side
-    res.status(200).json({ clientSecret: intent.client_secret });
+    if (intent) {
+      res.status(200).json({ clientSecret: intent.client_secret });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Payment failed' });
   }
 });
+
 
 
 

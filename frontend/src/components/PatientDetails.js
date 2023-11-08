@@ -17,7 +17,7 @@ const PatientDetails = ({ patient }) => {
                 <li key={index} className="list-group-item">
                     <p className="mb-0">Street: {address.street}</p>
                     <p className="mb-0">City: {address.city}</p>
-                    <p className="mb-0">Country: {address.country}</p>
+                    <p className="mb-0">Country: {address.country }</p>
                 </li>
                  ))}
 
