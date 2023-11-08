@@ -7,6 +7,7 @@ const AddToCart = ({medicine}) => {
     const [cartItems, setCartItems] = useState([]);
 
     const handleAddToCart = (selectedMedicine) => {
+
         const cartItem = {
             medicine: <MedicineDetails medicine={medicine} />,
         }
