@@ -1,5 +1,4 @@
-import {BrowserRouter, Routes, Route} from "react-router-dom"
-// pages & components
+import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom"
 import ViewAvailableMedicines from "./pages/ViewAvailableMedicines";
 import SelectQuantityAndSales from "./pages/SelectQuantityAndSales";
 import Navbar from "./components/Navbar";
@@ -15,50 +14,35 @@ import AddMedicine from "./pages/AddMedicine";
 import EditMedicine from "./pages/EditMedicine";
 import AddToCart from "./pages/AddToCart";
 import MyCart from "./pages/MyCart";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
 
 function App() {
+
+  const logged = window.localStorage.getItem("logged");
+
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
+        {logged ? <Home/> : <Login />}
         <div className="pages">
           <Routes>
-            <Route
-            path="/viewAvailableMedicines" element={<ViewAvailableMedicines/>} />
+            <Route path="/viewAvailableMedicines" element={<ViewAvailableMedicines/>} />
             <Route path="/quantityAndSales" element={<SelectQuantityAndSales/>} />
             <Route path="/viewAllAndSearchMedicineByName" element={<SearchMedicineByName/>} />
-              <Route
-                  path="/PharmacistRegistration"
-                  element={<PharmacistRegistration />}
-              />
-              <Route
-                  path="/PatientRegistration"
-                  element={<PatientRegistration />}
-              />
-            <Route
-              path="/AddAdmin"
-              element={<AddAdmin/>}
-            />
-            <Route
-              path="/ViewAndRemovePatients"
-              element={<ViewAndRemovePatients/>}
-            />
-            <Route
-                path="/AddPharmacist"
-                element={<AddPharmacist/>}
-            />
-            <Route
-                path="/ViewAndRemovePharmacists"
-                element={<ViewAndRemovePharmacists/>}
-            />
-            <Route
-                path="/ViewAllPharmacistRequests"
-                element={<ViewAllPharmacistRequests/>}
-            />
+            <Route path="/PharmacistRegistration" element={<PharmacistRegistration />}/>
+            <Route path="/PatientRegistration" element={<PatientRegistration />}/>
+            <Route path="/AddAdmin" element={<AddAdmin/>}/>
+            <Route path="/ViewAndRemovePatients" element={<ViewAndRemovePatients/>}/>
+            <Route path="/AddPharmacist" element={<AddPharmacist/>}/>
+            <Route path="/ViewAndRemovePharmacists" element={<ViewAndRemovePharmacists/>}/>
+            <Route path="/ViewAllPharmacistRequests" element={<ViewAllPharmacistRequests/>}/>
             <Route path="/addMedicine" element={<AddMedicine/>} />
             <Route path="/editMedicine/:medicineName" element={<EditMedicine/>}/>
             <Route path="/addMedicineToCart/:medicineName" element={<AddToCart/>}/>
             <Route path="/myCart" element={<MyCart/>}/>
+            <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Login/>}/>
+            <Route path="/Home" element={<Home/>}/>
           </Routes>
         </div>
       </BrowserRouter>
