@@ -42,7 +42,7 @@ const EditPatient = () => {
 
   return (
     <div className="container container-form">
-      <h2 className="title-form">Add Address </h2>
+      <h2 className="title-form">Add New Address </h2>
       <form onSubmit={handleEdit}>
         {addresses.map((address, index) => (
           <div key={index} className="form-row row">

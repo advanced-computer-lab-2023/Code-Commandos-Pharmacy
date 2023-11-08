@@ -14,9 +14,9 @@ import ViewAndRemovePharmacists from "./pages/ViewAndRemovePharmacists";
 import ViewAllPharmacistRequests from "./pages/ViewAllPharmacistRequests";
 import AddMedicine from "./pages/AddMedicine";
 import EditMedicine from "./pages/EditMedicine";
-import EditPatient from "./pages/EditPatient";
+import EditPatient from "./pages/AddNewAddress";
 import PaymentMethod from "./pages/paymentMethod";
-import CreditCardForm from "./pages/payWithCreditCard";
+import CreditCardPaymentForm from "./pages/payWithCreditCard";
 
 
 function App() {
@@ -62,7 +62,7 @@ function App() {
             <Route path="/editMedicine/:medicineName" element={<EditMedicine/>}/>
             <Route path="/editPatient/:patientName" element={<EditPatient/>}/>
             <Route path="/paymentMethod" element={<PaymentMethod/>}/>
-            <Route path="/payWithCreditCard" element={<CreditCardForm/>}/>
+            <Route path="/payWithCreditCard" element={<CreditCardPaymentForm/>}/>
           </Routes>
         </div>
       </BrowserRouter>

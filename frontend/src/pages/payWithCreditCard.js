@@ -1,45 +1,68 @@
-import React from 'react';
-import { CardElement, injectStripe } from 'react-stripe-elements';
+import React, { useState } from 'react';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
 
-class CreditCardForm extends React.Component {
-  handleSubmit = async (e) => {
+const CreditCardPaymentForm = () => {
+  const [amount, setAmount] = useState(0);
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { stripe } = this.props;
-    const { token } = await stripe.createToken({ name: 'Name' });
+    if (!stripe || !elements) {
+      // Stripe.js has not yet loaded.
+      // Make sure to disable form submission until Stripe.js has loaded.
+      return;
+    }
+
+    const cardElement = elements.getElement(CardElement);
 
     try {
-      const response = await axios.post('/api/payment', {
-        amount: 1000, // Amount in cents
-        currency: 'EGP', // Currency code (USD in this case)
-        token: token.id,
-      });
+      // Create payment method from card element
+      const { token, error } = await stripe.createToken(cardElement);
 
-      if (response.data.success) {
-        // Payment succeeded
-        alert('Payment successful!');
+      if (error) {
+        console.error(error);
+        // Handle validation errors
       } else {
-        // Payment failed
-        alert('Payment failed. Please try again.');
+        // Send payment request to your backend
+        const response = await axios.post('/api/payWithCreditCard', {
+          amount: amount * 100, // Amount in cents
+          currency: 'EGP',
+          token: token.id,
+        });
+
+        if (response.data.success) {
+          // Payment succeeded
+          alert('Payment successful!');
+        } else {
+          // Payment failed
+          alert('Payment failed. Please try again.');
+        }
       }
     } catch (error) {
       // Network error or other issues
+      console.error(error.message);
       alert('Payment failed. Please try again later.');
     }
   };
 
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Amount (EGP):
+        <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} />
+      </label>
+      <div style={{ marginTop: '20px' }}>
         <label>
           Card details
-          <CardElement style={{ base: { fontSize: '18px' } }} />
+          <CardElement options={{ style: { fontSize: '18px' } }} />
         </label>
-        <button type="submit">Pay</button>
-      </form>
-    );
-  }
-}
+      </div>
+      <button type="submit">Pay</button>
+    </form>
+  );
+};
 
-export default injectStripe(CreditCardForm);
+export default CreditCardPaymentForm;

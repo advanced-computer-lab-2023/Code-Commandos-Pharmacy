@@ -100,14 +100,10 @@ const addPatientAddresses = asyncHandler(async (req, res) => {
       { $push: { addresses: { $each: addresses } } },
       { new: true }
     );
-
-    // Check if the patient exists
     if (!patient) {
       res.status(404).json({ error: 'Patient not found' });
       return;
     }
-
-    // Send the updated patient data in the response
     res.status(200).json(patient);
   } catch (error) {
     res.status(400)
@@ -123,14 +119,11 @@ const viewAvailableAddresses = asyncHandler(async (req, res) => {
     return;
   }
   try {
-    // Find the patient by ID and retrieve their addresses
     const patient = await PatientModel.findById(id);
-    // Check if the patient exists
     if (!patient) {
       res.status(404).json({ error: 'Patient not found' });
       return;
     }
- // Extract and send the addresses in the response
     const newaddresses = patient.addresses;
     res.status(200).json({ newaddresses });
   } catch (error) {
@@ -145,21 +138,19 @@ const paymentMethod = asyncHandler(async (req, res) => {
   const { paymentMethod, amount } = req.body; // Extract payment method and amount from request body
   try {
     let intent;
-    // Handle payment based on the chosen method
+    
     if (paymentMethod === 'wallet') {
         wallet=wallet-amount;
       res.status(200).json({ success: true, message: 'Wallet payment processed successfully' });
     }
      else if (paymentMethod === 'credit_card') {
-      // Implement credit card payment logic using Stripe API
+
       intent = await stripe.paymentIntents.create({
         amount: amount * 100, // Amount in cents
         currency: 'EGP',
       });
     } 
     else if (paymentMethod === 'cash_on_delivery') {
-      // Implement cash on delivery payment logic
-      // For demonstration purposes, returning a success message
       res.status(200).json({ success: true, message: 'Cash on delivery payment processed successfully' });
     } 
     else {
