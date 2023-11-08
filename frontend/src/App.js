@@ -16,6 +16,7 @@ import AddToCart from "./pages/AddToCart";
 import MyCart from "./pages/MyCart";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import EditMedicineAmountInCart from "./pages/EditMedicineAmountInCart";
 
 function App() {
 
@@ -39,6 +40,7 @@ function App() {
             <Route path="/ViewAllPharmacistRequests" element={<ViewAllPharmacistRequests/>}/>
             <Route path="/addMedicine" element={<AddMedicine/>} />
             <Route path="/editMedicine/:medicineName" element={<EditMedicine/>}/>
+            <Route path="/editAmount/:medicineName" element={<EditMedicineAmountInCart/>}/>
             <Route path="/addMedicineToCart/:medicineName" element={<AddToCart/>}/>
             <Route path="/myCart" element={<MyCart/>}/>
             <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Login/>}/>

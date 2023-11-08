@@ -4,7 +4,6 @@ const asyncHandler = require('express-async-handler')
 const multer = require('multer')
 
 // Add a new medicine
-
 const addOrUpdateMedicine = asyncHandler(async (req, res) => {
     // If the medicine is already in stock, update its quantity
     const medicineBody = req.body;
@@ -37,6 +36,8 @@ const addOrUpdateMedicine = asyncHandler(async (req, res) => {
                 customerReviews,
                 customerRatings,
                 sales,
+                addedToCart,
+                amount
             } = req.body;
             const { file } = req;
 
@@ -55,6 +56,8 @@ const addOrUpdateMedicine = asyncHandler(async (req, res) => {
                 customerReviews,
                 customerRatings,
                 sales,
+                addedToCart,
+                amount,
                 imageUpload: file.path || null,
             });
             await newMed.save(); // Save the new medicine
@@ -114,6 +117,22 @@ const updateDetailsAndPrice = asyncHandler(async (req, res) => {
     }
 })
 
+// Edit Medicine in Cart's Amount
+const updateAmount  =asyncHandler(async (req,res)=>{
+    const {name} = req.params
+    const {amount} = req.body
+    try {
+        const medicine = await Medicine.findOneAndUpdate({name: name}, {$set: {amount}}, {new: true})
+        if (!medicine) {
+            res.status(400)
+            throw new Error('No such a medicine')
+        }
+        res.status(200).json(medicine)
+    } catch (error) {
+        throw new Error(error.message)
+    }
+})
+
 // View the Available quantity, and Sales of each medicine
 const viewQuantityAndSales = asyncHandler(async (req, res) => {
     try {
@@ -148,6 +167,29 @@ const deleteMedicine = asyncHandler((async (req, res) => {
     res.json({message: 'Medicine deleted successfully'});
 }))
 
+// Set addedToCart to true
+const setAddedToCart = asyncHandler((async (req,res)=>{
+    const {name} = req.params;
+    const medicine = await Medicine.findOne({ name });
+    if (!medicine) {
+        return res.status(404).json({message: 'Medicine not found'});
+    }
+    else{
+        medicine.addedToCart = true;
+        await medicine.save();
+        res.status(200).json(medicine)
+    }
+}))
+
+// View Medicine whose addedToCart is True
+const viewMedicineInCart = asyncHandler((async (req,res)=>{
+    try {
+        const medicines = await Medicine.find({ addedToCart: true }).sort({ createdAt: 1 });
+        res.status(200).json(medicines)
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}))
 module.exports = {
     addOrUpdateMedicine,
     viewAvailableMedicines,
@@ -155,5 +197,8 @@ module.exports = {
     updateDetailsAndPrice,
     viewQuantityAndSales,
     filterMedicines,
-    deleteMedicine
+    deleteMedicine,
+    setAddedToCart,
+    viewMedicineInCart,
+    updateAmount
 }
