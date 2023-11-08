@@ -7,7 +7,8 @@ const MedicineDetails = ({medicine}) => {
     return (
         <div className="col-lg-4 col-md-4 col-sm-6">
             <div className="image-container">
-                <img src={`http://localhost:8090/${medicine.imageUpload}`} alt={medicine.name} />                <div className="icon-overlay logo-container">
+                <img src={`http://localhost:8090/${medicine.imageUpload}`} alt={medicine.name} />
+                <div className="icon-overlay logo-container">
                     <Link to={`/editMedicine/${medicine.name}`}>
                         <img className="edit-logo" src={require(`../images/edit.png`)} alt="Edit"/>
                     </Link>

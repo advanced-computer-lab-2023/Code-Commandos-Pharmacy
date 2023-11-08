@@ -1,8 +1,9 @@
 const Medicine = require('../model/Medicine');
 const mongoose = require('mongoose');
 const asyncHandler = require('express-async-handler')
-// Add a new medicine
 const multer = require('multer')
+
+// Add a new medicine
 
 const addOrUpdateMedicine = asyncHandler(async (req, res) => {
     // If the medicine is already in stock, update its quantity
@@ -56,7 +57,6 @@ const addOrUpdateMedicine = asyncHandler(async (req, res) => {
                 sales,
                 imageUpload: file.path || null,
             });
-
             await newMed.save(); // Save the new medicine
             res.status(200).json(newMed);
         } catch (error) {
