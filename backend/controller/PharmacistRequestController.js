@@ -1,6 +1,11 @@
 const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
 const PharmacistRequestModel = require("../model/PharmacistRequest");
+const multer = require('multer'); // Import multer for file uploads
+
+// Configure multer for file uploads
+const upload = multer({ dest: 'uploads/' }); // Set the destination folder for uploaded files
+
 
 //Task 7 view data uploaded by a pharmacist
 const  viewUploadByPharmacist=asyncHandler( async(req, res)=>{
@@ -22,7 +27,7 @@ const  viewUploadByPharmacist=asyncHandler( async(req, res)=>{
         throw new Error(error.message)
     }
 })
-
+// Task32 added Uploaded documents needed while adding pharmacist Request
 const addPharmacistRequest =asyncHandler( async(req,res) => {
     const requestBody=req.body;
     try{
@@ -56,20 +61,26 @@ const updatePharmacistRequestStatus = asyncHandler(async (req, res) => {
   }
 
   try {
-    const pharmacistRequest = await PharmacistRequest.findById(id);
+    const pharmacistRequest = await PharmacistRequestModel.findById(id);
 
     if (!pharmacistRequest) {
       res.status(404);
       throw new Error('Pharmacist Request not found');
     }
 
-    // Update the status of the pharmacist request
-    pharmacistRequest.status = status;
+    // Check if the user making the request is an admin
+    if (req.user && req.user.role === 'ADMIN') {
+      // Update the status of the pharmacist request
+      pharmacistRequest.status = status;
 
-    // Save the updated request
-    await pharmacistRequest.save();
+      // Save the updated request
+      await pharmacistRequest.save();
 
-    res.status(200).json({ message: 'Pharmacist request status updated successfully' });
+      res.status(200).json({ message: 'Pharmacist request status updated successfully' });
+    } else {
+      res.status(403);
+      throw new Error('Not authorized to update pharmacist request');
+    }
   } catch (error) {
     res.status(400);
     throw new Error(error.message);

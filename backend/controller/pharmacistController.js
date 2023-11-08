@@ -72,5 +72,5 @@ const viewAllPharmacists = asyncHandler(async (req,res) => {
     viewPharmacist,
     removePharmacist,
     addPharmacist,
-     viewAllPharmacists
+    viewAllPharmacists
  }
