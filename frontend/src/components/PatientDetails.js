@@ -16,15 +16,15 @@ const PatientDetails = ({ patient }) => {
                 <p className="card-text">Relation to Patient: {patient.emergencyContact.relationToPatient}</p>
                 <h5 className="card-title">Addresses</h5>
                 <div className="list-group">
-  {patient.addresses.map((address, index) => (
-    <div key={index} className="row">
-      <div className="col">
-        <div className="list-group-item">
-          <p className="mb-0">Street: {address.street}</p>
-          <p className="mb-0">City: {address.city}</p>
-          <p className="mb-0">Country: {address.country}</p>
-        </div>
-      </div>
+            {patient.addresses.map((address, index) => (
+            <div key={index} className="row">
+             <div className="col">
+              <div className="list-group-item">
+              <p className="mb-0">Street: {address.street}</p>
+              <p className="mb-0">City: {address.city}</p>
+              <p className="mb-0">Country: {address.country}</p>
+             </div>
+            </div>
     </div>
   ))}
 </div>

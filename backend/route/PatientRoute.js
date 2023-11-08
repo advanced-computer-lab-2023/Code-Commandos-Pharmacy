@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const { requireAuth } = require('./Middleware/authMiddleware');
 const {
   getPatients, 
   getPatient, 
@@ -9,8 +8,9 @@ const {
   updatePatient,
   addPatientAddresses,
   viewAvailableAddresses,
-  paymentMethod
-} = require('../controller/PatientController')
+  paymentMethod,
+  payWithCreditCard 
+} =require('../controller/PatientController')
 
 
 // GET all patients
@@ -31,11 +31,13 @@ router.delete('/deletePatient/:id', deletePatient)
 router.patch('/updatePatient/:id', updatePatient)
 
 // add patient adress
-router.put('/addPatientAddresses/:name',requireAuth, addPatientAddresses);
+router.put('/addPatientAddresses/:name', addPatientAddresses);
 
 //view addresses
-router.get('/viewAvailableAddresses/:id',requireAuth,  viewAvailableAddresses);
+router.get('/viewAvailableAddresses/:id',  viewAvailableAddresses);
 
+//choose payment method
 router.post('/paymentMethod', paymentMethod);
+router.post('/payWithCreditCard ', payWithCreditCard );
 
 module.exports = router

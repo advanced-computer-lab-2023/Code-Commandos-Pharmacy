@@ -1,4 +1,5 @@
 import {BrowserRouter, Routes, Route} from "react-router-dom"
+
 // pages & components
 import ViewAvailableMedicines from "./pages/ViewAvailableMedicines";
 import SelectQuantityAndSales from "./pages/SelectQuantityAndSales";
@@ -14,7 +15,8 @@ import ViewAllPharmacistRequests from "./pages/ViewAllPharmacistRequests";
 import AddMedicine from "./pages/AddMedicine";
 import EditMedicine from "./pages/EditMedicine";
 import EditPatient from "./pages/EditPatient";
-import PaymentMethod from "./pages/PaymentMethod";
+import PaymentMethod from "./pages/paymentMethod";
+import CreditCardForm from "./pages/payWithCreditCard";
 
 
 function App() {
@@ -60,6 +62,7 @@ function App() {
             <Route path="/editMedicine/:medicineName" element={<EditMedicine/>}/>
             <Route path="/editPatient/:patientName" element={<EditPatient/>}/>
             <Route path="/paymentMethod" element={<PaymentMethod/>}/>
+            <Route path="/payWithCreditCard" element={<CreditCardForm/>}/>
           </Routes>
         </div>
       </BrowserRouter>

@@ -95,12 +95,7 @@ const updatePatient = asyncHandler(async (req, res) => {
 const addPatientAddresses = asyncHandler(async (req, res) => {
   const { name } = req.params;
   const { addresses } = req.body;
-  //if (!mongoose.Types.ObjectId.isValid(id)) {
-    //res.status(400).json({ error: 'Invalid patient ID' });
-    //return;
-  //}
   try {
-    // Find the patient by ID and add new addresses to the addresses array
     const patient = await PatientModel.findOneAndUpdate({name: name},
       { $push: { addresses: { $each: addresses } } },
       { new: true }
@@ -120,7 +115,7 @@ const addPatientAddresses = asyncHandler(async (req, res) => {
   }
 });
 
-
+//choose a delivery address from the delivery addresses available
 const viewAvailableAddresses = asyncHandler(async (req, res) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -145,7 +140,7 @@ const viewAvailableAddresses = asyncHandler(async (req, res) => {
 });
 
 
-
+//choose to pay with wallet, credit card (using Stripe) or cash on delivery
 const paymentMethod = asyncHandler(async (req, res) => {
   const { paymentMethod, amount } = req.body; // Extract payment method and amount from request body
   try {
@@ -181,6 +176,31 @@ const paymentMethod = asyncHandler(async (req, res) => {
   }
 });
 
+const payWithCreditCard = asyncHandler(async (req, res) => {
+  const { amount, currency, token } = req.body;
+
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: amount,
+      currency: currency,
+      payment_method: token,
+      confirm: true,
+    });
+
+    // Payment succeeded
+    res.status(200).json({ success: true });
+  } catch (error) {
+    // Payment failed
+    console.error(error.message);
+    res.status(500).json({ error: 'Payment failed' });
+  }
+});
+
+
+
+  
+  
+
 
 
 
@@ -192,5 +212,6 @@ module.exports = {
     updatePatient,
     addPatientAddresses,
     viewAvailableAddresses,
-    paymentMethod
+    paymentMethod,
+    payWithCreditCard 
 }
