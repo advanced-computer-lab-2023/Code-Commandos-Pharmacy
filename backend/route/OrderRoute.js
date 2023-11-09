@@ -9,7 +9,9 @@ const {
     cashPayment,
     confirmOrder,
     displayConfirmedOrders,
-    viewOrderDetails, setTotalPrice
+    viewOrderDetails,
+    setTotalPrice,
+    cancelOrder
 } = require('../controller/OrderController')
 
 const router = express.Router()
@@ -24,13 +26,13 @@ router.post('/addOrder', addOrder)
 router.delete('/deleteOrder/:id', deleteOrder)
 
 // Set Credit Payment by id
-router.put('/setCreditPayment',cardPayment)
+router.put('/setCreditPayment', cardPayment)
 
 // Set Cash Payment by id
-router.put('/setCashPayment',cashPayment)
+router.put('/setCashPayment', cashPayment)
 
 // Confirm order
-router.put('/confirmOrder',confirmOrder)
+router.put('/confirmOrder', confirmOrder)
 
 // Display Confirmed Orders
 router.get('/displayConfirmedOrders', displayConfirmedOrders)
@@ -40,6 +42,9 @@ router.get('/getOrderDetails', viewOrderDetails)
 
 // Set Total Price
 router.put('setTotalPrice/:subtotal', setTotalPrice)
+
+// Delete Order by Id
+router.delete('/cancelOrder/:id', cancelOrder)
 
 module.exports = router
 

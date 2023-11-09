@@ -135,6 +135,22 @@ const setTotalPrice = asyncHandler(async (req, res) => {
     }
 });
 
+// Delete Order by Id
+const cancelOrder = asyncHandler(async (req,res)=>{
+    try{
+        const {id} = req.params
+        const order = await Order.findOne({id})
+        if (!order) {
+            return res.status(404).json({message: 'Order not found'});
+        }
+        await order.deleteOne({id})
+        res.json({message: 'Order cancelled successfully'});
+    } catch (error) {
+        res.status(400);
+        throw new Error(error.message);
+    }
+})
+
 
 
 module.exports = {
@@ -146,5 +162,6 @@ module.exports = {
     confirmOrder,
     displayConfirmedOrders,
     viewOrderDetails,
-    setTotalPrice
+    setTotalPrice,
+    cancelOrder
 }

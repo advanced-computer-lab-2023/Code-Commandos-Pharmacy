@@ -7,7 +7,7 @@ const MedicineCartDetails = ({medicine}) => {
     const handleRemove = async () => {
         try {
             const response = await fetch(`/api/medicine/removeMedicineFromCart/${medicine.name}`, {
-                method: 'PUT',
+                method: 'PUT'
             });
             if (!response.ok) {
                 throw new Error('Error removing from cart');

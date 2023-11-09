@@ -52,6 +52,8 @@ const MyCart = () => {
             console.error(error);
         }
     };
+
+    // Not working
     const handleCheckout = async () => {
         handleSetTotalPrice();
         try{

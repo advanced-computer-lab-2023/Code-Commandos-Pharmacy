@@ -22,6 +22,8 @@ const DisplayOrderInfo = () => {
         }, []
     )
     return(
+        <body>
+        <h2 className="left-part">My Orders</h2>
         <div className="medicines-quantity-sales">
             {orders && orders.map((order) => (
                 <OrderInfo
@@ -31,6 +33,7 @@ const DisplayOrderInfo = () => {
                 />
             ))}
         </div>
+        </body>
     )
 }
 
