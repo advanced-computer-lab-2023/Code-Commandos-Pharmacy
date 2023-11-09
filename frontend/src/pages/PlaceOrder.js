@@ -3,8 +3,8 @@ import {useState} from "react";
 
 const PlaceOrder = () => {
     const [creditPayment, setCreditPayment] = useState('')
-    const [order, setOrder] = useState('')
 
+    const [order, setOrder] = useState('')
     const handleCreditPayment = async () => {
         try{
             const response = await fetch('api/order/setCreditPayment',{
@@ -47,6 +47,29 @@ const PlaceOrder = () => {
             alert(error.message)
         }
     };
+
+    const [walletPayment, setWalletPayment] = useState('')
+    const handleWalletPayment = async () => {
+        try{
+            const response = await fetch('api/order/setWalletPayment',{
+                method: 'PUT',
+            });
+            if (response.ok){
+                const result = await response.json();
+                setWalletPayment(result)
+                alert("Wallet Payment added")
+            }
+            else {
+                const errorMessage = await response.text();
+                alert(errorMessage)
+                throw new Error(errorMessage)
+            }
+        }
+        catch (error){
+            alert(error.message)
+        }
+    };
+
 
     const handleConfirmOrder = async () => {
         try{
@@ -99,11 +122,22 @@ const PlaceOrder = () => {
                         </div>
                     </div>
                 </div>
+                <div className="middle-payment-option">
+                    <div className="row">
+                        <div className="column">
+                            <p>
+                                <button className="payment-details-wallet" onClick={handleWalletPayment}>
+                                    Wallet
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
                 <div className="right-payment-option">
                     <div className="row">
                         <div className="column">
                             <p>
-                                <button className="payment-details-cash" onClick={handleCashPayment}>
+                                <button className="payment-details" onClick={handleCashPayment}>
                                     Cash on Delivery
                                 </button>
                             </p>

@@ -11,7 +11,8 @@ const {
     displayConfirmedOrders,
     viewOrderDetails,
     setTotalPrice,
-    cancelOrder
+    cancelOrder,
+    walletPayment
 } = require('../controller/OrderController')
 
 const router = express.Router()
@@ -25,11 +26,14 @@ router.post('/addOrder', addOrder)
 // Delete Order
 router.delete('/deleteOrder/:id', deleteOrder)
 
-// Set Credit Payment by id
+// Set Credit Payment
 router.put('/setCreditPayment', cardPayment)
 
-// Set Cash Payment by id
+// Set Cash Payment
 router.put('/setCashPayment', cashPayment)
+
+// Set Wallet Payment
+router.put('/setWalletPayment', walletPayment)
 
 // Confirm order
 router.put('/confirmOrder', confirmOrder)

@@ -288,18 +288,25 @@
 
 .left-payment-option {
     background-color: #B9B4C7;
-    width: 220px;
-    height: 150px;
-    margin-left: 40px;
+    width: 150px;
+    height: 120px;
+    margin-left: 20px;
     border: 1px solid black;
 }
-
+.middle-payment-option{
+    background-color: #B9B4C7;
+    width: 150px;
+    height: 120px;
+    margin-left: 200px;
+    margin-top: -120px;
+    border: 1px solid black;
+}
 .right-payment-option {
     background-color: #B9B4C7;
-    width: 220px;
-    height: 150px;
-    margin-left: 300px;
-    margin-top: -150px;
+    width: 150px;
+    height: 120px;
+    margin-left: 380px;
+    margin-top: -120px;
     border: 1px solid black;
 }
 
@@ -310,9 +317,17 @@
 .payment-details {
     font-size: larger;
     text-align: center;
-    margin-top: 50px;
+    margin-top: 20px;
     background-color: transparent;
     border: none;
+}
+.payment-details-wallet{
+    font-size: larger;
+    text-align: center;
+    margin-top: 40px;
+    background-color: transparent;
+    border: none;
+    margin-left: 40px;
 }
 
 .column-payment {

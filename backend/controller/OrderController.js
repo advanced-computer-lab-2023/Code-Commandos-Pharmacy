@@ -55,6 +55,25 @@ const cardPayment = asyncHandler(async (req, res) => {
     }
 });
 
+// Set Payment to be Credit Card only if justAddedOrder is true
+const walletPayment = asyncHandler(async (req, res) => {
+    try {
+        const orders = await Order.find({justAddedOrder: true});
+        if (!orders) {
+            return res.status(404).json({message: "No orders found"});
+        }
+
+        for (const order of orders) {
+            order.paymentOption = "Wallet";
+            await order.save();
+        }
+
+        res.status(200).json({message: "Payment option set to Wallet for eligible orders"});
+    } catch (error) {
+        res.status(500).json({message: "Internal Server Error"});
+    }
+});
+
 // Set Payment to be Cash only if justAddedOrder is true
 const cashPayment = asyncHandler(async (req, res) => {
     try {
@@ -163,5 +182,6 @@ module.exports = {
     displayConfirmedOrders,
     viewOrderDetails,
     setTotalPrice,
-    cancelOrder
+    cancelOrder,
+    walletPayment
 }
