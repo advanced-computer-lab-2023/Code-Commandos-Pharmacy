@@ -206,13 +206,12 @@ const changePassword = asyncHandler(async (req,res) => {
 })
 
 module.exports = {
-    register,
     login,
-    getLoggedInUser,
+    register,
     logout,
     skipLogin,
-    generateOTP,
     verifyOTP,
     resetPassword,
-    changePassword
-}
+    changePassword,
+    generateOTP,
+  };
