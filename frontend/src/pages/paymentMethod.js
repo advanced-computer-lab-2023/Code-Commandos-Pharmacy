@@ -6,7 +6,6 @@ const PaymentMethod = () => {
   const [message, setMessage] = useState('');
 
   const handlePayment = async () => {
-    // ... your payment logic ...
     if (payment === 'credit_card') {
       return '/payWithcreditCard';
     } else if (payment === 'wallet') {
@@ -15,7 +14,6 @@ const PaymentMethod = () => {
       return '/checkout';
     }
 
-    // If no valid payment method is selected, you can return a default path or handle it as needed.
     setMessage('Payment failed');
     return '/';
   };
