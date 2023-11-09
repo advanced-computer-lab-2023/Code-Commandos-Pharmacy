@@ -1,11 +1,21 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from '../images/logo.png';
 import '../css/navbar.css';
-import { Link } from 'react-router-dom';
-import ViewAndRemovePharmacists from "../pages/ViewAndRemovePharmacists";
-
+import {Link, useNavigate} from 'react-router-dom';
+import { useCookies } from "react-cookie";
 
 const Navbar = () => {
+
+    const navigate = useNavigate();
+    const [cookies, removeCookie] = useCookies([]);
+
+    const handleLogout = async () =>{
+        console.log("in handle logout")
+        removeCookie("token",{path:'/'});
+        window.localStorage.removeItem("logged");
+        navigate('/Login')
+    }
+
     return (
         <header>
             <nav className="navbar navbar-expand-md navbar-dark bg-light fixed-top">
@@ -14,7 +24,7 @@ const Navbar = () => {
                         <img src={logo} class="logo" alt="Logo"/>
                     </a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
+                    <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse items-nav col-8" id="navbarCollapse">
                             <ul class="navbar-nav">
@@ -47,7 +57,7 @@ const Navbar = () => {
                                         </li>
                                         <li>
                                             <Link to="/AddPharmacist" className="dropdown-item">Add Pharmacist</Link>
-                                        </li>
+                                            </li>
                                         <li>
                                             <Link to="/ViewAndRemovePharmacists" className="dropdown-item">View And Remove Pharmacists</Link>
                                         </li>
@@ -67,13 +77,13 @@ const Navbar = () => {
                                 </li>
                             </ul>
 
-                            <ul class="navbar-nav">
-                                <li>
-                                    <a href="" className="nav-link font">Log in</a>
-                                </li>
-                                <li>
-                                    <button className="buttonNav">Sign Up</button>
-                                </li>
+                        <ul className="navbar-nav">
+                            <li>
+                                <button onClick={handleLogout} className="buttonNav logout">Log out</button>
+                            </li>
+                            <li>
+                                <button className="buttonNav">Sign Up</button>
+                            </li>
                             </ul>
 
                     </div>
