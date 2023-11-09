@@ -18,7 +18,7 @@ const {
 
 const {protect} = require('../middleware/AuthenticationHandler')
 
-router.get('/getPatients',protect,checkAdminRole,isAuthenticated, getPatients)
+router.get('/getPatients',protect,checkAdminRole, getPatients)
 
 router.get('/getPatient/:id', getPatient)
 
