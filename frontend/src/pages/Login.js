@@ -1,12 +1,12 @@
-import React, { useState,useEffect} from "react";
+import React, { useState} from "react";
 import "../css/style.css"
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-
+    const isLogged = window.localStorage.getItem("logged");
     const handleLogin = async() => {
         const response = await fetch('/api/user/login', {
             method: 'POST',
@@ -24,7 +24,8 @@ const Login = () => {
         }
     };
 
-    return(
+    // if (!isLogged) {
+    return (
         <div className="container">
             <div className="row justify-content-center">
                 <div className="col-md-6">
@@ -52,7 +53,7 @@ const Login = () => {
                                         onChange={(e) => setPassword(e.target.value)}
                                     />
                                 </div>
-                                <br/>
+                                <br />
                                 <button
                                     type="button"
                                     className="btn btn-danger btn-block buttons"
@@ -60,13 +61,26 @@ const Login = () => {
                                 >
                                     Login
                                 </button>
+                                <br/>
+
+                                <p className="text-center">
+                                    <Link to="/EnterEmailReset">Forgot Password?</Link>
+                                </p>
+
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+    // } else {
+    //     return (
+    //         <div>
+    //             <Home />
+    //         </div>
+    //     );
+    // }
+};
 
 export default Login;
