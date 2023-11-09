@@ -198,7 +198,9 @@ const PatientRegistrationForm = () => {
             />
             <label htmlFor="CHILDREN">Son/Daughter</label><br />
           </div>  
-        <h3>Addresses:</h3>
+          <label htmlFor="dateOfBirth" className="form-label">
+              Addresses:
+            </label>
         {addresses.map((address, index) => (
           <div className="row mb-3" key={index}>
             <div className="col">

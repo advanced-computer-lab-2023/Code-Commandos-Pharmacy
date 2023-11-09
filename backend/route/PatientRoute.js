@@ -25,7 +25,7 @@ router.get('/getPatients',protect,checkAdminRole, getPatients)
 
 router.get('/getPatient/:id',protect,checkAdminRole, getPatient)
 
-router.post('/createPatient',checkPatientRole, createPatient)
+router.post('/createPatient', createPatient)
 
 router.delete('/deletePatient/:id',protect,checkAdminRole, deletePatient)
 

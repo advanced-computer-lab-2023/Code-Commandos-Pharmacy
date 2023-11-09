@@ -1,51 +1,36 @@
 import React, { useState } from 'react';
-//import { useHistory } from 'react-router-dom';
-const PaymentMethod = () => {
-    const [payment, setPayment] = useState('credit_card');
-    const [amount, setAmount] = useState(0);
-    const [clientSecret, setClientSecret] = useState('');
-    const [message, setMessage] = useState('');
-   // const history = useHistory();
-  
-    const handlePayment = async () => {
-      try {
-        const response = await fetch('/api/patient/paymentMethod', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ payment, amount }),
-        });
-  
-        if (response.ok) {
-          const data = await response.json();
-          setClientSecret(data.clientSecret);
-          setMessage(data.message); // Update state with the payment method message
-          // Handle the payment method message in your UI as needed
-        } else {
-          const errorData = await response.json();
-          setMessage(errorData.error); // Update state with the error message
-          // Handle the error message in your UI as needed
-        }
-      } catch (error) {
-        console.error(error);
-        setMessage('Payment failed'); // Set a generic error message in case of network error
-        // Handle the error message in your UI as needed
-      }
 
-    /*if (paymentMethod === 'credit_card') {
-      history.push('/payWithcreditCard'); // Redirect to credit card success page
-    } else if (paymentMethod === 'wallet') {
-      history.push('/walletSuccess'); // Redirect to wallet success page
-    } else if (paymentMethod === 'cash_on_delivery') {
-      history.push('/checkout'); // Redirect to cash on delivery success page
-    }*/
+const PaymentMethod = () => {
+  const [payment, setPayment] = useState('credit_card');
+  const [amount, setAmount] = useState(0);
+  const [message, setMessage] = useState('');
+
+  const handlePayment = async () => {
+    // ... your payment logic ...
+    if (payment === 'credit_card') {
+      return '/payWithcreditCard';
+    } else if (payment === 'wallet') {
+      return '/ViewMyWallet';
+    } else if (payment === 'cash_on_delivery') {
+      return '/checkout';
+    }
+
+    // If no valid payment method is selected, you can return a default path or handle it as needed.
+    setMessage('Payment failed');
+    return '/';
+  };
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newPath = await handlePayment();
+    // Navigate to the selected path
+    window.location.href = newPath;
   };
   
     return (
       <div className="payment-form">
-        <h2 className="title-form">Payment Method: </h2>
-        <form onSubmit={handlePayment}>
+      <h2 className="title-form">Payment Method: </h2>
+      <form onSubmit={handleSubmit}>
           <div className="form-row row">
             <div className="col">
               <select
