@@ -163,6 +163,13 @@
     margin-right: 8px;
     margin-left: 10px;
     color: black;
+}
+
+.cart-text:hover {
+    color: #D21312;
+}
+
+.cart-link {
     text-decoration: none;
 }
 
@@ -174,10 +181,12 @@
     background: #D21312;
     color: white;
 }
-.half-container{
+
+.half-container {
     margin-left: 50px;
 }
-.order-summary{
+
+.order-summary {
     width: 500px;
     height: 500px;
     border: 1px solid #ccc;
@@ -186,15 +195,18 @@
     padding: 10px;
     background: #EEEEEE;
 }
-.container-order{
+
+.container-order {
     display: flex;
 }
-.order-text{
+
+.order-text {
     color: #352F44;
     margin-left: 15px;
     margin-bottom: 30px;
     margin-top: 20px;
 }
+
 .coupon-form .form-group {
     display: flex;
     align-items: center;
@@ -205,24 +217,119 @@
     flex-grow: 1;
     margin-right: 10px;
 }
-.sub-total{
+
+.sub-total {
     margin-left: 20px;
 }
-.apply-btn{
+
+.apply-btn {
     background-color: #176B87;
     color: white;
 }
-.apply-btn:hover, .checkout-btn:hover{
+
+.apply-btn:hover, .checkout-btn:hover {
     background-color: #053B50;
     color: white;
 }
-.checkout-btn{
+
+.checkout-btn {
     width: 90%;
     background-color: #176B87;
     margin-top: 50px;
     margin-left: 20px;
-
 }
-.left-part{
+
+.checkout-btn {
+    width: 90%;
+    background-color: #176B87;
+    margin-top: 50px;
+    margin-left: 20px;
+}
+
+.placeOrder-btn {
+    width: 90%;
+    background-color: #D21312;
+    margin-top: 30px;
+    margin-left: 20px;
+}
+
+.placeOrder-btn:hover {
+    width: 90%;
+    background-color: #47A992;
+    margin-top: 30px;
+    margin-left: 20px;
+}
+
+.left-part {
     margin-left: 50px;
+}
+
+.order-body {
+    width: 600px;
+    height: 600px;
+    border: 1px solid #ccc;
+    margin-top: 100px;
+    margin-left: 480px;
+    padding: 10px;
+    background: #EEEEEE;
+}
+
+.btn-address {
+    width: 90%;
+    background-color: #176B87;
+    text-align: left;
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+
+.btn-address:hover {
+    background-color: #053B50;
+}
+
+.left-payment-option {
+    background-color: #B9B4C7;
+    width: 220px;
+    height: 150px;
+    margin-left: 40px;
+    border: 1px solid black;
+}
+
+.right-payment-option {
+    background-color: #B9B4C7;
+    width: 220px;
+    height: 150px;
+    margin-left: 300px;
+    margin-top: -150px;
+    border: 1px solid black;
+}
+
+.row-payment {
+    display: flex;
+}
+
+.payment-details {
+    font-size: larger;
+    text-align: center;
+    margin-top: 50px;
+    background-color: transparent;
+    border: none;
+}
+
+.column-payment {
+    flex: 1;
+    padding: 10px;
+}
+
+.payments {
+    margin-bottom: 40px;
+}
+
+.payment-details-cash {
+    font-size: larger;
+    text-align: center;
+    margin-top: 50px;
+    padding-left: 33px;
+    background-color: transparent;
+    border: none;
+
 }

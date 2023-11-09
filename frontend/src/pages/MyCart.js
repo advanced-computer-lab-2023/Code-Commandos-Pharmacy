@@ -1,11 +1,33 @@
 import {useEffect, useState} from "react";
 import MedicineDetails from "../components/MedicineDetails";
 import MedicineCartDetails from "../components/MedicineCartDetails";
+import {Link} from "react-router-dom";
 
 // View AvailableMedicines
 const MyCart = () => {
     const [medicines, setMedicines] = useState(null)
     const [subtotalPrice, setSubtotalPrice] = useState(0);
+    const [order, setOrder] = useState('')
+
+    const handleCheckout = async () => {
+        try{
+            const response = await fetch('api/order/addOrder',{
+                method: 'POST',
+            });
+            if (response.ok){
+                const result = await response.json();
+                setOrder(result)
+            }
+            else {
+                const errorMessage = await response.text();
+                alert(errorMessage)
+                throw new Error(errorMessage)
+            }
+        }
+        catch (error){
+            alert(error.message)
+        }
+    };
 
     useEffect(() => {
         const fetchMedicines = async () => {
@@ -71,14 +93,12 @@ const MyCart = () => {
                 <h3 className="sub-total">
                     Total: {subtotalPrice + 50} EGP
                 </h3>
-                <button type="button" className="btn btn-primary btn-lg checkout-btn">Checkout</button>
-
+                <Link to="/placeOrder">
+                    <button type="button" className="btn btn-primary btn-lg checkout-btn" onClick={handleCheckout}>Checkout</button>
+                </Link>
             </div>
         </div>
-
-
     )
 }
-
 
 export default MyCart

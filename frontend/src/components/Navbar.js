@@ -76,10 +76,21 @@ const Navbar = () => {
                                     </ul>
                                 </li>
                             </ul>
+
+                        <ul className="navbar-nav">
+                            <li>
+                                <button className="cart-button">
+                                    <Link to="/myOrders" className="cart-link">
+                                        <span className="cart-text">My Orders</span>
+                                    </Link>
+                                </button>
+                            </li>
+                        </ul>
+
                          <ul class="navbar-nav">
                                 <li>
                                     <button className="cart-button">
-                                        <Link to="/myCart">
+                                        <Link to="/myCart" className="cart-link">
                                             <span className="cart-text">Cart</span>
                                             <img className="cart-icon" src={require(`../images/addToCart.png`)} alt="Cart"/>
                                         </Link>

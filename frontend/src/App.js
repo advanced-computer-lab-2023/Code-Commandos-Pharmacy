@@ -17,6 +17,8 @@ import MyCart from "./pages/MyCart";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import EditMedicineAmountInCart from "./pages/EditMedicineAmountInCart";
+import PlaceOrder from "./pages/PlaceOrder";
+import DisplayOrderInfo from "./pages/DisplayOrderInfo";
 
 function App() {
 
@@ -43,8 +45,11 @@ function App() {
             <Route path="/editAmount/:medicineName" element={<EditMedicineAmountInCart/>}/>
             <Route path="/addMedicineToCart/:medicineName" element={<AddToCart/>}/>
             <Route path="/myCart" element={<MyCart/>}/>
+            <Route path="/placeOrder" element={<PlaceOrder/>}/>
             <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Login/>}/>
             <Route path="/Home" element={<Home/>}/>
+            <Route path="/myOrders" element={<DisplayOrderInfo/>}/>
+
           </Routes>
         </div>
       </BrowserRouter>
