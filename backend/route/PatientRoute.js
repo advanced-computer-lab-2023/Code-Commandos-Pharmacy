@@ -1,3 +1,4 @@
+//const isAuthenticated = require('./path/to/isAuthenticatedMiddleware');
 const express = require('express')
 const router = express.Router()
 
@@ -17,7 +18,7 @@ const {
 
 const {protect} = require('../middleware/AuthenticationHandler')
 
-router.get('/getPatients',protect,checkAdminRole, getPatients)
+router.get('/getPatients',protect,checkAdminRole,isAuthenticated, getPatients)
 
 router.get('/getPatient/:id', getPatient)
 
