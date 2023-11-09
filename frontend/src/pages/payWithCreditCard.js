@@ -11,38 +11,39 @@ const CreditCardPaymentForm = () => {
     e.preventDefault();
 
     if (!stripe || !elements) {
-      // Stripe.js has not yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
 
     const cardElement = elements.getElement(CardElement);
 
     try {
-      // Create payment method from card element
       const { token, error } = await stripe.createToken(cardElement);
 
       if (error) {
         console.error(error);
-        // Handle validation errors
-      } else {
-        // Send payment request to your backend
-        const response = await axios.post('/api/payWithCreditCard', {
-          amount: amount * 100, // Amount in cents
-          currency: 'EGP',
-          token: token.id,
-        });
+        // Handle validation errors and show them to the user
+      } else if (token) {
+        try {
+          const response = await axios.post('/api/patient/payWithCreditCard', {
+            amount: amount * 100, // Amount in cents
+            currency: 'EGP',
+            token: token.id,
+          });
 
-        if (response.data.success) {
-          // Payment succeeded
-          alert('Payment successful!');
-        } else {
-          // Payment failed
-          alert('Payment failed. Please try again.');
+          if (response.data.success) {
+            // Payment succeeded
+            alert('Payment successful!');
+          } else {
+            // Payment failed
+            alert('Payment failed. Please try again.');
+          }
+        } catch (error) {
+          console.error(error);
+          // Handle network errors or other issues
+          alert('Payment failed. Please try again later.');
         }
       }
     } catch (error) {
-      // Network error or other issues
       console.error(error.message);
       alert('Payment failed. Please try again later.');
     }

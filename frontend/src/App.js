@@ -18,6 +18,13 @@ import EditPatient from "./pages/AddNewAddress";
 import PaymentMethod from "./pages/PaymentMethod";
 import CreditCardPaymentForm from "./pages/payWithCreditCard";
 import ViewMyWallet from "./pages/ViewMyWallet";
+//import Payment from "./pages/Payment";
+import PaymentCancel from "./pages/PaymentCancel"
+import PaymentSuccess from "./pages/PaymentSuccess"
+
+import React from "react";
+
+
 
 function App() {
 

@@ -37,6 +37,6 @@ router.get('/viewAvailableAddresses/:id',protect,checkPatientRole, viewAvailable
 
 router.post('/paymentMethod',protect,checkAdminRole, paymentMethod);
 
-router.post('/payWithCreditCard ',protect,checkPatientRole, payWithCreditCard );
+router.get('/payWithCreditCard', payWithCreditCard );
 
 module.exports = router
