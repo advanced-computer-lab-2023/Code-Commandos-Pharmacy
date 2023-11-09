@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 const PaymentMethod = () => {
     const [payment, setPayment] = useState('credit_card');
     const [amount, setAmount] = useState(0);

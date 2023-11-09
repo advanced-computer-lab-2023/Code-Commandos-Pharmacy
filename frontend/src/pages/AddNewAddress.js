@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 // this to add new address in case I already registered
 const EditPatient = () => {
   const [addresses, setAddresses] = useState([{ street: "", city: "", country: "" }]);
-  const { patientId } = useParams();
   const { patientName } = useParams();
 
   const handleAddAddress = () => {

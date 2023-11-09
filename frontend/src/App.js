@@ -14,6 +14,9 @@ import AddMedicine from "./pages/AddMedicine";
 import EditMedicine from "./pages/EditMedicine";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import EditPatient from "./pages/AddNewAddress";
+import PaymentMethod from "./pages/paymentMethod";
+import CreditCardPaymentForm from "./pages/payWithCreditCard";
 
 function App() {
 
@@ -39,6 +42,9 @@ function App() {
             <Route path="/editMedicine/:medicineName" element={<EditMedicine/>}/>
             <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Login/>}/>
             <Route path="/Home" element={<Home/>}/>
+            <Route path="/editPatient/:patientName" element={<EditPatient/>}/>
+            <Route path="/paymentMethod" element={<PaymentMethod/>}/>
+            <Route path="/payWithCreditCard" element={<CreditCardPaymentForm/>}/>
           </Routes>
         </div>
       </BrowserRouter>
