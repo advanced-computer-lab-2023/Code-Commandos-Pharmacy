@@ -10,6 +10,8 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 server.use(cookieParser());
 
+server.use('/uploads', express.static('uploads'));
+
 //routes
 
 server.listen(port,() => console.log(`Server is listening on port ${port}`))
@@ -25,6 +27,7 @@ const pharmacistRequestRoutes = require('./route/PharmacistRequestRoute')
 const patientRoutes = require('./route/PatientRoute')
 const adminRoutes = require('./route/AdminRoute')
 const userRoutes= require('./route/UserRoute')
+const orderRoute = require('./route/OrderRoute')
 
 server.use('/api/pharmacist',pharmacistRoutes)
 server.use('/api/pharmacistRequest',pharmacistRequestRoutes)
@@ -32,5 +35,6 @@ server.use('/api/patient', patientRoutes)
 server.use('/api/medicine', MedicineRoute)
 server.use('/api/admin',adminRoutes)
 server.use('/api/user',userRoutes)
+server.use('/api/order', orderRoute)
 
 server.use(ErrorHandler)

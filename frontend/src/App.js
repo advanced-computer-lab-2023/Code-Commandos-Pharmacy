@@ -1,7 +1,6 @@
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom"
 import ViewAvailableMedicines from "./pages/ViewAvailableMedicines";
 import SelectQuantityAndSales from "./pages/SelectQuantityAndSales";
-import Navbar from "./components/Navbar";
 import SearchMedicineByName from "./pages/SearchMedicineByName";
 import PharmacistRegistration from './pages/registerAsPharmacist';
 import PatientRegistration from './pages/registerAsPatient';
@@ -12,6 +11,8 @@ import ViewAndRemovePharmacists from "./pages/ViewAndRemovePharmacists";
 import ViewAllPharmacistRequests from "./pages/ViewAllPharmacistRequests";
 import AddMedicine from "./pages/AddMedicine";
 import EditMedicine from "./pages/EditMedicine";
+import AddToCart from "./pages/AddToCart";
+import MyCart from "./pages/MyCart";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import EditPatient from "./pages/AddNewAddress";
@@ -21,10 +22,9 @@ import ViewMyWallet from "./pages/ViewMyWallet";
 //import Payment from "./pages/Payment";
 import PaymentCancel from "./pages/PaymentCancel"
 import PaymentSuccess from "./pages/PaymentSuccess"
-
-import React from "react";
-
-
+import EditMedicineAmountInCart from "./pages/EditMedicineAmountInCart";
+import PlaceOrder from "./pages/PlaceOrder";
+import DisplayOrderInfo from "./pages/DisplayOrderInfo";
 
 function App() {
 
@@ -52,9 +52,13 @@ function App() {
             <Route path="/paymentMethod" element={<PaymentMethod/>}/>
             <Route path="/payWithCreditCard" element={<CreditCardPaymentForm/>}/>
             <Route path="/ViewMyWallet" element={<ViewMyWallet/>}/>
+            <Route path="/editAmount/:medicineName" element={<EditMedicineAmountInCart/>}/>
+            <Route path="/addMedicineToCart/:medicineName" element={<AddToCart/>}/>
+            <Route path="/myCart" element={<MyCart/>}/>
+            <Route path="/placeOrder" element={<PlaceOrder/>}/>
             <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Login/>}/>
             <Route path="/Home" element={<Home/>}/>
-        
+            <Route path="/myOrders" element={<DisplayOrderInfo/>}/>
           </Routes>
         </div>
       </BrowserRouter>

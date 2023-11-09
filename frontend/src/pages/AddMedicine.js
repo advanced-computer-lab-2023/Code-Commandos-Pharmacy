@@ -15,6 +15,8 @@ const AddMedicine = () => {
     const [medicinalUse, setMedicinalUse] = useState('')
     const [image, setImage] = useState('')
     const [sales, setSales] = useState('')
+    const [addedToCart, setAddedToCart] = useState('')
+    const [amount, setAmount] = useState('')
 
 
     const handleSubmit = async (e) => {
@@ -32,7 +34,9 @@ const AddMedicine = () => {
             expiryDate,
             medicinalUse,
             image,
-            sales
+            sales,
+            addedToCart,
+            amount
         }
         try {
             console.log(medicine)
@@ -61,6 +65,8 @@ const AddMedicine = () => {
                 setMedicinalUse('')
                 setImage('')
                 setSales('')
+                setAddedToCart('')
+                setAmount('')
                 alert("Added successfully ")
             }
         }

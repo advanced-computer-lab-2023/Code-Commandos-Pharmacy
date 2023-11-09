@@ -3,17 +3,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/navbar.css'
 import {Link} from "react-router-dom";
 
-const MedicineDetails = ({medicine}) => {
-    const handleAddToCart = async () => {
+const MedicineCartDetails = ({medicine}) => {
+    const handleRemove = async () => {
         try {
-            const response = await fetch(`/api/medicine/setAddedToCart/${medicine.name}`, {
-                method: 'PUT',
+            const response = await fetch(`/api/medicine/removeMedicineFromCart/${medicine.name}`, {
+                method: 'PUT'
             });
             if (!response.ok) {
-                throw new Error('Error adding to cart');
+                throw new Error('Error removing from cart');
             }
             const updatedMedicine = await response.json();
-            alert("Added to cart successfully!")
+            alert("Medicine removed from cart")
             console.log(updatedMedicine);
         } catch (error) {
             console.error(error);
@@ -24,20 +24,19 @@ const MedicineDetails = ({medicine}) => {
             <div className="image-container">
                 <img src={`http://localhost:8090/${medicine.imageUpload}`} alt={medicine.name} />
                 <div className="icon-overlay logo-container">
-                    <Link to={`/editMedicine/${medicine.name}`}>
+                    <Link to={`/editAmount/${medicine.name}`}>
                         <img className="edit-logo" src={require(`../images/edit.png`)} alt="Edit"/>
                     </Link>
-                <br/>
-                    <Link to={`/setAddedToCart/${medicine.name}`}>
-                        <img className="edit-addToCart" onClick={handleAddToCart} src={require(`../images/addToCart.png`)} alt="Cart"/>
-                    </Link>
+                    <br/>
                 </div>
             </div>
             <p>{medicine.name}</p>
             <p>{medicine.price} EGP</p>
             <p>{medicine.description}</p>
+            <p>Amount: {medicine.amount}</p>
+            <p><button className="remove-btn" onClick={handleRemove}>Remove</button></p>
         </div>
     )
 }
 
-export default MedicineDetails;
+export default MedicineCartDetails;
