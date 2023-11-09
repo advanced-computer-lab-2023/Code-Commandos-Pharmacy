@@ -1,7 +1,6 @@
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom"
 import ViewAvailableMedicines from "./pages/ViewAvailableMedicines";
 import SelectQuantityAndSales from "./pages/SelectQuantityAndSales";
-import Navbar from "./components/Navbar";
 import SearchMedicineByName from "./pages/SearchMedicineByName";
 import PharmacistRegistration from './pages/registerAsPharmacist';
 import PatientRegistration from './pages/registerAsPatient';
@@ -19,6 +18,9 @@ import Home from "./pages/Home";
 import EditMedicineAmountInCart from "./pages/EditMedicineAmountInCart";
 import PlaceOrder from "./pages/PlaceOrder";
 import DisplayOrderInfo from "./pages/DisplayOrderInfo";
+import EnterEmailReset from "./components/EnterEmailReset";
+import ResetPassword from "./components/ResetPassword";
+import ChangePassword from "./pages/ChangePassword";
 
 function App() {
 
@@ -46,10 +48,13 @@ function App() {
             <Route path="/addMedicineToCart/:medicineName" element={<AddToCart/>}/>
             <Route path="/myCart" element={<MyCart/>}/>
             <Route path="/placeOrder" element={<PlaceOrder/>}/>
-            <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Login/>}/>
-            <Route path="/Home" element={<Home/>}/>
+            <Route path="/EnterEmailReset"  element={<EnterEmailReset/>}/>
+            <Route path="/ResetPassword"  element={<ResetPassword/>}/>
+            <Route path="/ChangePassword"  element={<ChangePassword/>}/>
             <Route path="/myOrders" element={<DisplayOrderInfo/>}/>
 
+          <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Login/>}/>
+          <Route path="/Home" element={<Home/>}/>
           </Routes>
         </div>
       </BrowserRouter>
