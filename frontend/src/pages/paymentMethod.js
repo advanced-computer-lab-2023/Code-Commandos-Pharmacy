@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+//import { useHistory } from 'react-router-dom';
 const PaymentMethod = () => {
     const [payment, setPayment] = useState('credit_card');
     const [amount, setAmount] = useState(0);
     const [clientSecret, setClientSecret] = useState('');
     const [message, setMessage] = useState('');
+   // const history = useHistory();
   
     const handlePayment = async () => {
       try {
@@ -30,7 +32,15 @@ const PaymentMethod = () => {
         setMessage('Payment failed'); // Set a generic error message in case of network error
         // Handle the error message in your UI as needed
       }
-    };
+
+    /*if (paymentMethod === 'credit_card') {
+      history.push('/payWithcreditCard'); // Redirect to credit card success page
+    } else if (paymentMethod === 'wallet') {
+      history.push('/walletSuccess'); // Redirect to wallet success page
+    } else if (paymentMethod === 'cash_on_delivery') {
+      history.push('/checkout'); // Redirect to cash on delivery success page
+    }*/
+  };
   
     return (
       <div className="payment-form">
