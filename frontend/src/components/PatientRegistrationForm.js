@@ -13,11 +13,14 @@ const PatientRegistrationForm = () => {
   const [ecFullName, setEcFullName] = useState('')
   const [ecMobileNumber, setEcMobileNumber] = useState('')
   const [ecRelation, setEcRelation] = useState('')
+  const [addresses, setAddresses] = useState([{ street: '', city: '', country: '' }]);
+
     const [newPatient, setNewPatient] = useState(null);
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const patient = {username: username, name: name, email: email, password: password, dateOfBirth: dateOfBirth, gender: gender, mobileNumber: mobileNumber, emergencyContact: {fullName: ecFullName, mobileNumber: ecMobileNumber, relationToPatient: ecRelation}}
+    const patient = {username: username, name: name, email: email, password: password, dateOfBirth: dateOfBirth, gender: gender, mobileNumber: mobileNumber, emergencyContact: {fullName: ecFullName, mobileNumber: ecMobileNumber, relationToPatient: ecRelation},addresses}
 
     try {
 
@@ -54,10 +57,11 @@ const PatientRegistrationForm = () => {
   }
 
   return (
-      <div className="container mt-4">
-        <h1 className="mb-4">Registration:</h1>
-        <form className="create" onSubmit={handleSubmit}>
-          <div className="mb-3">
+    <div className="container mt-4">
+      <h1 className="mb-4">Registration:</h1>
+      <form className="create" onSubmit={handleSubmit}>
+        {/* ... previous form inputs ... */}
+        <div className="mb-3">
             <label htmlFor="username" className="form-label">
               Username:
             </label>
@@ -84,7 +88,7 @@ const PatientRegistrationForm = () => {
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
               E-mail:
-            </label>
+              </label>
             <input
                 type="email"
                 className="form-control"
@@ -120,41 +124,41 @@ const PatientRegistrationForm = () => {
           <div className="mb-3">
             <label className="form-label">Gender:</label><br />
             <input
-                type="radio"
-                id="MALE"
-                name="gender"
-                onChange={(e) => setGender(e.target.id)}
-            />
-            <label htmlFor="MALE">Male</label><br />
-            <input
-                type="radio"
-                id="FEMALE"
-                name="gender"
-                onChange={(e) => setGender(e.target.id)}
-            />
-            <label htmlFor="FEMALE">Female</label><br />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="mobileNumber" className="form-label">
-              Mobile Number:
-            </label>
-            <input
-                type="number"
-                className="form-control"
-                id="mobileNumber"
-                onChange={(e) => setMobileNumber(e.target.value)}
-                value={mobileNumber}
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="ecFullName" className="form-label">
-              Emergency Contact Full Name:
-            </label>
-            <input
-                type="text"
-                className="form-control"
-                id="ecFullName"
-                onChange={(e) => setEcFullName(e.target.value)}
+            type="radio"
+            id="MALE"
+            name="gender"
+            onChange={(e) => setGender(e.target.id)}
+        />
+        <label htmlFor="MALE">Male</label><br />
+        <input
+            type="radio"
+            id="FEMALE"
+            name="gender"
+            onChange={(e) => setGender(e.target.id)}
+        />
+        <label htmlFor="FEMALE">Female</label><br />
+      </div>
+      <div className="mb-3">
+        <label htmlFor="mobileNumber" className="form-label">
+          Mobile Number:
+        </label>
+        <input
+            type="number"
+            className="form-control"
+            id="mobileNumber"
+            onChange={(e) => setMobileNumber(e.target.value)}
+            value={mobileNumber}
+        />
+      </div>
+      <div className="mb-3">
+        <label htmlFor="ecFullName" className="form-label">
+          Emergency Contact Full Name:
+        </label>
+        <input
+            type="text"
+            className="form-control"
+            id="ecFullName"
+            onChange={(e) => setEcFullName(e.target.value)}
                 value={ecFullName}
             />
           </div>
@@ -193,13 +197,63 @@ const PatientRegistrationForm = () => {
                 onChange={(e) => setEcRelation(e.target.id)}
             />
             <label htmlFor="CHILDREN">Son/Daughter</label><br />
+          </div>  
+        <h3>Addresses:</h3>
+        {addresses.map((address, index) => (
+          <div className="row mb-3" key={index}>
+            <div className="col">
+              <input
+                type="text"
+                required
+                value={address.street}
+                onChange={(e) => {
+                  const updatedAddresses = [...addresses];
+                  updatedAddresses[index].street = e.target.value;
+                  setAddresses(updatedAddresses);
+                }}
+                className="form-control"
+                placeholder="Street"
+              />
+            </div>
+            <div className="col">
+              <input
+                type="text"
+                required
+                value={address.city}
+                onChange={(e) => {
+                  const updatedAddresses = [...addresses];
+                  updatedAddresses[index].city = e.target.value;
+                  setAddresses(updatedAddresses);
+                }}
+                className="form-control"
+                placeholder="City"
+              />
+            </div>
+            <div className="col">
+              <input
+                type="text"
+                required
+                value={address.country}
+                onChange={(e) => {
+                  const updatedAddresses = [...addresses];
+                  updatedAddresses[index].country = e.target.value;
+                  setAddresses(updatedAddresses);
+                }}
+                className="form-control"
+                placeholder="Country"
+              />
+            </div>
           </div>
-          <button className="btn btn-primary">Register</button>
-        </form>
-        {newPatient && <PatientDetails patient={newPatient} />}
-      </div>
+        ))}
+        <button type="button" className="btn btn-secondary" onClick={() => setAddresses([...addresses, { street: '', city: '', country: '' }])}>
+          Add Address
+        </button>
+  
+        <button className="btn btn-primary">Register</button>
+      </form>
+      {newPatient && <PatientDetails patient={newPatient} />}
+    </div>
   );
-
-}
+ };
 
 export default PatientRegistrationForm
