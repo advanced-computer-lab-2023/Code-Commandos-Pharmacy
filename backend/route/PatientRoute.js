@@ -7,7 +7,11 @@ const {
   getPatient, 
   createPatient, 
   deletePatient, 
-  updatePatient
+  updatePatient,
+  addPatientAddresses,
+  viewAvailableAddresses,
+  paymentMethod,
+  payWithCreditCard
 } = require('../controller/PatientController')
 
 const {
@@ -20,12 +24,23 @@ const {protect} = require('../middleware/AuthenticationHandler')
 
 router.get('/getPatients',protect,checkAdminRole, getPatients)
 
-router.get('/getPatient/:id', getPatient)
+router.get('/getPatient/:id',protect,checkAdminRole, getPatient)
 
-router.post('/createPatient', createPatient)
+router.post('/createPatient',checkPatientRole, createPatient)
 
-router.delete('/deletePatient/:id', deletePatient)
+router.delete('/deletePatient/:id',protect,checkAdminRole, deletePatient)
 
-router.patch('/updatePatient/:id', updatePatient)
+router.patch('/updatePatient/:id',protect,checkAdminRole, updatePatient)
+
+// add patient adress
+router.put('/addPatientAddresses/:name',protect,checkPatientRole, addPatientAddresses);
+
+//view addresses
+router.get('/viewAvailableAddresses/:id',protect, checkPatientRole, viewAvailableAddresses);
+
+//choose payment method
+router.post('/paymentMethod',protect, checkPatientRole, paymentMethod);
+
+router.post('/payWithCreditCard ', protect,  checkPatientRole, payWithCreditCard );
 
 module.exports = router

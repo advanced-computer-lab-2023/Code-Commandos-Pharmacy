@@ -5,6 +5,7 @@ const express = require('express');
 const stripe = require('stripe')('your_stripe_secret_key');
 const bodyParser = require('body-parser');
 
+
 // get all patients
 const getPatients = asyncHandler(async (req, res) => {
   try {
