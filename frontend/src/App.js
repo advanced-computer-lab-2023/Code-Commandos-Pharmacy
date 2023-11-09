@@ -40,11 +40,12 @@ function App() {
             <Route path="/ViewAllPharmacistRequests" element={<ViewAllPharmacistRequests/>}/>
             <Route path="/addMedicine" element={<AddMedicine/>} />
             <Route path="/editMedicine/:medicineName" element={<EditMedicine/>}/>
-            <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Login/>}/>
-            <Route path="/Home" element={<Home/>}/>
             <Route path="/editPatient/:patientName" element={<EditPatient/>}/>
             <Route path="/paymentMethod" element={<PaymentMethod/>}/>
             <Route path="/payWithCreditCard" element={<CreditCardPaymentForm/>}/>
+            <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Login/>}/>
+            <Route path="/Home" element={<Home/>}/>
+        
           </Routes>
         </div>
       </BrowserRouter>

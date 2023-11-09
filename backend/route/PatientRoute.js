@@ -1,4 +1,3 @@
-//const isAuthenticated = require('./path/to/isAuthenticatedMiddleware');
 const express = require('express')
 const router = express.Router()
 
@@ -32,15 +31,12 @@ router.delete('/deletePatient/:id',protect,checkAdminRole, deletePatient)
 
 router.patch('/updatePatient/:id',protect,checkAdminRole, updatePatient)
 
-// add patient adress
 router.put('/addPatientAddresses/:name',protect,checkPatientRole, addPatientAddresses);
 
-//view addresses
-router.get('/viewAvailableAddresses/:id',protect, checkPatientRole, viewAvailableAddresses);
+router.get('/viewAvailableAddresses/:id',protect,checkPatientRole, viewAvailableAddresses);
 
-//choose payment method
-router.post('/paymentMethod',protect, checkPatientRole, paymentMethod);
+router.post('/paymentMethod',protect,checkAdminRole, paymentMethod);
 
-router.post('/payWithCreditCard ', protect,  checkPatientRole, payWithCreditCard );
+router.post('/payWithCreditCard ',protect,checkPatientRole, payWithCreditCard );
 
 module.exports = router

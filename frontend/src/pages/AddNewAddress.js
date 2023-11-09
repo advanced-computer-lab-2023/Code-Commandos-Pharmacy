@@ -45,15 +45,7 @@ const EditPatient = () => {
       <form onSubmit={handleEdit}>
         {addresses.map((address, index) => (
           <div key={index} className="form-row row">
-            <div className="col">
-              <input
-                type="text"
-                required="true"
-                value={patientName}
-                className="form-control"
-                placeholder="Patient"
-              />
-            </div>
+            
             <div className="col">
               <input
                 type="text"
@@ -84,11 +76,14 @@ const EditPatient = () => {
                 placeholder="Country"
               />
             </div>
+            <div className="col">
+            <button type="button" className="btn btn-secondary" onClick={handleAddAddress}>
+          Add Address
+             </button>
+            </div>
           </div>
         ))}
-        <button type="button" className="btn btn-secondary" onClick={handleAddAddress}>
-          Add Address
-        </button>
+        
         <button type="submit" className="btn submit-btn">
           Submit
         </button>
