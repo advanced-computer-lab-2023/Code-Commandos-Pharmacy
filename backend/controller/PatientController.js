@@ -1,4 +1,5 @@
 const PatientModel = require('../model/Patient')
+const WalletModel = require('../model/Wallet');
 const mongoose = require('mongoose')
 const asyncHandler = require('express-async-handler')
 const express = require('express');
@@ -138,36 +139,55 @@ const viewAvailableAddresses = asyncHandler(async (req, res) => {
 //choose to pay with wallet, credit card (using Stripe) or cash on delivery
 const paymentMethod = asyncHandler(async (req, res) => {
   const { paymentMethod, amount } = req.body; // Extract payment method and amount from request body
-  try {
-    let intent;
-    
-    if (paymentMethod === 'wallet') {
-        wallet=wallet-amount;
-      res.status(200).json({ success: true, message: 'Wallet payment processed successfully' });
-    }
-     else if (paymentMethod === 'credit_card') {
+  const { username } = req.user; // Assuming you have the user object in the request after authentication
 
-      intent = await stripe.paymentIntents.create({
+  try {
+    if (paymentMethod === 'wallet') {
+      const wallet = await WalletModel.findOne({ username });
+
+      if (!wallet) {
+        return res.status(400).json({ error: 'Wallet not found' });
+      }
+
+      // Check if there's enough balance in the wallet
+      if (wallet.amount < amount) {
+        return res.status(400).json({ error: 'Insufficient funds in the wallet' });
+      }
+
+      // Decrement the amount from the wallet
+      wallet.amount -= amount;
+      await wallet.save();
+
+      return res.status(200).json({ success: true, message: 'Wallet payment processed successfully' });
+    } else if (paymentMethod === 'credit_card') {
+      // Payment processing logic for credit card using Stripe
+      const intent = await stripe.paymentIntents.create({
         amount: amount * 100, // Amount in cents
         currency: 'EGP',
       });
-    } 
-    else if (paymentMethod === 'cash_on_delivery') {
-      res.status(200).json({ success: true, message: 'Cash on delivery payment processed successfully' });
-    } 
-    else {
-      return res.status(400).json({ error: 'Invalid payment method' });
-    }
 
-    // Return the client secret to confirm the payment on the client-side
-    if (intent) {
-      res.status(200).json({ clientSecret: intent.client_secret });
+      // Return the client secret to confirm the payment on the client-side
+      return res.status(200).json({ clientSecret: intent.client_secret });
+    } else if (paymentMethod === 'cash_on_delivery') {
+      return res.status(200).json({ success: true, message: 'Cash on delivery payment processed successfully' });
+    } else {
+      return res.status(400).json({ error: 'Invalid payment method' });
     }
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Payment failed' });
   }
 });
+
+module.exports = {
+  paymentMethod
+};
+
+
+
+
+
+
 
 const payWithCreditCard = asyncHandler(async (req, res) => {
   const { amount, currency, token } = req.body;
