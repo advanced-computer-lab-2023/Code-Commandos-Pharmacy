@@ -2,32 +2,13 @@ import {useEffect, useState} from "react";
 import MedicineDetails from "../components/MedicineDetails";
 import MedicineCartDetails from "../components/MedicineCartDetails";
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 // View AvailableMedicines
 const MyCart = () => {
     const [medicines, setMedicines] = useState(null)
     const [subtotalPrice, setSubtotalPrice] = useState(0);
     const [order, setOrder] = useState('')
-
-    const handleCheckout = async () => {
-        try{
-            const response = await fetch('api/order/addOrder',{
-                method: 'POST',
-            });
-            if (response.ok){
-                const result = await response.json();
-                setOrder(result)
-            }
-            else {
-                const errorMessage = await response.text();
-                alert(errorMessage)
-                throw new Error(errorMessage)
-            }
-        }
-        catch (error){
-            alert(error.message)
-        }
-    };
 
     useEffect(() => {
         const fetchMedicines = async () => {
@@ -61,6 +42,37 @@ const MyCart = () => {
 
         calculateSubtotalPrice();
     }, [medicines]);
+
+    const handleSetTotalPrice = async () => {
+        try {
+            const response = await axios.post('/api/orders/setTotalPrice', { subtotal: subtotalPrice });
+
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    const handleCheckout = async () => {
+        handleSetTotalPrice();
+        try{
+            const response = await fetch('api/order/addOrder',{
+                method: 'POST',
+            });
+            if (response.ok){
+                const result = await response.json();
+                setOrder(result)
+            }
+            else {
+                const errorMessage = await response.text();
+                alert(errorMessage)
+                throw new Error(errorMessage)
+            }
+        }
+        catch (error){
+            alert(error.message)
+        }
+    };
+
     return (
         <div className="container-order">
             <div className="col-7">

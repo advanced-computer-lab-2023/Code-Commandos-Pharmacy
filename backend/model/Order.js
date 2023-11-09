@@ -27,7 +27,10 @@ const OrderSchema = new Schema({
     },
     justAddedOrder: {
         type: Boolean,
-        default:false,
+        default: false,
+    },
+    totalPrice: {
+        type: Number
     }
 })
 

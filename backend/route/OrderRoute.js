@@ -9,7 +9,7 @@ const {
     cashPayment,
     confirmOrder,
     displayConfirmedOrders,
-    viewOrderDetails
+    viewOrderDetails, setTotalPrice
 } = require('../controller/OrderController')
 
 const router = express.Router()
@@ -37,6 +37,9 @@ router.get('/displayConfirmedOrders', displayConfirmedOrders)
 
 // View Order Details
 router.get('/getOrderDetails', viewOrderDetails)
+
+// Set Total Price
+router.put('setTotalPrice/:subtotal', setTotalPrice)
 
 module.exports = router
 

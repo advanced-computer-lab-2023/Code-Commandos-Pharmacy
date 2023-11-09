@@ -118,6 +118,25 @@ const viewOrderDetails = asyncHandler(async (req, res) => {
     }
 });
 
+// Set Total Price of those justAddedOrder to be subtotal + 50
+const setTotalPrice = asyncHandler(async (req, res) => {
+    try {
+        const { subtotal } = req.params;
+        const orders = await Order.find({ justAddedOrder: true });
+
+        for (const order of orders) {
+            order.totalPrice = parseInt(subtotal) + 50;
+            await order.save();
+        }
+        res.status(200).json({ message: "Total price updated for eligible orders" });
+    } catch (error) {
+        res.status(400);
+        throw new Error(error.message);
+    }
+});
+
+
+
 module.exports = {
     viewMyOrders,
     addOrder,
@@ -126,5 +145,6 @@ module.exports = {
     cashPayment,
     confirmOrder,
     displayConfirmedOrders,
-    viewOrderDetails
+    viewOrderDetails,
+    setTotalPrice
 }
