@@ -14,6 +14,9 @@ import AddMedicine from "./pages/AddMedicine";
 import EditMedicine from "./pages/EditMedicine";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import EnterEmailReset from "./components/EnterEmailReset";
+import ResetPassword from "./components/ResetPassword";
+import ChangePassword from "./pages/ChangePassword";
 
 function App() {
 
@@ -37,6 +40,9 @@ function App() {
             <Route path="/ViewAllPharmacistRequests" element={<ViewAllPharmacistRequests/>}/>
             <Route path="/addMedicine" element={<AddMedicine/>} />
             <Route path="/editMedicine/:medicineName" element={<EditMedicine/>}/>
+            <Route path="/EnterEmailReset"  element={<EnterEmailReset/>}/>
+            <Route path="/ResetPassword"  element={<ResetPassword/>}/>
+            <Route path="/ChangePassword"  element={<ChangePassword/>}/>
             <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Login/>}/>
             <Route path="/Home" element={<Home/>}/>
           </Routes>
