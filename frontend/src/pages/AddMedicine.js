@@ -13,11 +13,15 @@ const AddMedicine = () => {
     const [sideEffects, setSideEffects] = useState('')
     const [expiryDate, setExpiryDate] = useState('')
     const [medicinalUse, setMedicinalUse] = useState('')
-    const [image, setImage] = useState('')
     const [sales, setSales] = useState('')
-    const [addedToCart, setAddedToCart] = useState('')
     const [amount, setAmount] = useState('')
+    const [imageUpload, setImageUpload] = useState(null)
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        setImageUpload(file);
+        console.log(file.name)
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -33,11 +37,25 @@ const AddMedicine = () => {
             sideEffects,
             expiryDate,
             medicinalUse,
-            image,
             sales,
-            addedToCart,
-            amount
+            amount,
+            imageUpload
         }
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('description', description);
+        formData.append('details', details);
+        formData.append('price', price);
+        formData.append('quantity', quantity);
+        formData.append('manufacturer', manufacturer);
+        formData.append('ingredients', ingredients);
+        formData.append('sideEffects', sideEffects);
+        formData.append('expiryDate', expiryDate);
+        formData.append('medicinalUse', medicinalUse);
+        formData.append('sales', sales);
+        formData.append('amount', amount);
+        formData.append('imageUpload', imageUpload);
+
         try {
             console.log(medicine)
             const response = await fetch('/api/medicine/addMedicine', {
@@ -63,10 +81,9 @@ const AddMedicine = () => {
                 setSideEffects('')
                 setExpiryDate('')
                 setMedicinalUse('')
-                setImage('')
                 setSales('')
-                setAddedToCart('')
                 setAmount('')
+                setImageUpload(null)
                 alert("Added successfully ")
             }
         }
@@ -82,7 +99,7 @@ const AddMedicine = () => {
         <body>
         <div className="container container-form">
             <h2 className="title-form">Add Medicine</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <div className="form-row row">
                     <div className="col">
                         <input type="text" onChange={(e) => setName(e.target.value)} value={name}
@@ -127,8 +144,14 @@ const AddMedicine = () => {
                 </div>
                 <div className="form-row row mt-4">
                     <div className="col">
-                        <input type="text" onChange={(e) => setImage(e.target.value)} value={image}
-                               className="form-control" placeholder="Image"/>
+                        <input
+                            type="file"
+                            name="imageUpload"
+                            onChange={handleImageChange}
+                            className="form-control"
+                            accept="image/*"
+                            placeholder="Image"
+                        />
                     </div>
                     <div className="col">
                         <select

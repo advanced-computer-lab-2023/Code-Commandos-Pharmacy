@@ -7,6 +7,7 @@ const multer = require('multer')
 const addOrUpdateMedicine = asyncHandler(async (req, res) => {
     // If the medicine is already in stock, update its quantity
     const medicineBody = req.body;
+    console.log(medicineBody)
     let med;
     try {
         med = await Medicine.findOne({ name: medicineBody.name });

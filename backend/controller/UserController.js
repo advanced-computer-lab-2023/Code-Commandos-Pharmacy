@@ -5,7 +5,10 @@ const User = require('../model/User')
 const Patient = require('../model/Patient')
 const Pharmacist = require('../model/Pharmacist')
 const Admin = require('../model/Admin')
-
+const otpGenerator = require('otp-generator');
+const nodemailer = require('nodemailer');
+const Mailgen =  require('mailgen');
+const dotenv = require("dotenv").config();
 
 const register = asyncHandler(async (req,res) => {
     const {username,password} = req.body
@@ -54,11 +57,11 @@ const login = asyncHandler(async (req,res) => {
         console.log(token)
         res.cookie('token', token, {
             maxAge: 3600000,
-            httpOnly: false,
-            path: '/'
+            httpOnly: true,
         });
 
         res.status(200).json({
+            id:id,
             username: user.username,
             role: user.role,
             token: token
@@ -71,21 +74,15 @@ const login = asyncHandler(async (req,res) => {
     }
 })
 
-const logout = asyncHandler(async (req, res) => {
-    console.log("inside logout method")
+const logout = async (req, res) => {
     try {
-        res.cookie('token', '', {
-            maxAge: 0,
-            httpOnly: false,
-        });
-        const token = req.cookies.token
-        console.log("token from backend ",token)
-        res.status(200);
+        res.clearCookie('token');
+        res.status(200).json("Successfully logged out ");
     }
     catch (error){
-        throw new Error(error)
+        throw new Error(error.message)
     }
-});
+};
 
 const getLoggedInUser = asyncHandler( async (req,res) => {
     res.status(200).json(req.user)
@@ -158,20 +155,25 @@ const verifyOTP =  asyncHandler(async (req,res,next) => {
 
 const resetPassword = asyncHandler(async (req,res) => {
     const {username,newPassword} = req.body
+    if (newPassword.search(/[a-z]/) < 0 || newPassword.search(/[A-Z]/) < 0 || newPassword.search(/[0-9]/) < 0) {
+        res.status(400)
+        throw new Error("Password must contain at least one number, one capital letter and one small letter")
+    }
     const patient = await Patient.findOneAndUpdate({username},{password:newPassword})
     const pharmacist = await Pharmacist.findOneAndUpdate({username},{password:newPassword})
     const admin = await Admin.findOneAndUpdate({username},{password:newPassword})
 
     if (!patient && !pharmacist && !admin){
+        res.status(404)
         throw new Error("No user found")
     }
     else {
         await User.findOneAndUpdate({username},{password:newPassword})
     }
-    res.status(200).json({message: "Your password has been reset"})
+    res.status(200).json("Your password has been reset")
 })
 
-const changePassword = asyncHandler(async (req,res) => {
+const changePassword = async (req,res) => {
     const username = req.user.username
     const role = req.user.role
     const {currentPassword,newPassword,confirmPassword} = req.body
@@ -180,20 +182,16 @@ const changePassword = asyncHandler(async (req,res) => {
         currentComparedPassword = await User.findOne({username}).select('password')
     }
     catch (error){
-        res.status(400)
-        throw new Error(error.message)
+        return res.status(400).json({error:error.message})
     }
     if(currentPassword != currentComparedPassword.password){
-        res.status(401)
-        throw new Error("Your current password is incorrect!")
+        return res.status(401).json({ error: "Your current password is incorrect!" });
     }
     if (newPassword.search(/[a-z]/) < 0 || newPassword.search(/[A-Z]/) < 0 || newPassword.search(/[0-9]/) < 0) {
-        res.status(400)
-        throw new Error("Password must contain at least one number, one capital letter and one small letter")
+        return res.status(400).json({error: "Password must contain at least one number, one capital letter and one small letter"})
     }
     if(newPassword != confirmPassword){
-        res.status(400)
-        throw new Error("Password confirmation incorrect")
+        return res.status(400).json({ error: "Password confirmation incorrect" });
     }
     try {
         await User.findOneAndUpdate({username},{password:newPassword})
@@ -206,14 +204,13 @@ const changePassword = asyncHandler(async (req,res) => {
         if(role == "ADMIN"){
             await Admin.findOneAndUpdate({username},{password:newPassword})
         }
-        return res.status(200).json({message: "Password changed successfully we recommend closing the browser!"})
+        res.clearCookie('token')
+        return res.status(200).json("Password changed successfully we recommend closing the browser!")
     }
     catch (error){
-        res.status(400)
-        throw new Error(error.message)
+        return res.status(400).json({error:error.message})
     }
-})
-
+}
 module.exports = {
     register,
     login,
