@@ -65,14 +65,6 @@ const MedicineSchema = new Schema({
             type: String,
             required: true
         },
-        addedToCart: {
-            type: Boolean,
-            default: false
-        },
-        amount: {
-            type: Number,
-            default: 1
-        },
         //the below attributes should be updated automatically when purchasing a medicine from the pharmacy
         customerReviews: {
             type: String,

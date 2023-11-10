@@ -23,7 +23,6 @@ const {
     viewQuantityAndSales,
     filterMedicines,
     deleteMedicine,
-    setAddedToCart,
     viewMedicineInCart,
     updateAmount,
     removeMedicineFromCart
@@ -51,9 +50,6 @@ router.get('/filterMedicines/:medicinalUse', filterMedicines)
 
 //Delete Medicine
 router.delete('/delete/:name' , deleteMedicine )
-
-// Set addedToCart to true
-router.put('/setAddedToCart/:name',setAddedToCart)
 
 // View Medicines in Cart
 router.get('/viewMedicineCart', viewMedicineInCart)

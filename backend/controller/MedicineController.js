@@ -36,7 +36,6 @@ const addOrUpdateMedicine = asyncHandler(async (req, res) => {
                 customerReviews,
                 customerRatings,
                 sales,
-                addedToCart,
                 amount
             } = req.body;
             const { file } = req;
@@ -56,7 +55,6 @@ const addOrUpdateMedicine = asyncHandler(async (req, res) => {
                 customerReviews,
                 customerRatings,
                 sales,
-                addedToCart,
                 amount,
                 imageUpload: file.path || null,
             });
@@ -167,19 +165,6 @@ const deleteMedicine = asyncHandler((async (req, res) => {
     res.json({message: 'Medicine deleted successfully'});
 }))
 
-// Set addedToCart to true
-const setAddedToCart = asyncHandler((async (req,res)=>{
-    const {name} = req.params;
-    const medicine = await Medicine.findOne({ name });
-    if (!medicine) {
-        return res.status(404).json({message: 'Medicine not found'});
-    }
-    else{
-        medicine.addedToCart = true;
-        await medicine.save();
-        res.status(200).json(medicine)
-    }
-}))
 
 // View Medicine whose addedToCart is True
 const viewMedicineInCart = asyncHandler((async (req,res)=>{
@@ -213,7 +198,6 @@ module.exports = {
     viewQuantityAndSales,
     filterMedicines,
     deleteMedicine,
-    setAddedToCart,
     viewMedicineInCart,
     updateAmount,
     removeMedicineFromCart

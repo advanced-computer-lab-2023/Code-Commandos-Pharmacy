@@ -6,8 +6,8 @@ import {Link} from "react-router-dom";
 const MedicineDetails = ({medicine}) => {
     const handleAddToCart = async () => {
         try {
-            const response = await fetch(`/api/medicine/setAddedToCart/${medicine.name}`, {
-                method: 'PUT',
+            const response = await fetch(`/api/cart/addToCart/${medicine._id}`, {
+                method: 'POST',
             });
             if (!response.ok) {
                 throw new Error('Error adding to cart');
@@ -28,8 +28,8 @@ const MedicineDetails = ({medicine}) => {
                         <img className="edit-logo" src={require(`../images/edit.png`)} alt="Edit"/>
                     </Link>
                 <br/>
-                    <Link to={`/setAddedToCart/${medicine.name}`}>
-                        <img className="edit-addToCart" onClick={handleAddToCart} src={require(`../images/addToCart.png`)} alt="Cart"/>
+                    <Link to={handleAddToCart()}>
+                        <img className="edit-addToCart" src={require(`../images/addToCart.png`)} alt="Cart"/>
                     </Link>
                 </div>
             </div>

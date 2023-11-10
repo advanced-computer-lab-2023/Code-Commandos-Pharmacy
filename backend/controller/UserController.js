@@ -2,6 +2,10 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../model/User')
+const Patient = require('../model/Patient')
+const Pharmacist = require('../model/Pharmacist')
+const Admin = require('../model/Admin')
+
 
 const register = asyncHandler(async (req,res) => {
     const {username,password} = req.body
@@ -38,9 +42,9 @@ const login = asyncHandler(async (req,res) => {
             const patient = await Patient.findOne({username}).select('_id')
             id = patient._id
         }
-        else if(user.role == 'DOCTOR'){
-            const doctor = await Doctor.findOne({username}).select('_id')
-            id = doctor._id
+        else if(user.role == 'PHARMACIST'){
+            const pharmacist = await Pharmacist.findOne({username}).select('_id')
+            id = pharmacist._id
         }
         else if(user.role == 'ADMIN'){
             const admin = await Admin.findOne({username}).select('_id')
@@ -155,10 +159,10 @@ const verifyOTP =  asyncHandler(async (req,res,next) => {
 const resetPassword = asyncHandler(async (req,res) => {
     const {username,newPassword} = req.body
     const patient = await Patient.findOneAndUpdate({username},{password:newPassword})
-    const doctor = await Doctor.findOneAndUpdate({username},{password:newPassword})
+    const pharmacist = await Pharmacist.findOneAndUpdate({username},{password:newPassword})
     const admin = await Admin.findOneAndUpdate({username},{password:newPassword})
 
-    if (!patient && !doctor && !admin){
+    if (!patient && !pharmacist && !admin){
         throw new Error("No user found")
     }
     else {
@@ -196,8 +200,8 @@ const changePassword = asyncHandler(async (req,res) => {
         if(role == "PATIENT"){
             await Patient.findOneAndUpdate({username},{password:newPassword})
         }
-        if(role == "DOCTOR"){
-            await Doctor.findOneAndUpdate({username},{password:newPassword})
+        if(role == "PHARMACIST"){
+            await Pharmacist.findOneAndUpdate({username},{password:newPassword})
         }
         if(role == "ADMIN"){
             await Admin.findOneAndUpdate({username},{password:newPassword})
