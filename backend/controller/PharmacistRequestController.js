@@ -1,10 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
 const PharmacistRequestModel = require("../model/PharmacistRequest");
-const multer = require('multer'); // Import multer for file uploads
-
-// Configure multer for file uploads
-const upload = multer({ dest: 'uploads/' }); // Set the destination folder for uploaded files
 
 
 //Task 7 view data uploaded by a pharmacist
