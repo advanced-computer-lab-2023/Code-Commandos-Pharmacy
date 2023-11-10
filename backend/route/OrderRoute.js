@@ -11,8 +11,17 @@ const {
     displayConfirmedOrders,
     viewOrderDetails,
     setTotalPrice,
-    cancelOrder
+    cancelOrder,
+    payForOrder,
+    choosePayment
 } = require('../controller/OrderController')
+const {
+    checkPatientRole,
+    checkDoctorRole,
+    checkAdminRole
+  } = require('../middleware/AccessHandler')
+  
+  const {protect} = require('../middleware/AuthenticationHandler')
 
 const router = express.Router()
 
@@ -45,6 +54,11 @@ router.put('setTotalPrice/:subtotal', setTotalPrice)
 
 // Delete Order by Id
 router.delete('/cancelOrder/:id', cancelOrder)
+
+//choose payment
+router.get('/payForOrder/:orderId/:paymentOption', protect, checkPatientRole, payForOrder)
+
+router.post('/choosePayment/:sessionID', protect, checkPatientRole,choosePayment)
 
 module.exports = router
 

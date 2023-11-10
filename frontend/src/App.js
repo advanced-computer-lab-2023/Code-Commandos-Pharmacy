@@ -18,10 +18,9 @@ import Home from "./pages/Home";
 import EditPatient from "./pages/AddNewAddress";
 import PaymentMethod from "./pages/PaymentMethod";
 import CreditCardPaymentForm from "./pages/payWithCreditCard";
-import ViewMyWallet from "./pages/ViewMyWallet";
-//import Payment from "./pages/Payment";
 import PaymentCancel from "./pages/PaymentCancel"
 import PaymentSuccess from "./pages/PaymentSuccess"
+import ChoosePayment from "./pages/ChoosePayment";
 import EditMedicineAmountInCart from "./pages/EditMedicineAmountInCart";
 import PlaceOrder from "./pages/PlaceOrder";
 import DisplayOrderInfo from "./pages/DisplayOrderInfo";
@@ -51,11 +50,13 @@ function App() {
             <Route path="/editPatient/:patientName" element={<EditPatient/>}/>
             <Route path="/paymentMethod" element={<PaymentMethod/>}/>
             <Route path="/payWithCreditCard" element={<CreditCardPaymentForm/>}/>
-            <Route path="/ViewMyWallet" element={<ViewMyWallet/>}/>
             <Route path="/editAmount/:medicineName" element={<EditMedicineAmountInCart/>}/>
             <Route path="/addMedicineToCart/:medicineName" element={<AddToCart/>}/>
             <Route path="/myCart" element={<MyCart/>}/>
             <Route path="/placeOrder" element={<PlaceOrder/>}/>
+            <Route path="/choosePayment" element={<ChoosePayment/>}/>
+            <Route path="/paymentSuccess" element={<PaymentSuccess/>}/>
+            <Route path="/paymentCancel" element={<PaymentCancel/>}/>
             <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Login/>}/>
             <Route path="/Home" element={<Home/>}/>
             <Route path="/myOrders" element={<DisplayOrderInfo/>}/>

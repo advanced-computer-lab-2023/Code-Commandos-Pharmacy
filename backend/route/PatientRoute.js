@@ -9,8 +9,7 @@ const {
   updatePatient,
   addPatientAddresses,
   viewAvailableAddresses,
-  paymentMethod,
-  payWithCreditCard
+  
 } = require('../controller/PatientController')
 
 const {
@@ -35,8 +34,7 @@ router.put('/addPatientAddresses/:name',protect,checkPatientRole, addPatientAddr
 
 router.get('/viewAvailableAddresses/:id',protect,checkPatientRole, viewAvailableAddresses);
 
-router.post('/paymentMethod',protect,checkAdminRole, paymentMethod);
 
-router.get('/payWithCreditCard', payWithCreditCard );
+
 
 module.exports = router

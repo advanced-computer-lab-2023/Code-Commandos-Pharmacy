@@ -1,7 +1,10 @@
+
 const Order = require('../model/Order')
 const mongoose = require('mongoose')
 const asyncHandler = require('express-async-handler')
 const Medicine = require("../model/Medicine");
+const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+
 
 // View My Orders
 const viewMyOrders = asyncHandler(async (req, res) => {
@@ -37,6 +40,10 @@ const deleteOrder = asyncHandler((async (req, res) => {
 }))
 
 // Set Payment to be Credit Card only if justAddedOrder is true
+
+
+//choose to pay with wallet, or credit card (using Stripe)
+
 const cardPayment = asyncHandler(async (req, res) => {
     try {
         const orders = await Order.find({justAddedOrder: true});
@@ -151,7 +158,88 @@ const cancelOrder = asyncHandler(async (req,res)=>{
     }
 })
 
+const payForOrder = asyncHandler(async (req, res) => {
+    const { id } = req.user;
+    const { orderId, paymentOption } = req.params; // Extract payment method and amount from request body
+    try {
+      const patient = await PatientModel.findById(id)
+      //const healthPackage = await HealthPackageModel.findOne({_id:packageID})
+      const order = await OrderModel.findOne({_id:orderId})
+      if(!order){
+        throw new Error("invalid order")
+      }
+      //const amount = await healthPackage.yearlySubscription
+      if (paymentOption === 'wallet') {
+        if(patient.wallet < amount){
+          res.status(400)
+          throw new Error("Wallet balance insufficient.")
+        } else {
+          const newWallet = patient.wallet - amount;
+          PatientModel.findOneAndUpdate({_id:id},{wallet:newWallet})
+          OrderModel.findOneAndUpdate({_id:id},{status:"paid"})
+          nagivate('/paymentSuccess')
+          res.status(200).json({ success: true, message: 'Wallet payment processed successfully.' });
+        }
+      }
+      else if (paymentOption === 'credit_card') {
+        const session = await stripe.checkout.sessions.create({
+          billing_address_collection: 'auto',
+          line_items: [
+            {
+              price_data: {
+                product_data:{
+                  //name: healthPackage.packageName + ' Health Package',
+                  id: order.id + ' Order',
+                },
+                unit_amount: amount*100,
+                currency: 'egp',
+              },
+              quantity: 1,
+            },
+          ],
+          mode: 'payment', //change to 'payment' if not a subscription
+          
+          success_url: `http://localhost:3000/paymentSuccess?sessionID={CHECKOUT_SESSION_ID}`,
+          cancel_url: 'http://localhost:3000/paymentCancel',
+          metadata: {
+            'patientID': req.user.id.toString(),
+            'orderID': packageID.toString()
+          }
+        });
+        res.status(200).json(session)
+      }
+      else {
+        return res.status(400).json({ error: 'Invalid payment method' });
+   }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: error.message });
+    }
+  });
 
+  const choosePayment= asyncHandler(async (req, res) => {
+    const { sessionID } = req.params
+    const session = await stripe.checkout.sessions.retrieve(
+      sessionID,
+      {
+        expand: ['line_items'],
+      }
+    );
+    console.log(await session)
+    console.log(await session.payment_status)
+    const patientID = session.metadata.patientID
+    const orderID = session.metadata.packageID
+   
+    try{
+     const patient= await PatientModel.create({patientID:patientID},)
+        const order = await OrderModel.findOneAndUpdate({_id:orderID},{status:"Paid"})
+        res.status(200).json(order)
+      
+    }
+    catch (error) {
+      res.status(400).json(error.message)
+    }
+  })
 
 module.exports = {
     viewMyOrders,
@@ -163,5 +251,7 @@ module.exports = {
     displayConfirmedOrders,
     viewOrderDetails,
     setTotalPrice,
-    cancelOrder
+    cancelOrder,
+    payForOrder,
+    choosePayment
 }

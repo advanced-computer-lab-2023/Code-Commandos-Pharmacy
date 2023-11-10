@@ -5,7 +5,6 @@ const connectDB = require("./configuration/Db")
 const {ErrorHandler} = require('./middleware/ErrorHandler')
 const port = process.env.PORT
 const cookieParser = require('cookie-parser');
-const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY)
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 server.use(cookieParser());

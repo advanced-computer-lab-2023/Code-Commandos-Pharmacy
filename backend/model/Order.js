@@ -19,7 +19,7 @@ const OrderSchema = new Schema({
     },
     paymentOption: {
         type: String,
-        enum: ['CreditCard', 'CashOnDelivery']
+        enum: ['CreditCard', 'CashOnDelivery', 'Wallet']
     },
     toBeDisplayed: {
         type: Boolean,
