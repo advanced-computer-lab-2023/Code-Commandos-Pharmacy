@@ -25,6 +25,7 @@ import EditMedicineAmountInCart from "./pages/EditMedicineAmountInCart";
 import PlaceOrder from "./pages/PlaceOrder";
 import DisplayOrderInfo from "./pages/DisplayOrderInfo";
 
+
 function App() {
 
   const logged = window.localStorage.getItem("logged");
@@ -47,7 +48,7 @@ function App() {
             <Route path="/ViewAllPharmacistRequests" element={<ViewAllPharmacistRequests/>}/>
             <Route path="/addMedicine" element={<AddMedicine/>} />
             <Route path="/editMedicine/:medicineName" element={<EditMedicine/>}/>
-            <Route path="/editPatient/:patientName" element={<EditPatient/>}/>
+            <Route path="/editPatient/" element={<EditPatient/>}/>
             <Route path="/paymentMethod" element={<PaymentMethod/>}/>
             <Route path="/payWithCreditCard" element={<CreditCardPaymentForm/>}/>
             <Route path="/editAmount/:medicineName" element={<EditMedicineAmountInCart/>}/>
@@ -57,8 +58,8 @@ function App() {
             <Route path="/choosePayment" element={<ChoosePayment/>}/>
             <Route path="/paymentSuccess" element={<PaymentSuccess/>}/>
             <Route path="/paymentCancel" element={<PaymentCancel/>}/>
-            <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Login/>}/>
-            <Route path="/Home" element={<Home/>}/>
+            <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Navigate to="/Login" replace /> }/>
+            {/*<Route path="/Home" element={<Home/>}/>*/}
             <Route path="/myOrders" element={<DisplayOrderInfo/>}/>
           </Routes>
         </div>

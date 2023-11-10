@@ -5,13 +5,15 @@ const PaymentSuccess = () => {
         const subscribe = async () => {
             const urlParams = new URLSearchParams(window.location.search);
             const sessionID = urlParams.get('sessionID');
-            const response = await fetch(`http://localhost:3000/api/order/payForOrder${sessionID}/CreditCard`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            console.log(await response.json())
+            if(sessionID){
+                const response = await fetch(`http://localhost:3000/api/order/completeCreditPayment/${sessionID}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                console.log(await response.json())
+            }
         }
 
         subscribe()

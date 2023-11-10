@@ -3,8 +3,9 @@ const Order = require('../model/Order')
 const mongoose = require('mongoose')
 const asyncHandler = require('express-async-handler')
 const Medicine = require("../model/Medicine");
+const PatientModel = require("../model/Patient")
+const OrderModel = require("../model/Order")
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
-
 
 // View My Orders
 const viewMyOrders = asyncHandler(async (req, res) => {
@@ -20,7 +21,7 @@ const viewMyOrders = asyncHandler(async (req, res) => {
 const addOrder = asyncHandler(async (req, res) => {
     const orderBody = req.body
     try {
-        const order = await Order.create({...orderBody, justAddedOrder: true});
+        const order = await Order.create(orderBody);
         res.status(200).json(order)
     } catch (error) {
         res.status(400)
@@ -84,14 +85,17 @@ const cashPayment = asyncHandler(async (req, res) => {
 // When i Place order, toBeDisplayed is set to true, and justAddedOrder is set to false
 // (to orders that  justAddedOrder is true)
 const confirmOrder = asyncHandler(async (req, res) => {
+    const { orderID, paymentOption, address } = req.params
     try {
-        const orders = await Order.find({justAddedOrder: true})
+        const orders = await Order.find({_id: orderID})
         if (!orders) {
             return res.status(404).json({message: "No orders found"});
         }
         for (const order of orders) {
             order.toBeDisplayed = true;
             order.justAddedOrder = false;
+            order.paymentOption = paymentOption;
+            order.selectedAddress = address;
             await order.save();
         }
         res.status(200).json({message: "Order Confirmed"});
@@ -160,28 +164,28 @@ const cancelOrder = asyncHandler(async (req,res)=>{
 
 const payForOrder = asyncHandler(async (req, res) => {
     const { id } = req.user;
-    const { orderId, paymentOption } = req.params; // Extract payment method and amount from request body
+    const { orderID, paymentOption } = req.params; // Extract payment method and amount from request body
     try {
       const patient = await PatientModel.findById(id)
       //const healthPackage = await HealthPackageModel.findOne({_id:packageID})
-      const order = await OrderModel.findOne({_id:orderId})
+      const order = await OrderModel.findOne({_id:orderID})
+      const amount = order.totalPrice
       if(!order){
         throw new Error("invalid order")
       }
       //const amount = await healthPackage.yearlySubscription
-      if (paymentOption === 'wallet') {
+      if (paymentOption === 'Wallet') {
         if(patient.wallet < amount){
           res.status(400)
           throw new Error("Wallet balance insufficient.")
         } else {
           const newWallet = patient.wallet - amount;
-          PatientModel.findOneAndUpdate({_id:id},{wallet:newWallet})
-          OrderModel.findOneAndUpdate({_id:id},{status:"paid"})
-          nagivate('/paymentSuccess')
-          res.status(200).json({ success: true, message: 'Wallet payment processed successfully.' });
+          const newPatient = await PatientModel.findOneAndUpdate({_id:id},{wallet:newWallet})
+          const newOrder = await OrderModel.findOneAndUpdate({_id:orderID},{status:"Paid"})
+          res.status(200).json(newOrder);
         }
       }
-      else if (paymentOption === 'credit_card') {
+      else if (paymentOption === 'CreditCard') {
         const session = await stripe.checkout.sessions.create({
           billing_address_collection: 'auto',
           line_items: [
@@ -189,7 +193,7 @@ const payForOrder = asyncHandler(async (req, res) => {
               price_data: {
                 product_data:{
                   //name: healthPackage.packageName + ' Health Package',
-                  id: order.id + ' Order',
+                  name: order.id + ' Order',
                 },
                 unit_amount: amount*100,
                 currency: 'egp',
@@ -203,19 +207,42 @@ const payForOrder = asyncHandler(async (req, res) => {
           cancel_url: 'http://localhost:3000/paymentCancel',
           metadata: {
             'patientID': req.user.id.toString(),
-            'orderID': packageID.toString()
+            'orderID': orderID.toString()
           }
         });
         res.status(200).json(session)
       }
+      else if (paymentOption === 'CashOnDelivery') {
+        const order = await OrderModel.findOneAndUpdate({_id:orderID},{status:"WaitingOnDelivery"})
+        res.status(200).json(order);
+        
+      } 
       else {
         return res.status(400).json({ error: 'Invalid payment method' });
-   }
+      }
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: error.message });
     }
   });
+
+  const completeCreditPayment = asyncHandler(async (req, res) => {
+    const { sessionID } = req.params
+    const session = await stripe.checkout.sessions.retrieve(
+        sessionID,
+        {
+          expand: ['line_items'],
+        }
+    );
+    if(session.payment_status==="paid"){
+        const orderID = session.metadata.orderID
+        const order = await OrderModel.findOneAndUpdate({_id:orderID},{status:"Paid"})
+        res.status(200).json(order)
+    } else {
+        res.status(400)
+        throw new Error('Payment unsuccessful')
+    }
+  })
 
   const choosePayment= asyncHandler(async (req, res) => {
     const { sessionID } = req.params
@@ -253,5 +280,6 @@ module.exports = {
     setTotalPrice,
     cancelOrder,
     payForOrder,
-    choosePayment
+    choosePayment,
+    completeCreditPayment
 }

@@ -2,6 +2,9 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../model/User')
+const Patient = require('../model/Patient')
+const Pharmacist = require('../model/Pharmacist')
+const Admin = require('../model/Admin')
 
 const register = asyncHandler(async (req,res) => {
     const {username,password} = req.body
@@ -38,8 +41,8 @@ const login = asyncHandler(async (req,res) => {
             const patient = await Patient.findOne({username}).select('_id')
             id = patient._id
         }
-        else if(user.role == 'DOCTOR'){
-            const doctor = await Doctor.findOne({username}).select('_id')
+        else if(user.role == 'PHARMACIST'){
+            const doctor = await Pharmacist.findOne({username}).select('_id')
             id = doctor._id
         }
         else if(user.role == 'ADMIN'){

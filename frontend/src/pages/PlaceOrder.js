@@ -7,7 +7,7 @@ const PlaceOrder = () => {
     const [walletPayment, setWalletPayment] = useState('')
     const [order, setOrder] = useState('')
     const [addresses, setAddresses] = useState([]);
-    const [selectedAddress, setSelectedAddress] = useState('');
+    const [selectedAddress, setSelectedAddress] = useState(null);
     const [selectedOrder, setSelectedOrder] = useState(null)
     const [paymentOption, setPaymentOption] = useState(null)
     const navigate = useNavigate()
@@ -16,15 +16,13 @@ const PlaceOrder = () => {
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         // const familyMember = urlParams.get('familyMember');
-         const order = urlParams.get('order')
-         setSelectedOrder(order)
-         const paymentOption = urlParams.get('paymentOption')
-         setPaymentOption(paymentOption)
-
+        const order = urlParams.get('order')
+        setSelectedOrder(order)
+        
         // Fetch addresses when the component mounts
         const fetchAddresses = async () => {
           try {
-            const response = await fetch('/api/patient/viewAvailableAddresses/:patientId');
+            const response = await fetch('/api/patient/viewAvailableAddresses');
             if (response.ok) {
               const data = await response.json();
               setAddresses(data.newaddresses);
@@ -40,15 +38,30 @@ const PlaceOrder = () => {
     }, []); // Empty dependency array ensures the effect runs once after the initial render
   
     const handleAddressChange = (selectedAddress) => {
-      setSelectedAddress(selectedAddress);
+      setSelectedAddress(selectedAddress.street+" "+selectedAddress.city+" "+selectedAddress.country);
     };
 
 
     //handle credit card
     const handleSubmit = async () => {
-        const response = await fetch(`http://localhost:3000/api/order/payForOrder/${selectedOrder}/${paymentOption}`)
-        const session = await response.json()
-        window.location.href = session.url
+        const response = await fetch(`http://localhost:3000/api/order/payForOrder/${selectedOrder}/CreditCard`)
+        
+        if(response.ok){
+            const session = await response.json()
+            window.location.href = session.url
+        }
+    }
+    const handleCashOnDeliveryPayment = async () => {
+        const response = await fetch(`http://localhost:3000/api/order/payForOrder/${selectedOrder}/CashOnDelivery`)
+        if (response.ok) {
+            const result = await response.json();
+            alert("Order successfully placed.");
+            navigate('/paymentSuccess')
+        } else {
+            const errorMessage = await response.text();
+            alert(errorMessage);
+            throw new Error(errorMessage);
+        }
     }
     const handleWalletPayment = async () => {
         try {
@@ -58,9 +71,9 @@ const PlaceOrder = () => {
     
             if (response.ok) {
                 const result = await response.json();
-                setWalletPayment(result);
-                alert("Wallet Payment added");
-                
+                //setWalletPayment(result);
+                alert("Order successfully placed.");
+                navigate('/paymentSuccess')
             } else {
                 const errorMessage = await response.text();
                 alert(errorMessage);
@@ -96,7 +109,7 @@ const PlaceOrder = () => {
     
 
    
-    const handleCashPayment = async (orderId) => {
+    /*const handleCashPayment = async (orderId) => {
         try{
             const response = await fetch('api/order/setCashPayment',{
                 method: 'PUT',
@@ -117,17 +130,17 @@ const PlaceOrder = () => {
         }
         let url = "/paymentSuccess"
         navigate(url)
-    };
+    };*/
 
     const handleConfirmOrder = async () => {
         try{
-            const response = await fetch('api/order/confirmOrder',{
+            const response = await fetch(`api/order/confirmOrder/${selectedOrder}/${paymentOption}/${selectedAddress}`,{
                 method: 'PUT',
             });
             if (response.ok){
                 const result = await response.json();
                 setOrder(result)
-                alert("Order Confirmed")
+                //alert("Order Confirmed")
             }
             else {
                 const errorMessage = await response.text();
@@ -138,6 +151,12 @@ const PlaceOrder = () => {
         catch (error){
             alert(error.message)
         }
+        if(paymentOption==="CreditCard")
+            handleSubmit()
+        else if(paymentOption==="Wallet")
+            handleWalletPayment()
+        else
+            handleCashOnDeliveryPayment()
     };
 
     return (
@@ -151,14 +170,15 @@ const PlaceOrder = () => {
           </button>
           <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
             {addresses.map((address, index) => (
-              <a key={index} className="dropdown-item" href="#" onClick={() => handleAddressChange(address)}>
+              <a key={index} className="dropdown-item" onClick={() => handleAddressChange(address)}>
                 {address.street}, {address.city}, {address.country}
               </a>
             ))}
           </div>
+          {selectedAddress && <div className="card" style={{textAlign: "center", left:"10%",width:"80%"}}>Selected Address: {selectedAddress}</div>}
           <hr />
         </div>
-
+        
 
             <h4 className="order-text">Payment</h4>
             <div className="payments">
@@ -166,10 +186,21 @@ const PlaceOrder = () => {
                     <div className="row">
                         <div className="column">
                             <p>
-                                <button className="payment-details" onClick={handleSubmit}>
-                                    Pay with Credit/Debit Card  && <span>(selected)</span>
+                                <button className="payment-details" onClick={() => setPaymentOption("CreditCard")}>
+                                    Credit Card  {paymentOption==="CreditCard" && <span>(selected)</span>}
                                 </button>
                             </p>
+                        </div>
+                    </div>
+                </div>
+                <div className="middle-payment-option">
+                    <div className="row">
+                        <div className="column">
+                            <p>
+                                <button className="payment-details" onClick={() => setPaymentOption("Wallet")}>
+                                    Wallet {paymentOption==="Wallet" && <span>(selected)</span>}
+                                </button>
+                                </p>
                         </div>
                     </div>
                 </div>
@@ -177,8 +208,8 @@ const PlaceOrder = () => {
                     <div className="row">
                         <div className="column">
                             <p>
-                                <button className="payment-details" onClick={handleCashPayment}>
-                                    Cash on Delivery
+                                <button className="payment-details" onClick={() => setPaymentOption("CashOnDelivery")}>
+                                    Cash on Delivery {paymentOption==="CashOnDelivery" && <span>(selected)</span>}
                                 </button>
                                 </p>
                         </div>
@@ -186,9 +217,9 @@ const PlaceOrder = () => {
                 </div>
             </div>
             <hr/>
-            <Link to="/placeOrder">
-                <button type="button" className="btn btn-primary btn-lg placeOrder-btn" onClick={handleConfirmOrder}>Place Order</button>
-            </Link>
+            
+            <button type="button" className="btn btn-primary btn-lg placeOrder-btn" onClick={handleConfirmOrder} disabled={!(selectedAddress&&paymentOption)}>Place Order</button>
+            
         </div>
         </body>
     );

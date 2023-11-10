@@ -14,6 +14,7 @@ const Navbar = () => {
         removeCookie("token",{path:'/'});
         window.localStorage.removeItem("logged");
         navigate('/Login')
+        window.location.reload()
     }
 
     return (
@@ -72,6 +73,9 @@ const Navbar = () => {
                                         </li>
                                         <li>
                                             <Link to="/addMedicine" className="dropdown-item">Add Medicine</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/editPatient" className="dropdown-item">Add New Address</Link>
                                         </li>
                                     </ul>
                                 </li>

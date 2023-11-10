@@ -30,9 +30,9 @@ router.delete('/deletePatient/:id',protect,checkAdminRole, deletePatient)
 
 router.patch('/updatePatient/:id',protect,checkAdminRole, updatePatient)
 
-router.put('/addPatientAddresses/:name',protect,checkPatientRole, addPatientAddresses);
+router.put('/addPatientAddresses/',protect,checkPatientRole, addPatientAddresses);
 
-router.get('/viewAvailableAddresses/:id',protect,checkPatientRole, viewAvailableAddresses);
+router.get('/viewAvailableAddresses/',protect,checkPatientRole, viewAvailableAddresses);
 
 
 

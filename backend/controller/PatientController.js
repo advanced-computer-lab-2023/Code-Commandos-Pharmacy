@@ -94,10 +94,10 @@ const updatePatient = asyncHandler(async (req, res) => {
 
 //add a new delivery address (or multiple addresses)
 const addPatientAddresses = asyncHandler(async (req, res) => {
-  const { name } = req.params;
+  const { id } = req.user;
   const { addresses } = req.body;
   try {
-    const patient = await PatientModel.findOneAndUpdate({name: name},
+    const patient = await PatientModel.findOneAndUpdate({_id: id},
       { $push: { addresses: { $each: addresses } } },
       { new: true }
     );
@@ -114,7 +114,7 @@ const addPatientAddresses = asyncHandler(async (req, res) => {
 
 //choose a delivery address from the delivery addresses available
 const viewAvailableAddresses = asyncHandler(async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.user;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400).json({ error: 'Invalid patient ID' });
     return;

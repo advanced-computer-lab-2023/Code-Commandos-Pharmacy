@@ -288,19 +288,31 @@
 
 .left-payment-option {
     background-color: #B9B4C7;
-    width: 220px;
-    height: 150px;
+    width: 140px;
+    height: 140px;
     margin-left: 40px;
     border: 1px solid black;
+    text-align: center;
+}
+
+.middle-payment-option {
+    background-color: #B9B4C7;
+    width: 140px;
+    height: 140px;
+    margin-left: 220px;
+    margin-top: -140px;
+    border: 1px solid black;
+    text-align: center;
 }
 
 .right-payment-option {
     background-color: #B9B4C7;
-    width: 220px;
-    height: 150px;
-    margin-left: 300px;
-    margin-top: -150px;
+    width: 140px;
+    height: 140px;
+    margin-left: 400px;
+    margin-top: -140px;
     border: 1px solid black;
+    text-align: center;
 }
 
 .row-payment {

@@ -1,20 +1,27 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"
 const ChoosePayment = () => {
     const [selectedOrder, setSelectedOrder] = useState(null)
     const [paymentOption, setPaymentOption] = useState(null)
-
+    const navigate = useNavigate()
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
-       // const familyMember = urlParams.get('familyMember');
         const order = urlParams.get('order')
         setSelectedOrder(order)
-        
     }, [])
 
     const handleSubmit = async () => {
         const response = await fetch(`http://localhost:3000/api/order/payForOrder/${selectedOrder}/${paymentOption}`)
         const session = await response.json()
-        window.location.href = session.url
+        if(paymentOption==="credit_card")
+            window.location.href = session.url
+        else {
+            if(response.ok){
+                navigate('http://localhost:3000/paymentSuccess')
+            } else {
+                alert(session.error)
+            }
+        }
     }
 
     return (
@@ -37,6 +44,7 @@ const ChoosePayment = () => {
                     Pay with Credit Card (Stripe) {paymentOption==="credit_card" && <span>(selected)</span>}
                 </button>
                 </li>
+                
             </ul>
             <br/>
             {paymentOption &&

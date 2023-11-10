@@ -13,7 +13,8 @@ const {
     setTotalPrice,
     cancelOrder,
     payForOrder,
-    choosePayment
+    choosePayment,
+    completeCreditPayment
 } = require('../controller/OrderController')
 const {
     checkPatientRole,
@@ -41,7 +42,7 @@ router.put('/setCreditPayment', cardPayment)
 router.put('/setCashPayment', cashPayment)
 
 // Confirm order
-router.put('/confirmOrder', confirmOrder)
+router.put('/confirmOrder/:orderID/:paymentOption/:address', confirmOrder)
 
 // Display Confirmed Orders
 router.get('/displayConfirmedOrders', displayConfirmedOrders)
@@ -56,9 +57,11 @@ router.put('setTotalPrice/:subtotal', setTotalPrice)
 router.delete('/cancelOrder/:id', cancelOrder)
 
 //choose payment
-router.get('/payForOrder/:orderId/:paymentOption', protect, checkPatientRole, payForOrder)
+router.get('/payForOrder/:orderID/:paymentOption', protect, checkPatientRole, payForOrder)
 
 router.post('/choosePayment/:sessionID', protect, checkPatientRole,choosePayment)
+
+router.get('/completeCreditPayment/:sessionID', completeCreditPayment)
 
 module.exports = router
 

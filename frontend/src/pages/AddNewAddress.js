@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 // this to add new address in case I already registered
 const EditPatient = () => {
   const [addresses, setAddresses] = useState([{ street: "", city: "", country: "" }]);
-  const { patientName } = useParams();
+  //const { patientName } = useParams();
 
   const handleAddAddress = () => {
     setAddresses([...addresses, { street: "", city: "", country: "" }]);
@@ -18,7 +18,7 @@ const EditPatient = () => {
   const handleEdit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`/api/patient/addPatientAddresses/${patientName}`, {
+      const response = await fetch(`/api/patient/addPatientAddresses/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

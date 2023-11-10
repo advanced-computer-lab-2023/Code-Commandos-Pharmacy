@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import MedicineDetails from "../components/MedicineDetails";
 import MedicineCartDetails from "../components/MedicineCartDetails";
-import {Link} from "react-router-dom";
+import {Link, Navigate, useNavigate} from "react-router-dom";
 import axios from "axios";
 
 // View AvailableMedicines
@@ -9,6 +9,7 @@ const MyCart = () => {
     const [medicines, setMedicines] = useState(null)
     const [subtotalPrice, setSubtotalPrice] = useState(0);
     const [order, setOrder] = useState('')
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchMedicines = async () => {
@@ -55,14 +56,26 @@ const MyCart = () => {
 
     // Not working
     const handleCheckout = async () => {
-        handleSetTotalPrice();
+        
         try{
             const response = await fetch('api/order/addOrder',{
                 method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    status:'Pending',
+                    selectedAddress:'',
+                    isCancelled:false,
+                    paymentOption:'CreditCard',
+                    toBeDisplayed:false,
+                    totalPrice: 900,
+                    justAddedOrder:true
+                })
             });
             if (response.ok){
-                const result = await response.json();
-                setOrder(result)
+                const order = await response.json();
+                navigate('/placeOrder?order='+order._id)
             }
             else {
                 const errorMessage = await response.text();
@@ -107,9 +120,9 @@ const MyCart = () => {
                 <h3 className="sub-total">
                     Total: {subtotalPrice + 50} EGP
                 </h3>
-                <Link to="/placeOrder">
-                    <button type="button" className="btn btn-primary btn-lg checkout-btn" onClick={handleCheckout}>Checkout</button>
-                </Link>
+                
+                    <button type="button" className="btn btn-primary btn-lg checkout-btn" onClick={()=>handleCheckout()}>Checkout</button>
+                
             </div>
         </div>
     )
