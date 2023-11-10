@@ -70,25 +70,18 @@ const updatePharmacistRequestStatus = asyncHandler(async (req, res) => {
       throw new Error('Pharmacist Request not found');
     }
 
-    // Check if the user making the request is an admin
-    if (req.user== req.checkAdminRole) {
-      // Update the status of the pharmacist request
-      pharmacistRequest.status = status;
+    // Update the status of the pharmacist request
+    pharmacistRequest.status = status;
 
-      // Save the updated request
-      await pharmacistRequest.save();
+    // Save the updated request
+    await pharmacistRequest.save();
 
-      res.status(200).json({ message: 'Pharmacist request status updated successfully' });
-    } else {
-      res.status(403);
-      throw new Error('Not authorized to update pharmacist request');
-    }
+    res.status(200).json({ message: 'Pharmacist request status updated successfully' });
   } catch (error) {
     res.status(400);
     throw new Error(error.message);
   }
 });
-
 
 module.exports = {
     addPharmacistRequest,
