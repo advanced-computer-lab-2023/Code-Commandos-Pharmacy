@@ -1,6 +1,7 @@
 const express= require('express')
 const router= express.Router()
-
+const {protect} = require('../middleware/AuthenticationHandler')
+const {checkAdminRole} = require('../middleware/AccessHandler');
 const {
     addPharmacistRequest,
     viewUploadByPharmacist,
@@ -9,9 +10,9 @@ const {
 } = require('../controller/PharmacistRequestController')
 
 router.post('/addPharmacistRequest', addPharmacistRequest)
-router.get('/viewUploadByPharmacist/:id',viewUploadByPharmacist)
+router.get('/viewUploadByPharmacist/:id',protect,checkAdminRole,viewUploadByPharmacist)
 router.get('/viewAllPharmacistRequests',viewAllPharmacistRequests)
-router.post('/updatePharmacistRequestStatus',updatePharmacistRequestStatus)
+router.post('/updatePharmacistRequestStatus',protect,checkAdminRole,updatePharmacistRequestStatus)
 
 
 module.exports = router
