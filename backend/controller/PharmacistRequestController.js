@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
 const PharmacistRequestModel = require("../model/PharmacistRequest");
-const checkAdminRole= require('../middleware/AccessHandler')
+
 
 
 //Task 7 view data uploaded by a pharmacist
