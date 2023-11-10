@@ -2,6 +2,8 @@ const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
 const PharmacistRequestModel = require("../model/PharmacistRequest");
 const multer = require('multer'); // Import multer for file uploads
+const checkAdminRole= require('../middleware/AccessHandler')
+
 
 // Configure multer for file uploads
 const upload = multer({ dest: 'uploads/' }); // Set the destination folder for uploaded files
@@ -69,7 +71,7 @@ const updatePharmacistRequestStatus = asyncHandler(async (req, res) => {
     }
 
     // Check if the user making the request is an admin
-    if (req.user && req.user.role === 'ADMIN') {
+    if (req.user== req.checkAdminRole) {
       // Update the status of the pharmacist request
       pharmacistRequest.status = status;
 
@@ -86,6 +88,8 @@ const updatePharmacistRequestStatus = asyncHandler(async (req, res) => {
     throw new Error(error.message);
   }
 });
+
+
 module.exports = {
     addPharmacistRequest,
     viewUploadByPharmacist,

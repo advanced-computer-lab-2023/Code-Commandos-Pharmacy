@@ -9,7 +9,7 @@ const AcceptRejectPharmacistRequest = ({ requestId, user }) => {
       // Check if the user is authorized (admin) before making the request
       if (user && user.role === 'ADMIN') {
         // Send a request to the backend to update the status to 'accepted'
-        await axios.put(`/api/updatePharmacistRequestStatus/${requestId}`, { status: 'accepted' });
+        await axios.put(`/api/admin/updatePharmacistRequestStatus/${requestId}`, { status: 'accepted' });
         setStatus('accepted');
       } else {
         console.error('User is not authorized to accept requests');

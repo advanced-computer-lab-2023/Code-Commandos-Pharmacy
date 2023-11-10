@@ -1,6 +1,8 @@
 const PharmacistModel= require('../model/Pharmacist')
 const mongoose= require('mongoose')
 const asyncHandler= require('express-async-handler')
+const checkAdminRole= require('../middleware/AccessHandler')
+
 
 // Task 22- view a  pharmacist
  const viewPharmacist=asyncHandler( async(req,res) =>{
@@ -46,11 +48,13 @@ const removePharmacist=asyncHandler( async(req,res) =>{
 
 
  // addPharmacist to test on
+
 const addPharmacist =asyncHandler( async(req,res) => {
     const pharmacistBody = req.body;
     try {
         const pharmacist = await PharmacistModel.create(pharmacistBody);
-        res.status(200).json(pharmacist)
+               res.status(200).json(pharmacist)
+
     }
     catch (error) {
         res.status(400)
@@ -58,15 +62,19 @@ const addPharmacist =asyncHandler( async(req,res) => {
     }
 })
 
-const viewAllPharmacists = asyncHandler(async (req,res) => {
-    try {
-        const pharmacists = await PharmacistModel.find()
-        res.status(200).json(pharmacists)
+const viewAllPharmacists = asyncHandler(async (req, res) => {
+  try {
+    // Assuming req.user contains the user information
+    if (req.user && req.user.role === 'ADMIN') {
+      const pharmacists = await PharmacistModel.find();
+      res.status(200).json(pharmacists);
+    } else {
+      res.status(403).json({ message: 'Access denied. You do not have the Admin role.' });
     }
-    catch (error){
-        throw new Error(error.message)
-    }
-})
+  } catch (error) {
+    throw new Error(error.message);
+  }
+});
 
  module.exports={
     viewPharmacist,
