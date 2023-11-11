@@ -2,39 +2,38 @@ import React, { useEffect, useState } from "react";
 import MedicineCartDetails from "../components/MedicineCartDetails";
 
 const MyCart = () => {
-    const [medicines, setMedicines] = useState([]);
-
+    const [medicines, setMedicines] = useState(null)
     useEffect(() => {
-        const fetchCartData = async () => {
+        const fetchMedicines = async () => {
             try {
-                const response = await fetch("/api/cart/viewMyCart");
-                const data = await response.json();
-
+                const response = await fetch('/api/cart/viewMyCart')
+                // the return of viewMyCart is in this form on postman. i debugged and it always goes to the else part. how to fix it? means that the response.ok is false
+                const data = await response.json()
                 if (response.ok) {
-                    setMedicines(data);
-                } else {
-                    throw new Error(data.message);
+                    setMedicines(data)
                 }
-            } catch (error) {
-                console.error(error);
+                else {
+                    alert("Error retrieving cart information")
+                }
             }
-        };
-
-        fetchCartData();
-    }, []);
-
+            catch (error){
+                alert(error.message)
+            }
+        }
+        fetchMedicines()
+    }, [])
     return (
         <div className="container">
             <h2>My Cart</h2>
             <div className="container available-medicines col-12 mt-5">
                 <div className="row">
-                    {medicines.map((medicine) => (
-                        <MedicineCartDetails key={medicine._id} medicine={medicine} />
+                    {medicines && medicines.map((medicine) => (
+                        <MedicineCartDetails key={medicine._id} medicine={medicine}/>
                     ))}
                 </div>
             </div>
         </div>
-    );
+    )
 };
 
 export default MyCart;
