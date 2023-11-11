@@ -8,12 +8,12 @@ const MyCart = () => {
             try {
                 const response = await fetch('/api/cart/viewMyCart')
                 // the return of viewMyCart is in this form on postman. i debugged and it always goes to the else part. how to fix it? means that the response.ok is false
-                const data = await response.json()
                 if (response.ok) {
+                    const data = await response.json()
                     setMedicines(data)
                 }
                 else {
-                    alert("Error retrieving cart information")
+                    alert(await response.text())
                 }
             }
             catch (error){

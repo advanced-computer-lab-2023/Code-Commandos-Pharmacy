@@ -17,6 +17,7 @@ import EnterEmailReset from "./components/EnterEmailReset";
 import ResetPassword from "./components/ResetPassword";
 import ChangePassword from "./pages/ChangePassword";
 import MyCart from "./pages/MyCart";
+import EditMedicineInCart from "./pages/EditMedicineInCart";
 
 function App() {
 
@@ -41,6 +42,8 @@ function App() {
             <Route path="/addMedicine" element={<AddMedicine/>} />
             <Route path="/editMedicine/:medicineName" element={<EditMedicine/>}/>
             <Route path="/viewMyCart" element={<MyCart/>}/>
+            <Route path="/editMedicineInCart/:medicineName" element={<EditMedicineInCart/>}/>
+
 
             <Route path="/EnterEmailReset"  element={<EnterEmailReset/>}/>
             <Route path="/ResetPassword"  element={<ResetPassword/>}/>

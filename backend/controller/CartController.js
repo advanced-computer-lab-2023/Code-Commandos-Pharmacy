@@ -32,6 +32,13 @@ const addToCart = asyncHandler(async (req, res) => {
         }
         // else add the medicine to the array
         else {
+            // I want to check if the medicine is already in cart, an alert appears that says medicine already in cart
+            const existingMedicine = cart.medicines.find((item) => item.medicineId.equals(medicineId))
+
+            if(existingMedicine){
+                return res.status(400).json({message: 'Medicine already in cart'})
+            }
+
             cart.medicines.push({
                 medicineId: medicine._id,
                 amount: 1,
@@ -62,7 +69,8 @@ const viewCart = asyncHandler(async (req, res) => {
         res.status(200).json(medicines);
 
     } catch (error) {
-        res.status(400).json({message: error.message});
+        res.status(400)
+        throw new Error(error.message())
     }
 });
 

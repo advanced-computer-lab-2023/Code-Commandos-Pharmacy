@@ -102,7 +102,7 @@ const Navbar = () => {
                             </li>
                         </ul>
 
-                         <ul class="navbar-nav">
+                         <ul className="navbar-nav">
                                 <li>
                                     <button className="cart-button">
                                         <Link to="/viewMyCart" className="cart-link">

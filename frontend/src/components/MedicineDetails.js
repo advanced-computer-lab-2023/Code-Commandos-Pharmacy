@@ -1,9 +1,24 @@
-import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/navbar.css'
 import {Link} from "react-router-dom";
 
 const MedicineDetails = ({medicine}) => {
+    const handleAddToCart = async () => {
+        try {
+            const response = await fetch(`/api/cart/addToCart/${medicine.name}`, {
+                method: 'POST',
+            });
+            if (!response.ok) {
+                throw new Error('Failed to add medicine to cart');
+            }
+            const updatedCart = await response.json();
+            alert("Medicine Added to Cart Successfully!")
+            console.log(updatedCart)
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <div className="col-lg-4 col-md-4 col-sm-6">
             <div className="image-container">
@@ -13,9 +28,9 @@ const MedicineDetails = ({medicine}) => {
                         <img className="edit-logo" src={require(`../images/edit.png`)} alt="Edit"/>
                     </Link>
                 <br/>
-                    <Link to="#">
+                    <button className="addToCart-btn" onClick={handleAddToCart}>
                         <img className="edit-addToCart" src={require(`../images/addToCart.png`)} alt="Cart"/>
-                    </Link>
+                    </button>
                 </div>
             </div>
             <p>{medicine.name}</p>
