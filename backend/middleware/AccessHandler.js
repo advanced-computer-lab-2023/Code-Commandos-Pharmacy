@@ -10,11 +10,11 @@ const checkPatientRole = asyncHandler(async (req, res, next) => {
 })
 
 const checkDoctorRole = asyncHandler(async (req, res, next) => {
-    if (req.user && req.user.role === 'DOCTOR') {
+    if (req.user && req.user.role === 'PHARMACIST') {
         next();
     } else {
         res.status(403)
-        throw new Error('Access denied. You do not have the Doctor role.')
+        throw new Error('Access denied. You do not have the Pharmacist role.')
     }
 })
 
