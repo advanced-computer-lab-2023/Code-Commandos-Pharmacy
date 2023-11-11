@@ -11,9 +11,7 @@ const PharmacistDetails = ({ pharmacist }) => {
                 <p className="card-text">Hourly Rate: ${pharmacist.hourlyRate}/hr</p>
                 <p className="card-text">Affiliation: {pharmacist.affiliation}</p>
                 <p className="card-text">Educational Background: {pharmacist.educationalBackground}</p>
-                <p className="card-text">Speciality: {pharmacist.speciality}</p>
             </div>
-
         </div>
     );
 };

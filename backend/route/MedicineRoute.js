@@ -3,10 +3,11 @@ const express = require('express')
 const {
     addOrUpdateMedicine,
     viewAvailableMedicines,
-    viewMedicineByName,
+    searchMedicineByName,
     updateDetailsAndPrice,
     viewQuantityAndSales,
-    filterMedicines
+    filterMedicines,
+    deleteMedicine
 } = require('../controller/MedicineController')
 const router = express.Router()
 
@@ -21,12 +22,15 @@ router.get('/viewAvailableMedicines', viewAvailableMedicines)
 router.get('/viewQuantityAndSales', viewQuantityAndSales)
 
 // Search for Medicine based on name
-router.get('/viewMedicineByName/:name', viewMedicineByName)
+router.get('/searchMedicineByName/:name', searchMedicineByName)
 
 // Edit medicine Details and Price
 router.put('/updateDetailsAndPrice/:name', updateDetailsAndPrice)
 
 // Filter medicines based on Medicinal Use
 router.get('/filterMedicines/:medicinalUse', filterMedicines)
+
+//Delete Medicine
+router.delete('/delete/:name' , deleteMedicine )
 
 module.exports = router

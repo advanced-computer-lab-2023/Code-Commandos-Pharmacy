@@ -1,31 +1,15 @@
-import {useEffect, useState} from 'react'
-import PharmacistDetails from '../components/pharmacistDetails'
+import React, {useEffect} from 'react';
 
-const Home =() =>{
-const [pharmacists, setPharmacist]= useState(null)
-useEffect(() =>{
-   const fetchPharmacist = async () => {
-   const response= await fetch('api/pharmacistRoute')
-   const json = await response.json()
+import Navbar from "../components/Navbar";
 
-   if(response.ok){
-setPharmacist(json)
-   }
+const Home = () => {
 
-   }
-   fetchPharmacist()
-}, [])
-
-return (
-<div className="home">
-<div className="Pharmacist Data">
-{pharmacists && pharmacists.map((pharmacist) => (
-<PharmacistDetails key = {pharmacist._id} pharmacist={pharmacist} />
-))}
-</div>
-</div>
-)
-
-}
+    return (
+        <div>
+            <Navbar />
+        </div>
+    );
+};
 
 export default Home
+

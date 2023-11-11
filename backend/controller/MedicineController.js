@@ -38,17 +38,19 @@ const viewAvailableMedicines =asyncHandler( async (req, res) => {
         res.status(200).json(medicines)
     }
     catch (error){
+        res.status(400)
         throw new Error(error.message)
     }
 })
 
 // Search for Medicine based on name
-const viewMedicineByName =asyncHandler( async (req, res) => {
+const searchMedicineByName =asyncHandler( async (req, res) => {
     const {name} = req.params
     try {
-        const medicine = await Medicine.findOne({name})
-        if (medicine) {
-            res.status(200).json(medicine)
+        const medicines = await Medicine.find({ name: { $regex: new RegExp(name, 'i') } })
+        if (medicines.length > 0) {
+            console.log(medicines)
+            res.status(200).json(medicines)
         } else {
             res.status(404)
             throw new Error('No such a medicine')
@@ -105,11 +107,23 @@ const filterMedicines =asyncHandler( async (req,res) => {
     }
 })
 
+const deleteMedicine = asyncHandler( async (req,res) => {
+    const {name} = req.params
+    const medicine = await Medicine.findOne({name})
+    if (!medicine) {
+        return res.status(404).json({ message: 'Medicine not found' });
+    }
+    await medicine.deleteOne({name})
+    res.json({ message: 'Medicine deleted successfully' });
+})
+
 module.exports = {
     addOrUpdateMedicine,
     viewAvailableMedicines,
-    viewMedicineByName,
+    searchMedicineByName,
     updateDetailsAndPrice,
     viewQuantityAndSales,
-    filterMedicines
+    filterMedicines,
+    deleteMedicine
 }
+
