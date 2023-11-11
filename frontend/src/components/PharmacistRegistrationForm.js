@@ -20,8 +20,10 @@ const PharmacistRegistrationForm = () => {
   const [DegreeID, setDegreeID] = useState(null);
 
   const handleSubmit = async (e) => {
+    handleIDSubmit()
+    handleWorkLicenseSubmit()
+    handlePharmacyDegreeSubmit()
     e.preventDefault()
-
     const formData = new FormData();
     formData.append('name', name);
     formData.append('username', username);
@@ -218,14 +220,15 @@ const PharmacistRegistrationForm = () => {
               Upload your ID:
             </label>
             <input
+                required={true}
                 type="file"
                 className="form-control"
                 id="IDFile"
                 onChange={(e) => setIDFile(e.target.files[0])}
             />
-            <button type="button" className="btn btn-primary" onClick={handleIDSubmit}>
-              Submit ID
-            </button>
+            {/*<button type="button" className="btn btn-primary" onClick={handleIDSubmit}>*/}
+            {/*  Submit ID*/}
+            {/*</button>*/}
           </div>
 
           <hr />
@@ -234,14 +237,15 @@ const PharmacistRegistrationForm = () => {
               Upload Work License:
             </label>
             <input
+                required={true}
                 type="file"
                 className="form-control"
                 id="LicensesFile"
                 onChange={(e) => setWorkLicenseFile(e.target.files[0])}
             />
-            <button type="button" className="btn btn-primary" onClick={handleWorkLicenseSubmit}>
-              Submit Work License
-            </button>
+            {/*<button type="button" className="btn btn-primary" onClick={handleWorkLicenseSubmit}>*/}
+            {/*  Submit Work License*/}
+            {/*</button>*/}
           </div>
           <hr />
           <div className="mb-3">
@@ -249,14 +253,15 @@ const PharmacistRegistrationForm = () => {
               Upload Pharmacy Degree:
             </label>
             <input
+                required={true}
                 type="file"
                 className="form-control"
                 id="DegreeFile"
                 onChange={(e) => setPharmacyDegreeFile(e.target.files[0])}
             />
-            <button type="button" className="btn btn-primary" onClick={handlePharmacyDegreeSubmit}>
-              Submit Pharmacy Degree
-            </button>
+            {/*<button type="button" className="btn btn-primary" onClick={handlePharmacyDegreeSubmit}>*/}
+            {/*  Submit Pharmacy Degree*/}
+            {/*</button>*/}
           </div>
 
 

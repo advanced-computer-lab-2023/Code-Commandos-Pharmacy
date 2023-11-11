@@ -7,14 +7,14 @@ const {
     addPharmacistRequest,
     viewUploadByPharmacist,
     viewAllPharmacistRequests,
-    updatePharmacistRequestStatus
+    updatePharmacistRequestStatus, acceptRequest, rejectRequest
 } = require('../controller/PharmacistRequestController')
 
 
 router.post('/addPharmacistRequest', addPharmacistRequest)
 router.get('/viewAllPharmacistRequests',viewAllPharmacistRequests)
 router.get('/viewUploadByPharmacist/:id',protect,checkAdminRole,viewUploadByPharmacist)
-router.post('/updatePharmacistRequestStatus',protect,checkAdminRole,updatePharmacistRequestStatus)
-
+router.post('/acceptRequest/:id',protect,checkAdminRole,acceptRequest)
+router.delete('/rejectRequest/:id',protect,checkAdminRole,rejectRequest)
 
 module.exports = router

@@ -1,6 +1,8 @@
 const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
 const PharmacistRequestModel = require("../model/PharmacistRequest");
+const User = require("../model/User");
+const Pharmacist = require("../model/Pharmacist");
 
 
 const  viewUploadByPharmacist=asyncHandler( async(req, res)=>{
@@ -46,40 +48,37 @@ const viewAllPharmacistRequests = asyncHandler(async (req,res) => {
     }
 })
 
-//Task 30/31
-// Add an API endpoint to accept or reject a pharmacist request.
-const updatePharmacistRequestStatus = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-  const { status } = req.body;
+const acceptRequest = asyncHandler(async (req, res) => {
+    const {id} = req.params
+    try {
+        const request = await PharmacistRequestModel.findByIdAndDelete(id)
+        const user = await User.create({username: request.username,password: request.password,role:'PHARMACIST'})
+        const addPharmacist =await Pharmacist.create({username: request.username,name: request.name,email:  request.email,password: request.password,dateOfBirth:  request.dateOfBirth,hourlyRate: request.hourlyRate,affiliation: request.affiliation,educationalBackground: request.educationalBackground})
+        res.status(200).json(addPharmacist)
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    res.status(404);
-    throw new Error('Pharmacist request not found');
-  }
-
-  try {
-    const pharmacistRequest = await PharmacistRequestModel.findById(id);
-    if (!pharmacistRequest) {
-      res.status(404);
-      throw new Error('Pharmacist Request not found');
     }
+    catch (error){
+        res.status(400)
+        throw new Error(error.message)
+    }
+})
 
-    // Update the status of the pharmacist request
-    pharmacistRequest.status = status;
-
-    // Save the updated request
-    await pharmacistRequest.save();
-
-    res.status(200).json({ message: 'Pharmacist request status updated successfully' });
-  } catch (error) {
-    res.status(400);
-    throw new Error(error.message);
-  }
+const rejectRequest = asyncHandler(async (req, res) => {
+    const {id}=req.params
+    try {
+        const request = await PharmacistRequestModel.findByIdAndRemove(id)
+        res.status(200).json(request)
+    }
+    catch (error){
+        res.status(400)
+        throw new Error(error.message)
+    }
 })
 
 module.exports = {
     addPharmacistRequest,
     viewUploadByPharmacist,
     viewAllPharmacistRequests,
-    updatePharmacistRequestStatus
+    acceptRequest,
+    rejectRequest
 }

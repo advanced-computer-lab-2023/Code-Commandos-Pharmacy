@@ -39,19 +39,10 @@ const ViewAllPharmacistRequests = ()=> {
         <div className="container mt-4">
             <h1 className="mb-4">Pharmacists Requests</h1>
             <ul className="list-group">
-                {requests.map((request) => (
-                    <li key={request._id} className="list-group-item">
-                        <button
-                            className="btn btn-link btn-lg"
-                            onClick={() => setSelectedRequest(request)}
-                            style={{ textDecoration: "none" }}
-                        >
-                            {request.name}
-                        </button>
-                    </li>
+                {requests && requests.map((request) => (
+                    <PharmacistRequestDetails pharmacistRequest={request} />
                 ))}
             </ul>
-            {selectedRequest && <PharmacistRequestDetails pharmacistRequest={selectedRequest} />}
         </div>
     );
 };
