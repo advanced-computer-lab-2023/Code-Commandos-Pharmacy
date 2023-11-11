@@ -39,6 +39,21 @@ const PharmacistRequestSchema = new mongoose.Schema({
     type: String,
     default: 'PENDING',
     enum: ['PENDING','ACCEPTED','REJECTED']
+  },
+  ID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'File',
+    required: true,
+  },
+  workLicense: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'File',
+    required: true,
+  },
+  pharmacyDegree: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'File',
+    required: true,
   }
 },{ timestamps: true });
 

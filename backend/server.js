@@ -1,11 +1,12 @@
 const express = require("express")
+const path = require('path');
 const server = express();
 const dotenv = require("dotenv").config();
 const connectDB = require("./configuration/Db")
 const {ErrorHandler} = require('./middleware/ErrorHandler')
 const port = process.env.PORT
 const cookieParser = require('cookie-parser');
-
+const bodyParser = require('body-parser');
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 server.use(cookieParser());
@@ -25,6 +26,7 @@ const pharmacistRequestRoutes = require('./route/PharmacistRequestRoute')
 const patientRoutes = require('./route/PatientRoute')
 const adminRoutes = require('./route/AdminRoute')
 const userRoutes= require('./route/UserRoute')
+const fileRoutes = require('./route/FileRoute')
 
 server.use('/api/pharmacist',pharmacistRoutes)
 server.use('/api/pharmacistRequest',pharmacistRequestRoutes)
@@ -32,5 +34,12 @@ server.use('/api/patient', patientRoutes)
 server.use('/api/medicine', MedicineRoute)
 server.use('/api/admin',adminRoutes)
 server.use('/api/user',userRoutes)
+server.use('/api/file',fileRoutes.routes)
+server.use(bodyParser.json());
+server.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 server.use(ErrorHandler)
+
+
+
+

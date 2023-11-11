@@ -61,11 +61,6 @@ const MedicineSchema = new Schema({
                 'VITAMIN'
             ]
         },
-        image: {
-            type: String,
-            required: true,
-            default: 'BiotinPlus.png'
-        },
         //the below attributes should be updated automatically when purchasing a medicine from the pharmacy
         customerReviews: {
             type: String,
@@ -82,4 +77,3 @@ const MedicineSchema = new Schema({
 
 const Medicine = mongoose.model('Medicine', MedicineSchema)
 module.exports = Medicine
-

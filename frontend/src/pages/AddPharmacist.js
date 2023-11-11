@@ -1,5 +1,4 @@
 import {useState} from "react";
-import PatientDetails from "../components/PatientDetails";
 import PharmacistDetails from "../components/PharmacistDetails";
 
 const AddPharmacist = ()=> {

@@ -5,13 +5,15 @@ const {
     login,
     register,
     logout,
-    skipLogin, verifyOTP, resetPassword, changePassword, generateOTP
+     verifyOTP,
+    resetPassword,
+    changePassword,
+    generateOTP
 } = require('../controller/UserController')
 const {protect, localVariables} = require("../middleware/AuthenticationHandler");
 
 router.post('/login',login)
 router.post('/logout',protect,logout)
-router.get('/checkLoggedIn',protect,skipLogin)
 
 router.post('/generateOTP',localVariables,generateOTP)
 router.post('/resetPassword',verifyOTP,resetPassword)

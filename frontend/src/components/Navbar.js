@@ -42,55 +42,55 @@ const Navbar = () => {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse items-nav col-8" id="navbarCollapse">
-                            <ul class="navbar-nav">
-                                <li className="nav-item">
-                                    <a className="nav-link" href="#">Home</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="#">Services</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="#">Blog</a>
-                                </li>
-                                <li className="nav-item dropdown">
-                                    <a className="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Pharmacy
-                                    </a>
-                                    <ul className="dropdown-menu" aria-labelledby="servicesDropdown">
+                        <ul class="navbar-nav">
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">Home</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">Services</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#">Blog</a>
+                            </li>
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Pharmacy
+                                </a>
+                                <ul className="dropdown-menu" aria-labelledby="servicesDropdown">
 
-                                        <li>
-                                            <Link to="/AddAdmin" className="dropdown-item">Add admin</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/ViewAndRemovePatients" className="dropdown-item">View And Remove Patients</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/PatientRegistration" className="dropdown-item">Patient Registration</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/PharmacistRegistration" className="dropdown-item">Pharmacist Registration</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/AddPharmacist" className="dropdown-item">Add Pharmacist</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/ViewAndRemovePharmacists" className="dropdown-item">View And Remove Pharmacists</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/ViewAllPharmacistRequests" className="dropdown-item">View All Pharmacist Requests</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/viewAllAndSearchMedicineByName" className="dropdown-item">View Available Medicines</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/quantityAndSales" className="dropdown-item">View Medicines Quantity and Sales</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/addMedicine" className="dropdown-item">Add Medicine</Link>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
+                                    <li>
+                                        <Link to="/AddAdmin" className="dropdown-item">Add admin</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/ViewAndRemovePatients" className="dropdown-item">View And Remove Patients</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/PatientRegistration" className="dropdown-item">Patient Registration</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/PharmacistRegistration" className="dropdown-item">Pharmacist Registration</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/AddPharmacist" className="dropdown-item">Add Pharmacist</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/ViewAndRemovePharmacists" className="dropdown-item">View And Remove Pharmacists</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/ViewAllPharmacistRequests" className="dropdown-item">View All Pharmacist Requests</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/viewAllAndSearchMedicineByName" className="dropdown-item">View Available Medicines</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/quantityAndSales" className="dropdown-item">View Medicines Quantity and Sales</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/addMedicine" className="dropdown-item">Add Medicine</Link>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
 
                         <ul className="navbar-nav">
                             <li>

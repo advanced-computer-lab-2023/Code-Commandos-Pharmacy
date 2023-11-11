@@ -2,6 +2,7 @@ const PharmacistModel= require('../model/Pharmacist')
 const mongoose= require('mongoose')
 const asyncHandler= require('express-async-handler')
 
+
 // Task 22- view a  pharmacist
  const viewPharmacist=asyncHandler( async(req,res) =>{
     const{id} = req.params
@@ -44,7 +45,6 @@ const removePharmacist=asyncHandler( async(req,res) =>{
     }
 })
 
-
  // addPharmacist to test on
 const addPharmacist =asyncHandler( async(req,res) => {
     const pharmacistBody = req.body;
@@ -62,8 +62,7 @@ const viewAllPharmacists = asyncHandler(async (req,res) => {
     try {
         const pharmacists = await PharmacistModel.find()
         res.status(200).json(pharmacists)
-    }
-    catch (error){
+    } catch (error) {
         throw new Error(error.message)
     }
 })
@@ -72,5 +71,5 @@ const viewAllPharmacists = asyncHandler(async (req,res) => {
     viewPharmacist,
     removePharmacist,
     addPharmacist,
-     viewAllPharmacists
+    viewAllPharmacists
  }
