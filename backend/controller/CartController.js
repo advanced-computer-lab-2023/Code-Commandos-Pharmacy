@@ -70,15 +70,9 @@ const removeMedicine = asyncHandler(async (req, res) => {
             return res.status(404).json({message: 'Cart is empty'});
         }
 
-        // Find the index containing the medicineId and remove it
-        const result = await Cart.updateOne(
-            { _id: cart._id },
-            { $pull: { medicines: { medicineId: medicineId } } }
-        );
-        cart = await Cart.findOne({patientId});
-        console.log(cart)
-
-        res.status(200).json({message: 'Medicine removed from cart successfully'});
+        cart.medicines = cart.medicines.filter(item => !item._id.equals(medicineId));
+        await cart.save()
+        res.status(200).json({message: 'Medicine removed from cart successfully',cart:cart});
     } catch (error) {
         res.status(400).json({message: error.message});
     }

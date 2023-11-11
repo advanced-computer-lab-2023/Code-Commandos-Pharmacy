@@ -18,7 +18,7 @@ router.post('/addToCart/:name', protect, checkPatientRole, addToCart)
 router.get('/viewMyCart', protect, checkPatientRole, viewCart)
 
 // Remove Medicine from Logged in patient's Cart
-router.delete('/removeMedicine/:name', protect, checkPatientRole, removeMedicine);
+router.put('/removeMedicine/:name', protect, checkPatientRole, removeMedicine);
 
 // View All Carts
 router.get('/viewAllCarts', viewAllCarts)
