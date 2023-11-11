@@ -13,10 +13,10 @@ import AddMedicine from "./pages/AddMedicine";
 import EditMedicine from "./pages/EditMedicine";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-
 import EnterEmailReset from "./components/EnterEmailReset";
 import ResetPassword from "./components/ResetPassword";
 import ChangePassword from "./pages/ChangePassword";
+import MyCart from "./pages/MyCart";
 
 function App() {
 
@@ -40,6 +40,7 @@ function App() {
             <Route path="/ViewAllPharmacistRequests" element={<ViewAllPharmacistRequests/>}/>
             <Route path="/addMedicine" element={<AddMedicine/>} />
             <Route path="/editMedicine/:medicineName" element={<EditMedicine/>}/>
+            <Route path="/viewMyCart" element={<MyCart/>}/>
 
             <Route path="/EnterEmailReset"  element={<EnterEmailReset/>}/>
             <Route path="/ResetPassword"  element={<ResetPassword/>}/>

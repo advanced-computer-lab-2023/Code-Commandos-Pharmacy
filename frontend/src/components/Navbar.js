@@ -105,7 +105,7 @@ const Navbar = () => {
                          <ul class="navbar-nav">
                                 <li>
                                     <button className="cart-button">
-                                        <Link to="#" className="cart-link">
+                                        <Link to="/viewMyCart" className="cart-link">
                                             <span className="cart-text">Cart</span>
                                             <img className="cart-icon" src={require(`../images/addToCart.png`)} alt="Cart"/>
                                         </Link>

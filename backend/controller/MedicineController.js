@@ -190,6 +190,21 @@ const removeMedicineFromCart = asyncHandler(async (req,res)=>{
     }
 })
 
+// Get Medicine Details by id
+const getMedicineDetailsById = asyncHandler(async (req,res)=>{
+    const {id} = req.params
+    try{
+        const medicine = await Medicine.findById(id)
+        if (medicine) {
+            res.json(medicine);
+        } else {
+            res.status(404).json({ error: 'Medicine not found' });
+        }
+    }catch (error) {
+        throw new Error(error.message)
+    }
+})
+
 
 module.exports = {
     addOrUpdateMedicine,
@@ -201,5 +216,6 @@ module.exports = {
     deleteMedicine,
     viewMedicineInCart,
     updateAmount,
-    removeMedicineFromCart
+    removeMedicineFromCart,
+    getMedicineDetailsById
 }

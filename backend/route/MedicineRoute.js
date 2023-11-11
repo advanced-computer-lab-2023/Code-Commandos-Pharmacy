@@ -26,7 +26,8 @@ const {
     deleteMedicine,
     viewMedicineInCart,
     updateAmount,
-    removeMedicineFromCart
+    removeMedicineFromCart,
+    getMedicineDetailsById
 } = require('../controller/MedicineController')
 const router = express.Router()
 
@@ -60,6 +61,9 @@ router.put('/editAmount/:name', updateAmount)
 
 // Remove Medicine from Cart
 router.put('/removeMedicineFromCart/:name', removeMedicineFromCart)
+
+// Get Medicine details by id
+router.get('/getMedicineDetailsById/:id', getMedicineDetailsById)
 
 // router.post('/uploads', upload, (req,res)=>{
 //     const {file} = req

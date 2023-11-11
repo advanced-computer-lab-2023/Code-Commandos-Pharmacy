@@ -4,8 +4,8 @@ const {
     addToCart,
     viewCart,
     viewAllCarts,
-    deleteCart,
-    removeMedicine
+    removeMedicine,
+    updateAmountInCart
 } = require('../controller/CartController')
 const {protect} = require("../middleware/AuthenticationHandler");
 const {checkPatientRole} = require("../middleware/AccessHandler");
@@ -20,10 +20,11 @@ router.get('/viewMyCart', protect, checkPatientRole, viewCart)
 // Remove Medicine from Logged in patient's Cart
 router.put('/removeMedicine/:name', protect, checkPatientRole, removeMedicine);
 
+// Update Amount of Medicine in Cart
+router.put('/updateAmount/:name/:newAmount', protect, checkPatientRole, updateAmountInCart)
+
 // View All Carts
 router.get('/viewAllCarts', viewAllCarts)
 
-// Delete cart
-router.delete('/deleteCart/:id', deleteCart)
 
 module.exports = router

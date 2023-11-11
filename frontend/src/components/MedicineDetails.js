@@ -4,21 +4,6 @@ import '../css/navbar.css'
 import {Link} from "react-router-dom";
 
 const MedicineDetails = ({medicine}) => {
-    const handleAddToCart = async () => {
-        try {
-            const response = await fetch(`/api/cart/addToCart/${medicine._id}`, {
-                method: 'POST',
-            });
-            if (!response.ok) {
-                throw new Error('Error adding to cart');
-            }
-            const updatedMedicine = await response.json();
-            alert("Added to cart successfully!")
-            console.log(updatedMedicine);
-        } catch (error) {
-            console.error(error);
-        }
-    };
     return (
         <div className="col-lg-4 col-md-4 col-sm-6">
             <div className="image-container">
@@ -28,7 +13,7 @@ const MedicineDetails = ({medicine}) => {
                         <img className="edit-logo" src={require(`../images/edit.png`)} alt="Edit"/>
                     </Link>
                 <br/>
-                    <Link to={handleAddToCart()}>
+                    <Link to="#">
                         <img className="edit-addToCart" src={require(`../images/addToCart.png`)} alt="Cart"/>
                     </Link>
                 </div>

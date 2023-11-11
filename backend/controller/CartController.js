@@ -19,12 +19,27 @@ const addToCart = asyncHandler(async (req, res) => {
         if (!cart) {
             cart = new Cart({
                 patientId,
-                medicines: [medicineId]
+                medicines: [{
+                    medicineId: medicine._id,
+                    amount: 1,
+                    price: medicine.price,
+                    description: medicine.description,
+                    name: medicine.name,
+                    imageUpload: medicine.imageUpload
+                }],
+
             })
         }
         // else add the medicine to the array
         else {
-            cart.medicines.push(medicineId)
+            cart.medicines.push({
+                medicineId: medicine._id,
+                amount: 1,
+                price: medicine.price,
+                description: medicine.description,
+                name: medicine.name,
+                imageUpload: medicine.imageUpload
+            });
         }
         await cart.save();
         res.status(201).json(cart);
@@ -42,7 +57,6 @@ const viewCart = asyncHandler(async (req, res) => {
         if (!cart) {
             return res.status(404).json({message: 'Cart is empty'});
         }
-
         // Retrieve the medicines array of my cart
         const medicines = cart.medicines;
         res.status(200).json(medicines);
@@ -70,13 +84,53 @@ const removeMedicine = asyncHandler(async (req, res) => {
             return res.status(404).json({message: 'Cart is empty'});
         }
 
-        cart.medicines = cart.medicines.filter(item => !item._id.equals(medicineId));
+        cart.medicines = cart.medicines.filter(item => !item.medicineId.equals(medicineId));
         await cart.save()
         res.status(200).json({message: 'Medicine removed from cart successfully',cart:cart});
     } catch (error) {
         res.status(400).json({message: error.message});
     }
 })
+
+// Update Amount of a Medicine in Logged in Patient's Cart
+const updateAmountInCart = asyncHandler(async (req,res)=>{
+    const {name} = req.params
+    const {newAmount} = req.params
+
+    const medicine = await Medicine.findOne({name})
+    if (!medicine) {
+        return res.status(404).json({ message: 'Medicine not found' });
+    }
+    const medicineId = medicine._id // i have medicineId
+
+    try{
+        const patientId = req.user.id
+        const cart = await Cart.findOne({patientId})
+        if (!cart) {
+            return res.status(404).json({message: 'Cart not found'});
+        }
+        // Loop over the medicines array and find the index of this medicineId in my medicines array, then set its amount
+        const medicineIndex = cart.medicines.findIndex(
+            (medicine) => medicine.medicineId.toString() === medicineId.toString()
+        );
+
+        if (medicineIndex === -1) {
+            return res.status(404).json({ message: 'Medicine not found in cart' });
+        }
+
+        // Update the amount of the medicine at the found index
+        cart.medicines[medicineIndex].amount = newAmount;
+
+        // Save the updated cart
+        await cart.save();
+
+        res.status(200).json({ message: 'Medicine amount updated in cart successfully' });
+
+    }catch (error) {
+        res.status(400).json({message: error.message});
+    }
+})
+
 
 
 // View All Carts (for me)
@@ -89,22 +143,11 @@ const viewAllCarts = asyncHandler(async (req, res) => {
     }
 })
 
-// Delete Cart
-const deleteCart = asyncHandler((async (req, res) => {
-    const {id} = req.params
-    const medicine = await Cart.findOne({name})
-    if (!cart) {
-        return res.status(404).json({message: 'Cart not found'});
-    }
-    await medicine.deleteOne({id})
-    res.json({message: 'Cart deleted successfully'});
-}))
-
 
 module.exports = {
     addToCart,
     viewCart,
     viewAllCarts,
-    deleteCart,
-    removeMedicine
+    removeMedicine,
+    updateAmountInCart
 }
