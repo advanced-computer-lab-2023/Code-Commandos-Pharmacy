@@ -7,9 +7,9 @@ const PlaceOrder = () => {
                 method: "POST"
             });
             if (response.ok) {
-                console.log("Order placed successfully!");
+                alert("Order placed successfully!");
             } else {
-                console.log("Failed to place the order");
+                alert("Failed to place the order");
             }
         }catch (error){
             alert(error.message)
