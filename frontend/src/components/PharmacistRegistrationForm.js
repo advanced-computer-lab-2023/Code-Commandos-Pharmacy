@@ -21,9 +21,10 @@ const PharmacistRegistrationForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await handleIDSubmit()
-    await handleWorkLicenseSubmit()
-    await handlePharmacyDegreeSubmit()
+    if(!IDID || !LicenseID || !DegreeID){
+      alert("You need to submit the three files before you confirm registration")
+      return
+    }
     const formData = new FormData();
     formData.append('name', name);
     formData.append('username', username);
@@ -226,9 +227,9 @@ const PharmacistRegistrationForm = () => {
                 id="IDFile"
                 onChange={(e) => setIDFile(e.target.files[0])}
             />
-            {/*<button type="button" className="btn btn-primary" onClick={handleIDSubmit}>*/}
-            {/*  Submit ID*/}
-            {/*</button>*/}
+            <button type="button" className="btn btn-primary" onClick={handleIDSubmit}>
+              Submit ID
+            </button>
           </div>
 
           <hr />
@@ -243,9 +244,9 @@ const PharmacistRegistrationForm = () => {
                 id="LicensesFile"
                 onChange={(e) => setWorkLicenseFile(e.target.files[0])}
             />
-            {/*<button type="button" className="btn btn-primary" onClick={handleWorkLicenseSubmit}>*/}
-            {/*  Submit Work License*/}
-            {/*</button>*/}
+            <button type="button" className="btn btn-primary" onClick={handleWorkLicenseSubmit}>
+              Submit Work License
+            </button>
           </div>
           <hr />
           <div className="mb-3">
@@ -259,9 +260,9 @@ const PharmacistRegistrationForm = () => {
                 id="DegreeFile"
                 onChange={(e) => setPharmacyDegreeFile(e.target.files[0])}
             />
-            {/*<button type="button" className="btn btn-primary" onClick={handlePharmacyDegreeSubmit}>*/}
-            {/*  Submit Pharmacy Degree*/}
-            {/*</button>*/}
+            <button type="button" className="btn btn-primary" onClick={handlePharmacyDegreeSubmit}>
+              Submit Pharmacy Degree
+            </button>
           </div>
 
 
