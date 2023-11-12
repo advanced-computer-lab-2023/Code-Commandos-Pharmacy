@@ -13,33 +13,41 @@ const AddMedicine = () => {
     const [sideEffects, setSideEffects] = useState('')
     const [expiryDate, setExpiryDate] = useState('')
     const [medicinalUse, setMedicinalUse] = useState('')
-    const [image, setImage] = useState('')
     const [sales, setSales] = useState('')
+    const [imageUploadFile, setImageUploadFile] = useState(null);
+    const [imageUploadID, setImageUploadID] = useState(null);
 
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-
-        const medicine = {
-            name,
-            description,
-            details,
-            price,
-            quantity,
-            manufacturer,
-            ingredients,
-            sideEffects,
-            expiryDate,
-            medicinalUse,
-            image,
-            sales
+        if(!imageUploadID){
+            alert("You have to submit the image first")
+            return
         }
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("description", description);
+        formData.append("details", details);
+        formData.append("price", price);
+        formData.append("quantity", quantity);
+        formData.append("manufacturer", manufacturer);
+        formData.append("ingredients", ingredients);
+        formData.append("sideEffects", sideEffects);
+        formData.append("expiryDate", expiryDate);
+        formData.append("medicinalUse", medicinalUse);
+        formData.append("sales", sales);
+        formData.append("imageUploadFile", imageUploadFile);
+        formData.append("imageUploadID", imageUploadID);
+        const jsonFormData = {};
+        formData.forEach((value, key) => {
+            jsonFormData[key] = value;
+            console.log(key, value)
+        });
         try {
-            console.log(medicine)
             const response = await fetch('/api/medicine/addMedicine', {
                 method: 'POST',
                 //We can't send the object, we have to send a JSON
-                body: JSON.stringify(medicine),
+                body: JSON.stringify(jsonFormData),
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -59,8 +67,8 @@ const AddMedicine = () => {
                 setSideEffects('')
                 setExpiryDate('')
                 setMedicinalUse('')
-                setImage('')
                 setSales('')
+                setImageUploadFile(null)
                 alert("Added successfully ")
             }
         }
@@ -69,6 +77,38 @@ const AddMedicine = () => {
         }
     }
 
+    const handleImageSubmit = async () => {
+        setImageUploadID( await handleFileSubmit( imageUploadFile));
+
+    };
+
+    const handleFileSubmit = async ( file) => {
+        if (!file) {
+            alert('Please select a file to upload');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await fetch('/api/file/addSingleFile', {
+                method: 'POST',
+                body: formData,
+            });
+            if (!response.ok) {
+                const errorMessage = await response.text();
+                alert(errorMessage);
+                throw new Error(errorMessage);
+            } else {
+                alert('File is uploaded successfully');
+                const fileId = await response.json();
+                return fileId;
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+    };
 
     // 1) I need to save the value written in the form : Onchange
     // 2) I need to trigger the addMedicine when I submit : OnSubmit
@@ -120,9 +160,20 @@ const AddMedicine = () => {
                     </div>
                 </div>
                 <div className="form-row row mt-4">
-                    <div className="col">
-                        <input type="text" onChange={(e) => setImage(e.target.value)} value={image}
-                               className="form-control" placeholder="Image"/>
+                    <div className="mb-3">
+                        <label htmlFor="imageFile" className="form-label">
+                            Upload medicine image
+                        </label>
+                        <input
+                            required={true}
+                            type="file"
+                            className="form-control"
+                            id="imageUploadFile"
+                            onChange={  (e) => setImageUploadFile(e.target.files[0])}
+                        />
+                        <button type="button" className="btn btn-primary" onClick={handleImageSubmit}>
+                            Submit Medical ID
+                        </button>
                     </div>
                     <div className="col">
                         <select

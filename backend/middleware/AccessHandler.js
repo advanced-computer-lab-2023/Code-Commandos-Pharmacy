@@ -9,7 +9,7 @@ const checkPatientRole = asyncHandler(async (req, res, next) => {
     }
 })
 
-const checkDoctorRole = asyncHandler(async (req, res, next) => {
+const checkPharmacistRole = asyncHandler(async (req, res, next) => {
     if (req.user && req.user.role === 'PHARMACIST') {
         next();
     } else {
@@ -29,6 +29,6 @@ const checkAdminRole = asyncHandler(async (req, res, next) => {
 
 module.exports = {
     checkPatientRole,
-    checkDoctorRole,
+    checkPharmacistRole,
     checkAdminRole
 }

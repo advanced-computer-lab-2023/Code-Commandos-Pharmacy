@@ -43,3 +43,8 @@ body{
     text-align: center;
     align-items: center;
 }
+
+.med-img{
+    width: 150px;
+    height: 150px;
+}
