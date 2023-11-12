@@ -42,7 +42,7 @@ function App() {
                         <Route path="/EnterEmailReset"  element={<EnterEmailReset/>}/>
                         <Route path="/ResetPassword"  element={<ResetPassword/>}/>
                         <Route path="/ChangePassword"  element={<ChangePassword/>}/>
-                        <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Login/>}/>
+                        <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Navigate to="/Login" replace /> }/>
                         <Route path="/Home" element={<Home/>}/>
                     </Routes>
                 </div>

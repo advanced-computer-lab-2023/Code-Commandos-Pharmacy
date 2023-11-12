@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
+import axios from "axios";
 
 const PharmacistRequestDetails = ({ pharmacistRequest }) => {
     const handleAccept = async () => {
@@ -38,6 +39,48 @@ const PharmacistRequestDetails = ({ pharmacistRequest }) => {
             console.error('Error rejecting pharmacist request:', error);
         }
     };
+
+    const [idFileInfo, setIdFileInfo] = useState({ fileName: '', filePath: '' });
+    const [licenseFileInfo, setLicenseFileInfo] = useState({ fileName: '', filePath: '' });
+    const [degreeFileInfo, setDegreeFileInfo] = useState({ fileName: '', filePath: '' });
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const idFileInfoResponse = await axios.get(`/api/file/getFileById/${pharmacistRequest.ID}`);
+                const licenseFileInfoResponse = await axios.get(`/api/file/getFileById/${pharmacistRequest.workLicense}`);
+                const degreeFileInfoResponse = await axios.get(`/api/file/getFileById/${pharmacistRequest.pharmacyDegree}`);
+
+                // Set file names in state
+                setIdFileInfo({
+                    fileName: idFileInfoResponse.data.fileName,
+                    filePath: idFileInfoResponse.data.filePath,
+                });
+                setLicenseFileInfo({
+                    fileName: licenseFileInfoResponse.data.fileName,
+                    filePath: licenseFileInfoResponse.data.filePath,
+                });
+                setDegreeFileInfo({
+                    fileName: degreeFileInfoResponse.data.fileName,
+                    filePath: degreeFileInfoResponse.data.filePath,
+                });
+
+            } catch (error) {
+                console.error('Error fetching file names:', error.message);
+            }
+        };
+
+        fetchData();
+    }, [pharmacistRequest.ID, pharmacistRequest.workLicense, pharmacistRequest.pharmacyDegree]);
+
+    const createFileLink = (fileInfo) => {
+        return (
+            <a href={`http://localhost:4000${fileInfo.filePath}`} target="_blank" rel="noopener noreferrer">
+                {fileInfo.fileName}
+            </a>
+        );
+    };
+
     return (
         <div className="card">
             <div className="card-body">
@@ -49,6 +92,9 @@ const PharmacistRequestDetails = ({ pharmacistRequest }) => {
                 <p className="card-text">Affiliation: {pharmacistRequest.affiliation}</p>
                 <p className="card-text">Educational Background: {pharmacistRequest.educationalBackground}</p>
                 <p className="card-text">Status: {pharmacistRequest.status}</p>
+                <p className="card-text">Medical ID: {createFileLink(idFileInfo)}</p>
+                <p className="card-text">Medical License: {createFileLink(licenseFileInfo)}</p>
+                <p className="card-text">Medical Degree: {createFileLink(degreeFileInfo)}</p>
                 <button className="btn btn-success" onClick={handleAccept}>Accept</button>
                 <button className="btn btn-danger" onClick={handleReject}>Reject</button>
             </div>

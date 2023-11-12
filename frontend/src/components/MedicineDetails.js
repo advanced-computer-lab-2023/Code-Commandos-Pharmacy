@@ -10,13 +10,11 @@ const MedicineDetails = ({medicine}) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                console.log("med id ",medicine.imageUploadID)
                 const idFileInfoResponse = await axios.get(`/api/file/getFileById/${medicine.imageUploadID}`);
                 setIdFileInfo({
                     fileName: idFileInfoResponse.data.fileName,
                     filePath: idFileInfoResponse.data.filePath,
                 });
-                console.log(idFileInfoResponse.data)
 
             } catch (error) {
                 console.error('Error fetching file names:', error.message);

@@ -18,12 +18,18 @@ const Login = () => {
         if(response.ok){
             window.localStorage.setItem("logged",true)
             navigate('/Home')
+            window.location.reload()
         }
         if (!response.ok) {
             alert(await response.text())
         }
     };
 
+    const handleReset = () =>{
+        console.log("here")
+        navigate('/EnterEmailReset')
+        window.location.reload()
+    }
     // if (!isLogged) {
     return (
         <div className="container">
@@ -63,9 +69,9 @@ const Login = () => {
                                 </button>
                                 <br/>
 
-                                <p className="text-center">
-                                    <Link to="/EnterEmailReset">Forgot Password?</Link>
-                                </p>
+                                {/*<p className="text-center">*/}
+                                    <a href="#" onClick={handleReset}>Forgot Password?</a>
+                                {/*</p>*/}
 
                             </form>
                         </div>

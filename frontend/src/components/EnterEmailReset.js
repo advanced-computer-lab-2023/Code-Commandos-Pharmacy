@@ -6,11 +6,9 @@ const EnterEmailReset = () => {
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
 
-
     const handleSubmit = async () => {
         const response = await axios.post('api/user/generateOTP',{email:email})
         if(response.status == 200){
-            console.log("yes yes")
             navigate('/ResetPassword')
         }
         else {

@@ -6,7 +6,6 @@ const crypto = require('crypto');
 
 const singleFileUpload = async (req, res, next) => {
     try {
-        console.log("inside add file")
         const fileContent = fs.readFileSync(req.file.path);
         const fileHash = calculateFileHash(fileContent);
         // Check if a file with the same hash already exists
@@ -67,7 +66,6 @@ const singleFileUploadGuest = async (req, res, next) => {
 const getFileById = async (req, res) => {
     try {
         const {id} = req.params
-        console.log("file id is ",id)
         const file = await SingleFile.findById(id);
         if (!file) {
             res.status(404).send('File not found');
