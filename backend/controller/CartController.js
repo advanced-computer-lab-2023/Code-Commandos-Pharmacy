@@ -34,7 +34,7 @@ const addToCart = asyncHandler(async (req, res) => {
             // I want to check if the medicine is already in cart, an alert appears that says medicine already in cart
             const existingMedicine = cart.medicines.find((item) => item.medicineId.equals(medicineId))
 
-            if(existingMedicine){
+            if (existingMedicine) {
                 return res.status(400).json({message: 'Medicine already in cart'})
             }
 
@@ -54,8 +54,6 @@ const addToCart = asyncHandler(async (req, res) => {
             0
         );
         cart.subtotal += medicine.price;
-
-
         await cart.save();
         res.status(201).json(cart);
     } catch (error) {
@@ -74,13 +72,23 @@ const viewCart = asyncHandler(async (req, res) => {
         }
         // Retrieve the medicines array of my cart
         const medicines = cart.medicines;
-        res.status(200).json(medicines);
+        const subtotal = cart.subtotal;
+        const total = subtotal + 50; // Calculate the total based on the subtotal and any additional charges
 
+        const cartData = {
+            medicines,
+            subtotal,
+            total,
+        };
+        res.status(200).json(cartData);
     } catch (error) {
         res.status(400)
         throw new Error(error.message())
     }
 });
+
+// Get the subtotal and shipping of My Cart
+
 
 // Remove Medicine from MY Cart
 const removeMedicine = asyncHandler(async (req, res) => {
@@ -103,28 +111,28 @@ const removeMedicine = asyncHandler(async (req, res) => {
             0
         );
         cart.subtotal = cart.medicines.reduce(
-            (total, item) => total + (item.price* item.amount),
+            (total, item) => total + (item.price * item.amount),
             0
         );
         await cart.save()
-        res.status(200).json({message: 'Medicine removed from cart successfully',cart:cart});
+        res.status(200).json({message: 'Medicine removed from cart successfully', cart: cart});
     } catch (error) {
         res.status(400).json({message: error.message});
     }
 })
 
 // Update Amount of a Medicine in Logged in Patient's Cart
-const updateAmountInCart = asyncHandler(async (req,res)=>{
+const updateAmountInCart = asyncHandler(async (req, res) => {
     const {name} = req.params
     const {newAmount} = req.params
 
     const medicine = await Medicine.findOne({name})
     if (!medicine) {
-        return res.status(404).json({ message: 'Medicine not found' });
+        return res.status(404).json({message: 'Medicine not found'});
     }
     const medicineId = medicine._id // i have medicineId
 
-    try{
+    try {
         const patientId = req.user.id
         const cart = await Cart.findOne({patientId})
         if (!cart) {
@@ -136,7 +144,7 @@ const updateAmountInCart = asyncHandler(async (req,res)=>{
         );
 
         if (medicineIndex === -1) {
-            return res.status(404).json({ message: 'Medicine not found in cart' });
+            return res.status(404).json({message: 'Medicine not found in cart'});
         }
 
         // Update the amount of the medicine at the found index
@@ -148,15 +156,15 @@ const updateAmountInCart = asyncHandler(async (req,res)=>{
             0
         );
         cart.subtotal = cart.medicines.reduce(
-            (total, item) => total + (item.price* item.amount),
+            (total, item) => total + (item.price * item.amount),
             0
         );
         // Save the updated cart
         await cart.save();
 
-        res.status(200).json({ message: 'Medicine amount updated in cart successfully' });
+        res.status(200).json({message: 'Medicine amount updated in cart successfully'});
 
-    }catch (error) {
+    } catch (error) {
         res.status(400).json({message: error.message});
     }
 })

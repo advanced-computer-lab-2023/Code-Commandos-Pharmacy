@@ -18,6 +18,8 @@ import ResetPassword from "./components/ResetPassword";
 import ChangePassword from "./pages/ChangePassword";
 import MyCart from "./pages/MyCart";
 import EditMedicineInCart from "./pages/EditMedicineInCart";
+import PlaceOrder from "./pages/PlaceOrder"
+import DisplayOrderInfo from "./pages/DisplayOrderInfo";
 
 function App() {
 
@@ -43,6 +45,8 @@ function App() {
             <Route path="/editMedicine/:medicineName" element={<EditMedicine/>}/>
             <Route path="/viewMyCart" element={<MyCart/>}/>
             <Route path="/editMedicineInCart/:medicineName" element={<EditMedicineInCart/>}/>
+            <Route path="/placeOrder" element={<PlaceOrder/>}/>
+            <Route path="/viewMyOrders" element={<DisplayOrderInfo/>}/>
 
 
             <Route path="/EnterEmailReset"  element={<EnterEmailReset/>}/>

@@ -21,6 +21,7 @@ const OrderSchema = new mongoose.Schema({
     status: {
         type: String,
         enum: ['PENDING', 'SHIPPED', 'DELIVERED', 'CANCELLED'],
+        default: 'PENDING'
     },
     subtotal: {
         type: Number,
