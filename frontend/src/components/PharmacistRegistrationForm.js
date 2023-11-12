@@ -20,10 +20,10 @@ const PharmacistRegistrationForm = () => {
   const [DegreeID, setDegreeID] = useState(null);
 
   const handleSubmit = async (e) => {
-    handleIDSubmit()
-    handleWorkLicenseSubmit()
-    handlePharmacyDegreeSubmit()
     e.preventDefault()
+    await handleIDSubmit()
+    await handleWorkLicenseSubmit()
+    await handlePharmacyDegreeSubmit()
     const formData = new FormData();
     formData.append('name', name);
     formData.append('username', username);
