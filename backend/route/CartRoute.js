@@ -3,7 +3,6 @@ const express = require('express')
 const {
     addToCart,
     viewCart,
-    viewAllCarts,
     removeMedicine,
     updateAmountInCart
 } = require('../controller/CartController')
@@ -22,9 +21,5 @@ router.put('/removeMedicine/:name', protect, checkPatientRole, removeMedicine);
 
 // Update Amount of Medicine in Cart
 router.put('/updateAmount/:name/:newAmount', protect, checkPatientRole, updateAmountInCart)
-
-// View All Carts
-router.get('/viewAllCarts', viewAllCarts)
-
 
 module.exports = router

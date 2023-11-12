@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Medicine =require('../model/Medicine')
+const Medicine = require('../model/Medicine')
 
 const CartSchema = new mongoose.Schema({
     patientId: {
@@ -10,7 +10,7 @@ const CartSchema = new mongoose.Schema({
     medicines: [{
         medicineId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Medicine' // Reference to the Medicine model
+            ref: 'Medicine'
         },
         amount: {
             type: Number,
@@ -32,7 +32,19 @@ const CartSchema = new mongoose.Schema({
             type: String,
             red: 'Medicine.imageUpload'
         }
-    }]
+    }],
+    subtotal: {
+        type: Number,
+        default:0
+    },
+    shipping: {
+        type: Number,
+        default: 50
+    },
+    totalNumberOfItems: {
+        type: Number,
+        default: 0
+    }
 });
 
 const Cart = mongoose.model('Cart', CartSchema);

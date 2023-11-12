@@ -3,11 +3,11 @@ const mongoose = require('mongoose')
 const asyncHandler = require('express-async-handler')
 const Medicine = require('../model/Medicine')
 
-// Add to Cart of (logged in patient)
+// Add to Cart of (logged in patient) & Update the subtotal
 const addToCart = asyncHandler(async (req, res) => {
     const {name} = req.params; // Panadol
     const medicine = await Medicine.findOne({name});
-    const medicineId = medicine._id;
+    const medicineId = medicine._id; // panadolId in Medicine
 
     try {
         const patientId = req.user.id
@@ -26,8 +26,7 @@ const addToCart = asyncHandler(async (req, res) => {
                     description: medicine.description,
                     name: medicine.name,
                     imageUpload: medicine.imageUpload
-                }],
-
+                }]
             })
         }
         // else add the medicine to the array
@@ -48,6 +47,15 @@ const addToCart = asyncHandler(async (req, res) => {
                 imageUpload: medicine.imageUpload
             });
         }
+        // add the medicine price to the subtotal and update the totalNumberOfItems to be
+        // the sum of the amount of the medicines
+        cart.totalNumberOfItems = cart.medicines.reduce(
+            (total, item) => total + item.amount,
+            0
+        );
+        cart.subtotal += medicine.price;
+
+
         await cart.save();
         res.status(201).json(cart);
     } catch (error) {
@@ -78,11 +86,8 @@ const viewCart = asyncHandler(async (req, res) => {
 const removeMedicine = asyncHandler(async (req, res) => {
     const {name} = req.params
     const medicine = await Medicine.findOne({name})
-
-    if (!medicine) {
-        return res.status(404).json({ message: 'Medicine not found' });
-    }
     const medicineId = medicine._id; // Medicine Id
+
     try {
 
         const patientId = req.user.id;
@@ -91,8 +96,16 @@ const removeMedicine = asyncHandler(async (req, res) => {
         if (!cart) {
             return res.status(404).json({message: 'Cart is empty'});
         }
-
         cart.medicines = cart.medicines.filter(item => !item.medicineId.equals(medicineId));
+
+        cart.totalNumberOfItems = cart.medicines.reduce(
+            (total, item) => total + item.amount,
+            0
+        );
+        cart.subtotal = cart.medicines.reduce(
+            (total, item) => total + (item.price* item.amount),
+            0
+        );
         await cart.save()
         res.status(200).json({message: 'Medicine removed from cart successfully',cart:cart});
     } catch (error) {
@@ -115,7 +128,7 @@ const updateAmountInCart = asyncHandler(async (req,res)=>{
         const patientId = req.user.id
         const cart = await Cart.findOne({patientId})
         if (!cart) {
-            return res.status(404).json({message: 'Cart not found'});
+            return res.status(404).json({message: 'Cart is empty'});
         }
         // Loop over the medicines array and find the index of this medicineId in my medicines array, then set its amount
         const medicineIndex = cart.medicines.findIndex(
@@ -129,6 +142,15 @@ const updateAmountInCart = asyncHandler(async (req,res)=>{
         // Update the amount of the medicine at the found index
         cart.medicines[medicineIndex].amount = newAmount;
 
+        // i want to loop over the medicines array, and add all the amount of the medicines
+        cart.totalNumberOfItems = cart.medicines.reduce(
+            (total, item) => total + item.amount,
+            0
+        );
+        cart.subtotal = cart.medicines.reduce(
+            (total, item) => total + (item.price* item.amount),
+            0
+        );
         // Save the updated cart
         await cart.save();
 
@@ -139,23 +161,9 @@ const updateAmountInCart = asyncHandler(async (req,res)=>{
     }
 })
 
-
-
-// View All Carts (for me)
-const viewAllCarts = asyncHandler(async (req, res) => {
-    try {
-        const carts = await Cart.find()
-        res.status(200).json(carts)
-    } catch (error) {
-        throw new Error(error.message)
-    }
-})
-
-
 module.exports = {
     addToCart,
     viewCart,
-    viewAllCarts,
     removeMedicine,
     updateAmountInCart
 }
