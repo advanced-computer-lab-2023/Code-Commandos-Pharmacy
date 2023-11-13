@@ -178,7 +178,7 @@ const AddMedicine = () => {
                             onChange={  (e) => setImageUploadFile(e.target.files[0])}
                         />
                         <button type="button" className="btn btn-primary" onClick={handleImageSubmit}>
-                            Submit Medical ID
+                            Submit image
                         </button>
 
                     </div>

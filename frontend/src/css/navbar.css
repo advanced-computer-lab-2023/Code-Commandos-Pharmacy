@@ -287,29 +287,6 @@
     background-color: #053B50;
 }
 
-.left-payment-option {
-    background-color: #B9B4C7;
-    width: 150px;
-    height: 120px;
-    margin-left: 20px;
-    border: 1px solid black;
-}
-.middle-payment-option{
-    background-color: #B9B4C7;
-    width: 150px;
-    height: 120px;
-    margin-left: 200px;
-    margin-top: -120px;
-    border: 1px solid black;
-}
-.right-payment-option {
-    background-color: #B9B4C7;
-    width: 150px;
-    height: 120px;
-    margin-left: 380px;
-    margin-top: -120px;
-    border: 1px solid black;
-}
 
 .row-payment {
     display: flex;

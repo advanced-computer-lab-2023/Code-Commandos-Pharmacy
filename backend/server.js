@@ -7,11 +7,13 @@ const {ErrorHandler} = require('./middleware/ErrorHandler')
 const port = process.env.PORT
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+
 server.use(express.json());
 server.use(express.urlencoded({extended: false}));
 server.use(cookieParser());
 
 server.use('/uploads', express.static('uploads'));
+server.use(bodyParser.json());
 
 //routes
 
@@ -39,7 +41,6 @@ server.use('/api/medicine', MedicineRoute)
 server.use('/api/admin',adminRoutes)
 server.use('/api/user',userRoutes)
 server.use('/api/file',fileRoutes.routes)
-server.use(bodyParser.json());
 server.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 server.use('/api/cart', cartRoute)
 server.use('/api/order', orderRoute)

@@ -48,3 +48,31 @@ body{
     width: 150px;
     height: 150px;
 }
+
+.left-payment-option {
+    background-color: #B9B4C7;
+    width: 150px;
+    height: 120px;
+    margin-left: 20px;
+    border: 1px solid black;
+}
+.middle-payment-option{
+    background-color: #B9B4C7;
+    width: 150px;
+    height: 120px;
+    margin-left: 200px;
+    margin-top: -120px;
+    border: 1px solid black;
+}
+.right-payment-option {
+    background-color: #B9B4C7;
+    width: 150px;
+    height: 120px;
+    margin-left: 380px;
+    margin-top: -120px;
+    border: 1px solid black;
+}
+
+.right-payment-option, .left-payment-option, .middle-payment-option{
+    text-align: center;
+}

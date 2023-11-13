@@ -75,7 +75,7 @@ const PharmacistRequestDetails = ({ pharmacistRequest }) => {
 
     const createFileLink = (fileInfo) => {
         return (
-            <a href={`http://localhost:4000${fileInfo.filePath}`} target="_blank" rel="noopener noreferrer">
+            <a href={`http://localhost:8090${fileInfo.filePath}`} target="_blank" rel="noopener noreferrer">
                 {fileInfo.fileName}
             </a>
         );

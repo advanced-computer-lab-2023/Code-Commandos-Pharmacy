@@ -15,7 +15,6 @@ const MedicineDetails = ({medicine}) => {
                     fileName: idFileInfoResponse.data.fileName,
                     filePath: idFileInfoResponse.data.filePath,
                 });
-
             } catch (error) {
                 console.error('Error fetching file names:', error.message);
             }
@@ -42,8 +41,8 @@ const MedicineDetails = ({medicine}) => {
     };
 
     return (
-        <div className="col-lg-4 col-md-4 col-sm-6">
-            <div className="image-container">
+        <div className="col-lg-4 col-md-4 col-sm-6 border-danger box">
+            <div className="image-container ">
                 <img src={`http://localhost:8090${idFileInfo.filePath}`} alt={medicine.name} className="med-img"/>
                 <div className="icon-overlay logo-container">
                     <Link to={`/editMedicine/${medicine.name}`}>

@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
         cb(null,filename)
     }
 })
-const upload = multer({storage}).single('imageUpload')
+const upload = multer({storage}).single('imageUploadID')
 
 
 
@@ -29,11 +29,13 @@ const {
     removeMedicineFromCart,
     getMedicineDetailsById
 } = require('../controller/MedicineController')
+const {protect} = require("../middleware/AuthenticationHandler");
+const {checkPharmacistRole} = require("../middleware/AccessHandler");
 const router = express.Router()
 
 
 // Add a new medicine
-router.post('/addMedicine', upload, addOrUpdateMedicine)
+router.post('/addMedicine',protect,checkPharmacistRole, upload, addOrUpdateMedicine)
 
 // View a list of all available medicines (including Picture of Medicine, Price, Description)
 router.get('/viewAvailableMedicines', viewAvailableMedicines)

@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@stripe/react-stripe-js": "^2.3.1",
+    "@stripe/stripe-js": "^2.1.11",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "cookie-parser": "^1.4.6",
@@ -23,7 +25,7 @@
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.7",
     "otp-generator": "^4.0.1",
-    "multer": "^1.4.5-lts.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "stripe": "^14.4.0"
   }
 }

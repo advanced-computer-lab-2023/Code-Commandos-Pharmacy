@@ -76,6 +76,7 @@ const viewCart = asyncHandler(async (req, res) => {
         const total = subtotal + 50; // Calculate the total based on the subtotal and any additional charges
 
         const cartData = {
+            cartId:cart._id,
             medicines,
             subtotal,
             total,

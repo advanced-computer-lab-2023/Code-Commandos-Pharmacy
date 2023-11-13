@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 
 const EditMedicine = () => {
     const { medicineName } = useParams();
     const [newAmount, setNewAmount] = useState('');
-
+    const navigate = useNavigate()
     const handleEdit = async (e) => {
         e.preventDefault();
         try {
@@ -22,6 +22,8 @@ const EditMedicine = () => {
             if (response.ok) {
                 const data = await response.json();
                 alert('Amount updated successfully');
+                navigate('/viewMyCart')
+
             } else {
                 alert(await response.text());
                 console.log('Amount Failed:', response.status);

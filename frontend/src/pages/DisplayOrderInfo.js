@@ -10,6 +10,7 @@ const DisplayOrderInfo = () => {
                     const json = await response.json()
                     if (response.ok) {
                         setOrders(json)
+                        console.log("ordersr are ",orders)
                     }
                     else {
                         alert(await response.text())

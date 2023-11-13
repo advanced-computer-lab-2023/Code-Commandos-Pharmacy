@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const PatientSchema = new mongoose.Schema({
+const PharmacyPatientSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
@@ -32,25 +32,6 @@ const PatientSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  addresses: [
-    {
-      street:{
-        type: String,
-        required: true,
-            },
-      city:{
-        type: String,
-        required: true,
-                },
-      country:{
-      type: String,
-     required: true,
-      },
-    
-      
-  }
-],
-
   emergencyContact: {
     fullName: {
       type: String,
@@ -66,12 +47,7 @@ const PatientSchema = new mongoose.Schema({
       enum: ['WIFE','HUSBAND','CHILDREN']
     }
   },
-  wallet: {
-    type: Number,
-    required: true,
-    default: 0.00
-  }
 },{ timestamps: true });
 
-const Patient = mongoose.model('Patient', PatientSchema);
-module.exports = Patient;
+const PharmacyPatient = mongoose.model('PharmacyPatient', PharmacyPatientSchema);
+module.exports = PharmacyPatient;

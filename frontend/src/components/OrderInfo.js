@@ -12,6 +12,7 @@ const OrderInfo = ({id, status, numberOfItems, totalPrice, paymentOption}) => {
             }
             const updatedOrder = await response.json();
             alert("Order cancelled successfully")
+            window.location.reload()
             console.log(updatedOrder)
         } catch (error) {
             console.error(error)

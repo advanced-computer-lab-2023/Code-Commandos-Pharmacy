@@ -37,7 +37,8 @@ const addOrUpdateMedicine = asyncHandler(async (req, res) => {
                 customerReviews,
                 customerRatings,
                 sales,
-                amount
+                amount,
+                imageUploadID
             } = req.body;
             const { file } = req;
 
@@ -57,7 +58,7 @@ const addOrUpdateMedicine = asyncHandler(async (req, res) => {
                 customerRatings,
                 sales,
                 amount,
-                imageUpload: file.path || null,
+                imageUploadID: imageUploadID
             });
             await newMed.save(); // Save the new medicine
             res.status(200).json(newMed);

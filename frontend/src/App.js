@@ -19,7 +19,11 @@ import ChangePassword from "./pages/ChangePassword";
 import MyCart from "./pages/MyCart";
 import EditMedicineInCart from "./pages/EditMedicineInCart";
 import PlaceOrder from "./pages/PlaceOrder"
+import AddNewAddress from "./pages/AddNewAddress";
+import PaymentCancel from "./pages/PaymentCancel"
+import PaymentSuccess from "./pages/PaymentSuccess"
 import DisplayOrderInfo from "./pages/DisplayOrderInfo";
+
 
 function App() {
 
@@ -51,6 +55,9 @@ function App() {
                         <Route path="/editMedicineInCart/:medicineName" element={<EditMedicineInCart/>}/>
                         <Route path="/placeOrder" element={<PlaceOrder/>}/>
                         <Route path="/viewMyOrders" element={<DisplayOrderInfo/>}/>
+                        <Route path="/paymentSuccess" element={<PaymentSuccess/>}/>
+                        <Route path="/paymentCancel" element={<PaymentCancel/>}/>
+                        <Route path="/AddNewAddress" element={<AddNewAddress/>}/>
                         <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Navigate to="/Login" replace /> }/>
                         <Route path="/Home" element={<Home/>}/>
                     </Routes>

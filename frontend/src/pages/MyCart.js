@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from "react";
 import MedicineCartDetails from "../components/MedicineCartDetails";
-import {Link} from "react-router-dom";
+import { Navigate, useNavigate} from "react-router-dom";
+import axios from "axios";
 
 const MyCart = () => {
     const [medicines, setMedicines] = useState(null)
     const [subtotal, setSubtotal] = useState(0);
     const [total, setTotal] = useState(0);
+    const [cartId, setCartId] = useState(null);
+
+    const navigate = useNavigate();
+
     useEffect(() => {
         const fetchMedicines = async () => {
             try {
                 const response = await fetch("/api/cart/viewMyCart");
                 if (response.ok) {
-                    const { medicines, subtotal, total } = await response.json();
+                    const { medicines, subtotal, total,cartId } = await response.json();
                     setMedicines(medicines);
                     setSubtotal(subtotal);
                     setTotal(total);
+                    setCartId(cartId)
                     console.log("these are the medicines",medicines)
                 }
                 else {
@@ -27,6 +33,12 @@ const MyCart = () => {
         }
         fetchMedicines()
     }, [])
+
+   const handleCheckout = async ()=>{
+        if(medicines.length != 0){
+            navigate('/placeOrder?cart='+cartId)
+        }
+   }
 
     return (
         <div className="container-order">
@@ -60,9 +72,8 @@ const MyCart = () => {
                 <h3 className="sub-total">
                     Total: {total} EGP
                 </h3>
-                <Link to="/placeOrder">
-                    <button type="button" className="btn btn-primary btn-lg checkout-btn">Checkout</button>
-                </Link>
+                    <button type="button" className="btn btn-primary btn-lg checkout-btn" onClick={handleCheckout}>Checkout</button>
+
             </div>
         </div>
 

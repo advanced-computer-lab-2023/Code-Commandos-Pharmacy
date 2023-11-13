@@ -14,29 +14,33 @@ const OrderSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    paymentMethod: {
-        type: String,
-        enum: ['Cash On Delivery', 'Credit/Debit Card', 'Wallet']
-    },
     status: {
         type: String,
-        enum: ['PENDING', 'SHIPPED', 'DELIVERED', 'CANCELLED'],
+        enum: ['PENDING', 'ONITSWAY', 'DELIVERED', 'CANCELLED'],
         default: 'PENDING'
     },
     subtotal: {
         type: Number,
-        ref: 'Cart'
+        default:0
     },
     shipping: {
         type: Number,
-        ref: 'Cart'
+        default: 50
     },
     totalNumberOfItems: {
         type: Number,
-        ref: 'Cart'
+        default: 0
+    },
+    paymentOption: {
+        type: String,
+        enum: ['CreditCard', 'CashOnDelivery', 'Wallet']
     },
     totalPrice: {
         type: Number
+    },
+    sessionID: {
+        type: String,
+        default: 'NONE'
     }
 })
 

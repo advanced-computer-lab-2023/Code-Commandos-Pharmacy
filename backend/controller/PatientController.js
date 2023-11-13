@@ -1,6 +1,9 @@
 const PatientModel = require('../model/Patient')
+
 const mongoose = require('mongoose')
 const asyncHandler = require('express-async-handler')
+const express = require('express');
+
 
 // get all patients
 const getPatients = asyncHandler(async (req, res) => {
@@ -71,6 +74,7 @@ const deletePatient = asyncHandler(async (req, res) => {
 // update a patient
 const updatePatient = asyncHandler(async (req, res) => {
   const { id } = req.params
+  
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400)
     throw new Error('Patient not found')
@@ -88,10 +92,149 @@ const updatePatient = asyncHandler(async (req, res) => {
   }
 })
 
+//add a new delivery address (or multiple addresses)
+const addPatientAddresses = asyncHandler(async (req, res) => {
+  const { id } = req.user;
+  const { addresses } = req.body;
+  try {
+    const patient = await PatientModel.findOneAndUpdate({_id: id},
+      { $push: { addresses: { $each: addresses } } },
+      { new: true }
+    );
+    if (!patient) {
+      res.status(404).json({ error: 'Patient not found' });
+      return;
+    }
+    res.status(200).json(patient);
+  } catch (error) {
+    res.status(400)
+    throw new Error(error.message)
+  }
+});
+
+//choose a delivery address from the delivery addresses available
+const viewAvailableAddresses = asyncHandler(async (req, res) => {
+  const { id } = req.user;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    res.status(400).json({ error: 'Invalid patient ID' });
+    return;
+  }
+  try {
+    const patient = await PatientModel.findById(id);
+    if (!patient) {
+      res.status(404).json({ error: 'Patient not found' });
+      return;
+    }
+    const newaddresses = patient.addresses;
+    res.status(200).json({ newaddresses });
+  } catch (error) {
+    res.status(400)
+    throw new Error(error.message)
+  }
+});
+
+
+/*//choose to pay with wallet, credit card (using Stripe) or cash on delivery
+const paymentMethod = asyncHandler(async (req, res) => {
+  const { paymentMethod, amount } = req.body; // Extract payment method and amount from request body
+  const { username } = req.user; // Assuming you have the user object in the request after authentication
+
+  try {
+    if (paymentMethod === 'wallet') {
+      const wallet = await WalletModel.findOne({ username });
+
+      if (!wallet) {
+        return res.status(400).json({ error: 'Wallet not found' });
+      }
+
+      // Check if there's enough balance in the wallet
+      if (wallet.amount < amount) {
+        return res.status(400).json({ error: 'Insufficient funds in the wallet' });
+      }
+
+      // Decrement the amount from the wallet
+      wallet.amount -= amount;
+      await wallet.save();
+
+      return res.status(200).json({ success: true, message: 'Wallet payment processed successfully' });
+    } else if (paymentMethod === 'credit_card') {
+      // Payment processing logic for credit card using Stripe
+      const intent = await stripe.paymentIntents.create({
+        amount: amount * 100, // Amount in cents
+        currency: 'EGP',
+      });
+
+      // Return the client secret to confirm the payment on the client-side
+      return res.status(200).json({ clientSecret: intent.client_secret });
+    } else if (paymentMethod === 'cash_on_delivery') {
+      return res.status(200).json({ success: true, message: 'Cash on delivery payment processed successfully' });
+    } else {
+      return res.status(400).json({ error: 'Invalid payment method' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Payment failed' });
+  }
+});
+
+module.exports = {
+  paymentMethod
+};
+
+
+
+
+
+
+//const { token, error } = await stripe.createToken(cardElement);
+const payWithCreditCard = asyncHandler(async (req, res) => {
+  const { amount, currency, token } = req.body;
+
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: amount,
+      currency: currency,
+      payment_method: token,
+      confirm: false,
+    });
+
+    const confirmedIntent = await stripe.paymentIntents.confirm(paymentIntent.id);
+
+    if (confirmedIntent.status === 'succeeded') {
+      // Payment succeeded
+      res.status(200).json({ success: true });
+    } else {
+      // Payment failed
+      console.error('Payment confirmation failed');
+      res.status(500).json({ error: 'Payment failed' });
+    }} catch (error) {
+      // Payment failed
+      console.error(error.message);
+      res.status(500).json({ error: 'Payment failed' });
+    }
+  });*/
+  
+
+
+  
+ 
+
+
+
+  
+  
+
+
+
+
 module.exports = {
     getPatients,
     getPatient,
     createPatient,
     deletePatient,
-    updatePatient
+    updatePatient,
+    addPatientAddresses,
+    viewAvailableAddresses,
+   
+  
 }

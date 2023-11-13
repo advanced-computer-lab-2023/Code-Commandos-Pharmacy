@@ -34,6 +34,7 @@ const MedicineCartDetails = ({medicine}) => {
             }
             const updatedCart = await response.json();
             alert("Medicine removed from cart")
+            window.location.reload()
             console.log(updatedCart)
         } catch (error) {
             console.error(error);

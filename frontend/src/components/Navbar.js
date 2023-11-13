@@ -89,10 +89,12 @@ const Navbar = () => {
                                     <li>
                                         <Link to="/addMedicine" className="dropdown-item">Add Medicine</Link>
                                     </li>
+                                    <li>
+                                        <Link to="/AddNewAddress" className="dropdown-item">Add New Address</Link>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
-
                         <ul className="navbar-nav">
                             <li>
                                 <button className="cart-button">

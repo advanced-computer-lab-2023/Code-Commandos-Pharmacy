@@ -6,7 +6,10 @@ const {
   getPatient, 
   createPatient, 
   deletePatient, 
-  updatePatient
+  updatePatient,
+  addPatientAddresses,
+  viewAvailableAddresses,
+  
 } = require('../controller/PatientController')
 
 const {
@@ -19,12 +22,19 @@ const {protect} = require('../middleware/AuthenticationHandler')
 
 router.get('/getPatients',protect,checkAdminRole, getPatients)
 
-router.get('/getPatient/:id', getPatient)
+router.get('/getPatient/:id',protect,checkAdminRole, getPatient)
 
 router.post('/createPatient', createPatient)
 
-router.delete('/deletePatient/:id', deletePatient)
+router.delete('/deletePatient/:id',protect,checkAdminRole, deletePatient)
 
-router.patch('/updatePatient/:id', updatePatient)
+router.patch('/updatePatient/:id',protect,checkAdminRole, updatePatient)
+
+router.put('/addPatientAddresses/',protect,checkPatientRole, addPatientAddresses);
+
+router.get('/viewAvailableAddresses/',protect,checkPatientRole, viewAvailableAddresses);
+
+
+
 
 module.exports = router
