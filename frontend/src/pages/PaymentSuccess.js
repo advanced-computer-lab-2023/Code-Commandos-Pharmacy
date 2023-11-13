@@ -6,7 +6,7 @@ const PaymentSuccess = () => {
             const urlParams = new URLSearchParams(window.location.search);
             const sessionID = urlParams.get('sessionID');
             if(sessionID){
-                const response = await fetch(`http://localhost:3000/api/order/completeCreditPayment/${sessionID}`, {
+                const response = await fetch(`/api/order/completeCreditPayment/${sessionID}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ const PaymentSuccess = () => {
     return (
         <div>
             <h2>Payment successful.</h2>
-            <a href="/placeOrder">Go back .</a>
+            <a href="/myCart">Go back .</a>
         </div>
     );
 };
