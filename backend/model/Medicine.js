@@ -61,7 +61,6 @@ const MedicineSchema = new Schema({
                 'VITAMIN'
             ]
         },
-        //the below attributes should be updated automatically when purchasing a medicine from the pharmacy
         imageUploadID: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'File',

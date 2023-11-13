@@ -1,12 +1,12 @@
+import React, {useEffect, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/navbar.css'
 import {Link} from "react-router-dom";
 import axios from "axios";
-import {useEffect, useState} from "react";
 
-const MedicineDetails = ({medicine}) => {
+const MedicineCartDetails = ({medicine}) => {
     const [idFileInfo, setIdFileInfo] = useState({ fileName: '', filePath: '' });
-
+    console.log("printing medicine ",medicine)
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -24,17 +24,16 @@ const MedicineDetails = ({medicine}) => {
         fetchData();
     }, [medicine.imageUploadID]);
 
-
-    const handleAddToCart = async () => {
+    const handleRemove = async () => {
         try {
-            const response = await fetch(`/api/cart/addToCart/${medicine.name}`, {
-                method: 'POST',
+            const response = await fetch(`/api/cart/removeMedicine/${medicine.name}`, {
+                method: 'PUT',
             });
             if (!response.ok) {
-                throw new Error('Failed to add medicine to cart');
+                throw new Error('Error removing medicine from cart ');
             }
             const updatedCart = await response.json();
-            alert("Medicine Added to Cart Successfully!")
+            alert("Medicine removed from cart")
             console.log(updatedCart)
         } catch (error) {
             console.error(error);
@@ -46,21 +45,19 @@ const MedicineDetails = ({medicine}) => {
             <div className="image-container">
                 <img src={`http://localhost:8090${idFileInfo.filePath}`} alt={medicine.name} className="med-img"/>
                 <div className="icon-overlay logo-container">
-                    <Link to={`/editMedicine/${medicine.name}`}>
+                    <Link to={`/editMedicineInCart/${medicine.name}`}>
                         <img className="edit-logo" src={require(`../images/edit.png`)} alt="Edit"/>
                     </Link>
                     <br/>
-                <br/>
-                    <button className="addToCart-btn" onClick={handleAddToCart}>
-                        <img className="edit-addToCart" src={require(`../images/addToCart.png`)} alt="Cart"/>
-                    </button>
                 </div>
             </div>
             <p>{medicine.name}</p>
             <p>{medicine.price} EGP</p>
             <p>{medicine.description}</p>
+            <p>Amount: {medicine.amount}</p>
+            <p><button className="remove-btn" onClick={handleRemove}>Remove</button></p>
         </div>
     )
 }
 
-export default MedicineDetails;
+export default MedicineCartDetails;

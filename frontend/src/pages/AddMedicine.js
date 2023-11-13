@@ -17,6 +17,11 @@ const AddMedicine = () => {
     const [imageUploadFile, setImageUploadFile] = useState(null);
     const [imageUploadID, setImageUploadID] = useState(null);
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        setImageUploadFile(file);
+        console.log(file.name)
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -43,6 +48,8 @@ const AddMedicine = () => {
             jsonFormData[key] = value;
             console.log(key, value)
         });
+
+
         try {
             const response = await fetch('/api/medicine/addMedicine', {
                 method: 'POST',
@@ -113,10 +120,9 @@ const AddMedicine = () => {
     // 1) I need to save the value written in the form : Onchange
     // 2) I need to trigger the addMedicine when I submit : OnSubmit
     return (
-        <body>
         <div className="container container-form">
             <h2 className="title-form">Add Medicine</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <div className="form-row row">
                     <div className="col">
                         <input type="text" onChange={(e) => setName(e.target.value)} value={name}
@@ -174,6 +180,7 @@ const AddMedicine = () => {
                         <button type="button" className="btn btn-primary" onClick={handleImageSubmit}>
                             Submit Medical ID
                         </button>
+
                     </div>
                     <div className="col">
                         <select
@@ -208,7 +215,6 @@ const AddMedicine = () => {
                 <button type="submit" className="btn submit-btn">Submit</button>
             </form>
         </div>
-        </body>
     )
 }
 export default AddMedicine

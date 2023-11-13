@@ -2,13 +2,13 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../model/User')
-const Patient = require("../model/Patient");
-const Admin = require("../model/Admin");
+const Patient = require('../model/Patient')
+const Pharmacist = require('../model/Pharmacist')
+const Admin = require('../model/Admin')
 const otpGenerator = require('otp-generator');
 const nodemailer = require('nodemailer');
 const Mailgen =  require('mailgen');
 const dotenv = require("dotenv").config();
-const Pharmacist = require("../model/Pharmacist");
 
 const register = asyncHandler(async (req,res) => {
     const {username,password} = req.body

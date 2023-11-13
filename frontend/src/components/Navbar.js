@@ -95,6 +95,26 @@ const Navbar = () => {
 
                         <ul className="navbar-nav">
                             <li>
+                                <button className="cart-button">
+                                    <Link to="/viewMyOrders" className="cart-link">
+                                        <span className="cart-text">My Orders</span>
+                                    </Link>
+                                </button>
+                            </li>
+                        </ul>
+
+                         <ul className="navbar-nav">
+                                <li>
+                                    <button className="cart-button">
+                                        <Link to="/viewMyCart" className="cart-link">
+                                            <span className="cart-text">Cart</span>
+                                            <img className="cart-icon" src={require(`../images/addToCart.png`)} alt="Cart"/>
+                                        </Link>
+                                    </button>
+                                </li>
+                            </ul>
+                        <ul className="navbar-nav">
+                            <li>
                                 <button onClick={handleLogout} className="buttonNav logout">Log out</button>
                             </li>
                             <li>

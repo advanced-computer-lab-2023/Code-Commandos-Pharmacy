@@ -16,6 +16,10 @@ import Home from "./pages/Home";
 import EnterEmailReset from "./components/EnterEmailReset";
 import ResetPassword from "./components/ResetPassword";
 import ChangePassword from "./pages/ChangePassword";
+import MyCart from "./pages/MyCart";
+import EditMedicineInCart from "./pages/EditMedicineInCart";
+import PlaceOrder from "./pages/PlaceOrder"
+import DisplayOrderInfo from "./pages/DisplayOrderInfo";
 
 function App() {
 
@@ -42,6 +46,11 @@ function App() {
                         <Route path="/EnterEmailReset"  element={<EnterEmailReset/>}/>
                         <Route path="/ResetPassword"  element={<ResetPassword/>}/>
                         <Route path="/ChangePassword"  element={<ChangePassword/>}/>
+                        <Route path="/editMedicine/:medicineName" element={<EditMedicine/>}/>
+                        <Route path="/viewMyCart" element={<MyCart/>}/>
+                        <Route path="/editMedicineInCart/:medicineName" element={<EditMedicineInCart/>}/>
+                        <Route path="/placeOrder" element={<PlaceOrder/>}/>
+                        <Route path="/viewMyOrders" element={<DisplayOrderInfo/>}/>
                         <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Navigate to="/Login" replace /> }/>
                         <Route path="/Home" element={<Home/>}/>
                     </Routes>
