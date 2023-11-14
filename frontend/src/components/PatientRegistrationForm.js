@@ -66,6 +66,7 @@ const PatientRegistrationForm = () => {
               Username:
             </label>
             <input
+                required
                 type="text"
                 className="form-control"
                 id="username"
@@ -78,6 +79,7 @@ const PatientRegistrationForm = () => {
               Name:
             </label>
             <input
+                required
                 type="text"
                 className="form-control"
                 id="name"
@@ -90,6 +92,7 @@ const PatientRegistrationForm = () => {
               E-mail:
               </label>
             <input
+                required
                 type="email"
                 className="form-control"
                 id="email"
@@ -102,6 +105,7 @@ const PatientRegistrationForm = () => {
               Password:
             </label>
             <input
+                required
                 type="password"
                 className="form-control"
                 id="password"
@@ -114,6 +118,7 @@ const PatientRegistrationForm = () => {
               Date of Birth:
             </label>
             <input
+                required
                 type="date"
                 className="form-control"
                 id="dateOfBirth"
@@ -124,6 +129,7 @@ const PatientRegistrationForm = () => {
           <div className="mb-3">
             <label className="form-label">Gender:</label><br />
             <input
+                required
             type="radio"
             id="MALE"
             name="gender"
@@ -131,6 +137,7 @@ const PatientRegistrationForm = () => {
         />
         <label htmlFor="MALE">Male</label><br />
         <input
+            required
             type="radio"
             id="FEMALE"
             name="gender"
@@ -143,6 +150,7 @@ const PatientRegistrationForm = () => {
           Mobile Number:
         </label>
         <input
+            required
             type="number"
             className="form-control"
             id="mobileNumber"
@@ -155,6 +163,7 @@ const PatientRegistrationForm = () => {
           Emergency Contact Full Name:
         </label>
         <input
+            required
             type="text"
             className="form-control"
             id="ecFullName"
@@ -167,6 +176,7 @@ const PatientRegistrationForm = () => {
               Emergency Contact Mobile Number:
             </label>
             <input
+                required
                 type="number"
                 className="form-control"
                 id="ecMobileNumber"
@@ -177,6 +187,7 @@ const PatientRegistrationForm = () => {
           <div className="mb-3">
             <label className="form-label">Relation to Emergency Contact:</label><br />
             <input
+                required
                 type="radio"
                 id="HUSBAND"
                 name="relation"
@@ -184,6 +195,7 @@ const PatientRegistrationForm = () => {
             />
             <label htmlFor="HUSBAND">Husband</label><br />
             <input
+                required
                 type="radio"
                 id="WIFE"
                 name="relation"
@@ -191,69 +203,21 @@ const PatientRegistrationForm = () => {
             />
             <label htmlFor="WIFE">Wife</label><br />
             <input
+                required
                 type="radio"
                 id="CHILDREN"
                 name="relation"
                 onChange={(e) => setEcRelation(e.target.id)}
             />
             <label htmlFor="CHILDREN">Son/Daughter</label><br />
-          </div>  
-          <label htmlFor="dateOfBirth" className="form-label">
-              Addresses:
-            </label>
-        {addresses.map((address, index) => (
-          <div className="row mb-3" key={index}>
-            <div className="col">
-              <input
-                type="text"
-                required
-                value={address.street}
-                onChange={(e) => {
-                  const updatedAddresses = [...addresses];
-                  updatedAddresses[index].street = e.target.value;
-                  setAddresses(updatedAddresses);
-                }}
-                className="form-control"
-                placeholder="Street"
-              />
-            </div>
-            <div className="col">
-              <input
-                type="text"
-                required
-                value={address.city}
-                onChange={(e) => {
-                  const updatedAddresses = [...addresses];
-                  updatedAddresses[index].city = e.target.value;
-                  setAddresses(updatedAddresses);
-                }}
-                className="form-control"
-                placeholder="City"
-              />
-            </div>
-            <div className="col">
-              <input
-                type="text"
-                required
-                value={address.country}
-                onChange={(e) => {
-                  const updatedAddresses = [...addresses];
-                  updatedAddresses[index].country = e.target.value;
-                  setAddresses(updatedAddresses);
-                }}
-                className="form-control"
-                placeholder="Country"
-              />
-            </div>
           </div>
-        ))}
-        <button type="button" className="btn btn-secondary" onClick={() => setAddresses([...addresses, { street: '', city: '', country: '' }])}>
-          Add Address
-        </button>
-  
+        <br/>
+        <br/>
         <button className="btn btn-primary">Register</button>
+        <br/>
       </form>
       {newPatient && <PatientDetails patient={newPatient} />}
+      <br/>
     </div>
   );
  };

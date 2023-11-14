@@ -23,6 +23,7 @@ import AddNewAddress from "./pages/AddNewAddress";
 import PaymentCancel from "./pages/PaymentCancel"
 import PaymentSuccess from "./pages/PaymentSuccess"
 import DisplayOrderInfo from "./pages/DisplayOrderInfo";
+import Register from "./pages/Register";
 
 
 function App() {
@@ -32,9 +33,10 @@ function App() {
     return (
         <div className="App">
             <BrowserRouter>
-                {logged ? <Home/> : <Login />}
+                {logged ? <Home/> : null}
                 <div className="pages">
                     <Routes>
+                        <Route path="/" element={logged ? <Home /> : <Navigate to="/login"/>}/>
                         <Route path="/viewAvailableMedicines" element={<ViewAvailableMedicines/>} />
                         <Route path="/quantityAndSales" element={<SelectQuantityAndSales/>} />
                         <Route path="/viewAllAndSearchMedicineByName" element={<SearchMedicineByName/>} />
@@ -58,7 +60,8 @@ function App() {
                         <Route path="/paymentSuccess" element={<PaymentSuccess/>}/>
                         <Route path="/paymentCancel" element={<PaymentCancel/>}/>
                         <Route path="/AddNewAddress" element={<AddNewAddress/>}/>
-                        <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Navigate to="/Login" replace /> }/>
+                        <Route path="/Register" element={<Register/>}/>
+                        <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Login /> }/>
                         <Route path="/Home" element={<Home/>}/>
                     </Routes>
                 </div>

@@ -69,9 +69,12 @@ const Login = () => {
                                 </button>
                                 <br/>
 
-                                {/*<p className="text-center">*/}
-                                    <a href="#" onClick={handleReset}>Forgot Password?</a>
-                                {/*</p>*/}
+                                <p className="text-center">
+                                    <Link to="/EnterEmailReset">Forgot Password?</Link>
+                                </p>
+                                <p className="text-center">
+                                    <Link to="/Register">Sign Up</Link>
+                                </p>
 
                             </form>
                         </div>

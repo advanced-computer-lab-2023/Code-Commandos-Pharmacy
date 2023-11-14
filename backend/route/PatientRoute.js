@@ -14,7 +14,7 @@ const {
 
 const {
   checkPatientRole,
-  checkDoctorRole,
+  checkPharmacistRole,
   checkAdminRole
 } = require('../middleware/AccessHandler')
 

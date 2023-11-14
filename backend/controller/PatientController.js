@@ -3,6 +3,7 @@ const PatientModel = require('../model/Patient')
 const mongoose = require('mongoose')
 const asyncHandler = require('express-async-handler')
 const express = require('express');
+const User = require("../model/User");
 
 
 // get all patients
@@ -43,7 +44,14 @@ const getPatient = asyncHandler(async (req, res) => {
 const createPatient = asyncHandler(async (req, res) => {
   const patientBody = req.body
   try {
+    if (patientBody.password.search(/[a-z]/) < 0 || patientBody.password.search(/[A-Z]/) < 0 || patientBody.password.search(/[0-9]/) < 0) {
+      res.status(400)
+      throw new Error("Password must contain at least one number, one capital letter and one small letter")
+    }
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(patientBody.password,salt)
     const patient = await PatientModel.create(patientBody)
+    const user = await User.create({username: patientBody.username, password: hashedPassword, role:"PATIENT"})
     res.status(200).json(patient)
   } catch (error) {
     res.status(400)
@@ -64,6 +72,7 @@ const deletePatient = asyncHandler(async (req, res) => {
       res.status(400)
       throw new Error('Patient not found')
     }
+    await User.findOneAndDelete({username:patient.username})
     res.status(200).json(patient)
   } catch (error){
     res.status(400)

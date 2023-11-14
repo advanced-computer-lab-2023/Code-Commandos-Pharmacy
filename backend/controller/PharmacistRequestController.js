@@ -5,7 +5,7 @@ const User = require("../model/User");
 const Pharmacist = require("../model/Pharmacist");
 
 
-const  viewUploadByPharmacist=asyncHandler( async(req, res)=>{
+const viewUploadByPharmacist=asyncHandler( async(req, res)=>{
     const{id} = req.params
     if(!mongoose.Types.ObjectId.isValid(id)){
         res.status(404)
@@ -52,7 +52,13 @@ const acceptRequest = asyncHandler(async (req, res) => {
     const {id} = req.params
     try {
         const request = await PharmacistRequestModel.findByIdAndDelete(id)
-        const user = await User.create({username: request.username,password: request.password,role:'PHARMACIST'})
+        if (request.password.search(/[a-z]/) < 0 || request.password.search(/[A-Z]/) < 0 || request.password.search(/[0-9]/) < 0) {
+            res.status(400)
+            throw new Error("Password must contain at least one number, one capital letter and one small letter")
+        }
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(request.password,salt)
+        const user = await User.create({username: request.username,password: hashedPassword,role:'PHARMACIST'})
         const addPharmacist =await Pharmacist.create({username: request.username,name: request.name,email:  request.email,password: request.password,dateOfBirth:  request.dateOfBirth,hourlyRate: request.hourlyRate,affiliation: request.affiliation,educationalBackground: request.educationalBackground})
         res.status(200).json(addPharmacist)
 

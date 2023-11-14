@@ -10,68 +10,45 @@ const nodemailer = require('nodemailer');
 const Mailgen =  require('mailgen');
 const dotenv = require("dotenv").config();
 
-const register = asyncHandler(async (req,res) => {
-    const {username,password} = req.body
-    if(!username || !password){
-        res.status(400)
-        throw new Error('Please provide username and password')
-    }
-    const userExists = await User.findOne({username})
-    if (userExists){
-        res.status(400)
-        throw new Error('User exists already')
-    }
-    const salt = await bcrypt.genSalt(10)
-    const hashedPassword = await bcrypt.hash(password,salt)
-    const user = await User.create({
-        username: username,
-        password: hashedPassword,
-    })
-    if (user){
-        res.status(200).json(user)
-    }
-    else {
-        res.status(400)
-        throw new Error('Invalid user data')
-    }
-})
 
 const login = asyncHandler(async (req,res) => {
     const {username, password} = req.body
     const user = await User.findOne({username})
-    if (user && user.password === password){
-        var id
-        if(user.role == 'PATIENT'){
-            const patient = await Patient.findOne({username}).select('_id')
-            id = patient._id
-        }
-        else if(user.role == 'PHARMACIST'){
-            const pharmacist = await Pharmacist.findOne({username}).select('_id')
-            id = pharmacist._id
-        }
-        else if(user.role == 'ADMIN'){
-            const admin = await Admin.findOne({username}).select('_id')
-            id = admin._id
-        }
-        const token = generateToken(user.username,user.role,id)
-        console.log(token)
-        res.cookie('token', token, {
-            maxAge: 3600000,
-            httpOnly: true,
-        });
-
-        res.status(200).json({
-            id:id,
-            username: user.username,
-            role: user.role,
-            token: token
-        })
-
-    }
-    else {
+    if(!user){
         res.status(400)
-        throw new Error('Invalid credentials')
+        throw new Error('Invalid username')
     }
+    const salt = await bcrypt.genSalt(10)
+    const comparePassword = await bcrypt.compare(password,user.password)
+    if (!comparePassword) {
+        res.status(400)
+        throw new Error('Invalid Password')
+    }
+    var id
+    if(user.role == 'PATIENT'){
+        const patient = await Patient.findOne({username}).select('_id')
+        id = patient._id
+    }
+    else if(user.role == 'PHARMACIST'){
+        const pharmacist = await Pharmacist.findOne({username}).select('_id')
+        id = pharmacist._id
+    }
+    else if(user.role == 'ADMIN'){
+        const admin = await Admin.findOne({username}).select('_id')
+        id = admin._id
+    }
+    const token = generateToken(user.username,user.role,id)
+    res.cookie('token', token, {
+        maxAge: 3600000,
+        httpOnly: true,
+    });
+
+    res.status(200).json({
+        id:id,
+        username: user.username,
+        role: user.role,
+        token: token
+    })
 })
 
 const logout = async (req, res) => {
@@ -84,20 +61,11 @@ const logout = async (req, res) => {
     }
 };
 
-const getLoggedInUser = asyncHandler( async (req,res) => {
-    res.status(200).json(req.user)
-})
-
 const generateToken = (username,role,id) => {
     return jwt.sign({username,role,id}, process.env.JWT_SECRET, {
         expiresIn: 3600000,
     })
 }
-
-const skipLogin = asyncHandler( async (req,res) => {
-    res.status(200)
-    return true;
-})
 
 const generateOTP =  asyncHandler(async (req,res) => {
     const {email} = req.body
@@ -168,7 +136,9 @@ const resetPassword = asyncHandler(async (req,res) => {
         throw new Error("No user found")
     }
     else {
-        await User.findOneAndUpdate({username},{password:newPassword})
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(newPassword,salt)
+        await User.findOneAndUpdate({username},{password:hashedPassword})
     }
     res.status(200).json("Your password has been reset")
 })
@@ -184,7 +154,8 @@ const changePassword = async (req,res) => {
     catch (error){
         return res.status(400).json({error:error.message})
     }
-    if(currentPassword != currentComparedPassword.password){
+    const passCompare = await bcrypt.compare(currentPassword,currentComparedPassword.password)
+    if(!passCompare){
         return res.status(401).json({ error: "Your current password is incorrect!" });
     }
     if (newPassword.search(/[a-z]/) < 0 || newPassword.search(/[A-Z]/) < 0 || newPassword.search(/[0-9]/) < 0) {
@@ -194,7 +165,9 @@ const changePassword = async (req,res) => {
         return res.status(400).json({ error: "Password confirmation incorrect" });
     }
     try {
-        await User.findOneAndUpdate({username},{password:newPassword})
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(newPassword,salt)
+        await User.findOneAndUpdate({username},{password:hashedPassword})
         if(role == "PATIENT"){
             await Patient.findOneAndUpdate({username},{password:newPassword})
         }
@@ -212,11 +185,8 @@ const changePassword = async (req,res) => {
     }
 }
 module.exports = {
-    register,
     login,
-    getLoggedInUser,
     logout,
-    skipLogin,
     generateOTP,
     verifyOTP,
     resetPassword,
