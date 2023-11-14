@@ -7,8 +7,8 @@ const SelectQuantityAndSales = () => {
         const fetchMedicines = async () => {
             try {
                 const response = await fetch('/api/medicine/viewQuantityAndSales')
-                const json = await response.json()
                 if (response.ok) {
+                    const json = await response.json()
                     setMedicines(json)
                 }
                 else {

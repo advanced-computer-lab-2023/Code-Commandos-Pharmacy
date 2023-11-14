@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import PatientDetails from "./PatientDetails";
 import PharmacistRequestDetails from "./PharmacistRequestDetails";
+import {useNavigate} from "react-router-dom";
 
 const PharmacistRegistrationForm = () => {
   const [name, setName] = useState('')
@@ -18,7 +19,7 @@ const PharmacistRegistrationForm = () => {
   const [IDID, setIDID] = useState(null);
   const [LicenseID, setLicenseID] = useState(null);
   const [DegreeID, setDegreeID] = useState(null);
-
+  const navigate = useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault()
     if(!IDID || !LicenseID || !DegreeID){
@@ -68,6 +69,7 @@ const PharmacistRegistrationForm = () => {
         setEducationalBackground('')
         setNewRequest(json)
         alert("Request submitted successfully ")
+        navigate('/Login')
       }
     }
     catch (error) {

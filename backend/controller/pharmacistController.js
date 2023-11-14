@@ -2,6 +2,7 @@ const PharmacistModel= require('../model/Pharmacist')
 const mongoose= require('mongoose')
 const asyncHandler= require('express-async-handler')
 const User = require("../model/User");
+const bcrypt = require("bcryptjs");
 
 
 // Task 22- view a  pharmacist

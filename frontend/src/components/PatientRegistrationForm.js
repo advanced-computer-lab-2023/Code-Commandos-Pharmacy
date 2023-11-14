@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import PatientDetails from "./PatientDetails";
+import {useNavigate} from "react-router-dom";
 
 const PatientRegistrationForm = () => {
   const [name, setName] = useState('')
@@ -16,7 +17,7 @@ const PatientRegistrationForm = () => {
   const [addresses, setAddresses] = useState([{ street: '', city: '', country: '' }]);
 
     const [newPatient, setNewPatient] = useState(null);
-
+    const navigate = useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -49,6 +50,7 @@ const PatientRegistrationForm = () => {
         setEcRelation('')
         setNewPatient(json)
         alert("Registered successfully ")
+        navigate('/Login')
       }
     }
     catch (error){

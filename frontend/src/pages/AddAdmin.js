@@ -52,7 +52,7 @@ const AddAdmin = ()=> {
                     Password:
                 </label>
                 <input
-                    type="text"
+                    type="password"
                     id="password"
                     className="form-control"
                     value={password !== null ? password : ""}

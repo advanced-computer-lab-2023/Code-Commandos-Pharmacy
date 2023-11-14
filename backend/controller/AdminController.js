@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const AdminModel = require('../model/Admin')
 const asyncHandler = require('express-async-handler')
 const User = require("../model/User");
+const bcrypt = require("bcryptjs");
 
 const addAdmin = asyncHandler(async (req,res) => {
     const {username,password} = req.body

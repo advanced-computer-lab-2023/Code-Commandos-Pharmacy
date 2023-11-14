@@ -13,6 +13,7 @@ const PharmacistRequestDetails = ({ pharmacistRequest }) => {
 
             if (response.ok) {
                 alert('Pharmacist request accepted successfully!');
+                window.location.reload()
             } else {
                 alert(await response.text());
             }
@@ -32,6 +33,7 @@ const PharmacistRequestDetails = ({ pharmacistRequest }) => {
 
             if (response.ok) {
                 alert('Pharmacist request rejected successfully!');
+                window.location.reload()
             } else {
                 alert(await response.text());
             }

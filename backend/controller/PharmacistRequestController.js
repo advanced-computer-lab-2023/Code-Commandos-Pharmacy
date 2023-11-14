@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const PharmacistRequestModel = require("../model/PharmacistRequest");
 const User = require("../model/User");
 const Pharmacist = require("../model/Pharmacist");
+const bcrypt = require("bcryptjs");
 
 
 const viewUploadByPharmacist=asyncHandler( async(req, res)=>{

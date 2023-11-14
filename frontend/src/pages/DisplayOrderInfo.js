@@ -7,8 +7,8 @@ const DisplayOrderInfo = () => {
             const fetchOrders = async () => {
                 try {
                     const response = await fetch('/api/order/getOrders')
-                    const json = await response.json()
                     if (response.ok) {
+                        const json = await response.json()
                         setOrders(json)
                         console.log("ordersr are ",orders)
                     }
@@ -25,8 +25,9 @@ const DisplayOrderInfo = () => {
     )
     return(
         <body>
-        <h2 className="left-part">My Orders</h2>
-        <div className="medicines-quantity-sales">
+        <div className="container medicines-quantity-sales">
+            <h2 className="left-part">My Orders</h2>
+
             {orders && orders.map((order) => (
                 <OrderInfo
                     id={order.orderId}

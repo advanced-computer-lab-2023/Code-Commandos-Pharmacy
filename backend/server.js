@@ -15,10 +15,10 @@ server.use(cookieParser());
 server.use('/uploads', express.static('uploads'));
 server.use(bodyParser.json());
 
-//routes
 
 server.listen(port, () => console.log(`Server is listening on port ${port}`))
 connectDB()
+
 
 server.get('/', (req, res) => {
     res.status(200).json({message: "Hello from server"})
