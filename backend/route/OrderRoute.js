@@ -21,7 +21,6 @@ router.get('/getOrders', protect, checkPatientRole, viewOrderDetails)
 // Cancel Order
 router.put('/cancelOrder/:id', protect, checkPatientRole, cancelOrder)
 
-
 //choose payment
 router.get('/payForOrder/:cartId/:paymentOption', protect, checkPatientRole, payForOrder)
 

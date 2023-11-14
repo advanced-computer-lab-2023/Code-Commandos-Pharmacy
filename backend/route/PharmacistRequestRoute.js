@@ -12,8 +12,7 @@ const {
 
 
 router.post('/addPharmacistRequest', addPharmacistRequest)
-router.get('/viewAllPharmacistRequests',viewAllPharmacistRequests)
-router.get('/viewUploadByPharmacist/:id',protect,checkAdminRole,viewUploadByPharmacist)
+router.get('/viewAllPharmacistRequests',protect,checkAdminRole,viewAllPharmacistRequests)
 router.post('/acceptRequest/:id',protect,checkAdminRole,acceptRequest)
 router.delete('/rejectRequest/:id',protect,checkAdminRole,rejectRequest)
 

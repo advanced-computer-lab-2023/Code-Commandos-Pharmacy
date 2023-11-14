@@ -38,41 +38,21 @@ const router = express.Router()
 router.post('/addMedicine',protect,checkPharmacistRole, upload, addOrUpdateMedicine)
 
 // View a list of all available medicines (including Picture of Medicine, Price, Description)
-router.get('/viewAvailableMedicines', viewAvailableMedicines)
+router.get('/viewAvailableMedicines',protect, viewAvailableMedicines)
 
 // View the Available quantity, and Sales of each medicine
-router.get('/viewQuantityAndSales', viewQuantityAndSales)
+router.get('/viewQuantityAndSales', protect,checkPharmacistRole, viewQuantityAndSales)
 
 // Search for Medicine based on name
-router.get('/searchMedicineByName/:name', searchMedicineByName)
+router.get('/searchMedicineByName/:name',protect, searchMedicineByName)
 
 // Edit medicine Details and Price
-router.put('/updateDetailsAndPrice/:name', updateDetailsAndPrice)
+router.put('/updateDetailsAndPrice/:name', protect,checkPharmacistRole, updateDetailsAndPrice)
 
 // Filter medicines based on Medicinal Use
-router.get('/filterMedicines/:medicinalUse', filterMedicines)
+router.get('/filterMedicines/:medicinalUse', protect, filterMedicines)
 
 //Delete Medicine
 router.delete('/delete/:name' , deleteMedicine )
-
-// View Medicines in Cart
-router.get('/viewMedicineCart', viewMedicineInCart)
-
-// Edit Medicine in Cart's Amount
-router.put('/editAmount/:name', updateAmount)
-
-// Remove Medicine from Cart
-router.put('/removeMedicineFromCart/:name', removeMedicineFromCart)
-
-// Get Medicine details by id
-router.get('/getMedicineDetailsById/:id', getMedicineDetailsById)
-
-// router.post('/uploads', upload, (req,res)=>{
-//     const {file} = req
-//     res.send({
-//         file: file.originalname,
-//         path: file.path
-//     })
-// })
 
 module.exports = router
