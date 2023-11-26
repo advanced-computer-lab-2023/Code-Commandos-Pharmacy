@@ -5,6 +5,7 @@ const AddAdmin = ()=> {
     const [username,setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     const [admin,setAdmin] = useState(null)
+    const [email, setEmail] = useState('')
 
     const handleAddAdmin = async () => {
         try{
@@ -13,7 +14,7 @@ const AddAdmin = ()=> {
                 headers: {
                     'Content-Type':'application/json',
                 },
-                body: JSON.stringify({username,password})
+                body: JSON.stringify({username,password,email})
             });
             if (response.ok){
                 const result = await response.json();
@@ -40,6 +41,7 @@ const AddAdmin = ()=> {
                     Username:
                 </label>
                 <input
+                    required={true}
                     type="text"
                     id="name"
                     className="form-control"
@@ -52,11 +54,25 @@ const AddAdmin = ()=> {
                     Password:
                 </label>
                 <input
+                    required={true}
                     type="password"
                     id="password"
                     className="form-control"
                     value={password !== null ? password : ""}
                     onChange={(e) => setPassword(e.target.value)}
+                />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="email" className="form-label">
+                    Email:
+                </label>
+                <input
+                    required={true}
+                    type="email"
+                    id="email"
+                    className="form-control"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
             </div>
             <button className="btn btn-primary" onClick={handleAddAdmin}>

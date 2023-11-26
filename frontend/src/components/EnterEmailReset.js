@@ -7,12 +7,14 @@ const EnterEmailReset = () => {
     const navigate = useNavigate();
 
     const handleSubmit = async () => {
-        const response = await axios.post('api/user/generateOTP',{email:email})
-        if(response.status == 200){
-            navigate('/ResetPassword')
+        try {
+            const response = await axios.post('api/user/generateOTP',{email:email})
+            if(response.status == 200){
+                navigate(`/ResetPassword/${email}`)
+            }
         }
-        else {
-            alert(response.data)
+        catch (error){
+            alert("No user found for such an email")
         }
     };
 

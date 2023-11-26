@@ -1,3 +1,5 @@
+
+
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom"
 import ViewAvailableMedicines from "./pages/ViewAvailableMedicines";
 import SelectQuantityAndSales from "./pages/SelectQuantityAndSales";
@@ -50,7 +52,7 @@ function App() {
                         <Route path="/addMedicine" element={<AddMedicine/>} />
                         <Route path="/editMedicine/:medicineName" element={<EditMedicine/>}/>
                         <Route path="/EnterEmailReset"  element={<EnterEmailReset/>}/>
-                        <Route path="/ResetPassword"  element={<ResetPassword/>}/>
+                        <Route path="/ResetPassword/:email"  element={<ResetPassword/>}/>
                         <Route path="/ChangePassword"  element={<ChangePassword/>}/>
                         <Route path="/editMedicine/:medicineName" element={<EditMedicine/>}/>
                         <Route path="/viewMyCart" element={<MyCart/>}/>
