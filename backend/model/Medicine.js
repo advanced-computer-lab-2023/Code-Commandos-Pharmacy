@@ -66,6 +66,10 @@ const MedicineSchema = new Schema({
             ref: 'File',
             required: true,
         },
+        isArchived: {
+            type: Boolean,
+            default: false
+        },
         customerReviews: {
             type: String,
         },

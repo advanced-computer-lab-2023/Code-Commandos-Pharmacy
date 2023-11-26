@@ -1,5 +1,6 @@
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom"
 import ViewAvailableMedicines from "./pages/ViewAvailableMedicines";
+import ViewArchivedMedicines from "./pages/ViewArchivedMedicines"
 import SelectQuantityAndSales from "./pages/SelectQuantityAndSales";
 import SearchMedicineByName from "./pages/SearchMedicineByName";
 import PharmacistRegistration from './pages/registerAsPharmacist';
@@ -38,6 +39,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={logged ? <Home /> : <Navigate to="/login"/>}/>
                         <Route path="/viewAvailableMedicines" element={<ViewAvailableMedicines/>} />
+                        <Route path="/viewArchivedMedicines" element={<ViewArchivedMedicines/>} />
                         <Route path="/quantityAndSales" element={<SelectQuantityAndSales/>} />
                         <Route path="/viewAllAndSearchMedicineByName" element={<SearchMedicineByName/>} />
                         <Route path="/PharmacistRegistration" element={<PharmacistRegistration />}/>

@@ -76,3 +76,12 @@ body{
 .right-payment-option, .left-payment-option, .middle-payment-option{
     text-align: center;
 }
+
+.margin-left {
+    margin-left: 15px;
+    margin-bottom: 10px;
+}
+.archive-btn {
+    border: transparent;
+    background-color: transparent;
+}

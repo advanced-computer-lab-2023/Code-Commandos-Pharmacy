@@ -40,14 +40,34 @@ const MedicineDetails = ({medicine}) => {
         }
     };
 
+    const handleArchive = async () => {
+        try {
+            const response = await fetch(`/api/medicine/archive/${medicine.name}`, {
+                method: 'PUT',
+            });
+            if (!response.ok) {
+                throw new Error('Failed to archive Medicine');
+            }
+            const archivedMed = await response.json();
+            alert("Medicine Archived Successfully!")
+            console.log(archivedMed)
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
     return (
-        <div className="col-lg-4 col-md-4 col-sm-6 border-danger box">
+        <div className="col-lg-4 col-md-4 col-sm-6">
             <div className="image-container ">
                 <img src={`http://localhost:8090${idFileInfo.filePath}`} alt={medicine.name} className="med-img"/>
                 <div className="icon-overlay logo-container">
                     <Link to={`/editMedicine/${medicine.name}`}>
                         <img className="edit-logo" src={require(`../images/edit.png`)} alt="Edit"/>
                     </Link>
+                    <button className="archive-btn" onClick={handleArchive}>
+                        <img className="edit-logo" src={require(`../images/archive.png`)} alt="Archive"/>
+                    </button>
                     <br/>
                 <br/>
                     <button className="addToCart-btn" onClick={handleAddToCart}>
