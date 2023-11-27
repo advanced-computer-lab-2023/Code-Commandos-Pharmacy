@@ -13,7 +13,6 @@ const AddMedicine = () => {
     const [sideEffects, setSideEffects] = useState('')
     const [expiryDate, setExpiryDate] = useState('')
     const [medicinalUse, setMedicinalUse] = useState('')
-    const [sales, setSales] = useState('')
     const [imageUploadFile, setImageUploadFile] = useState(null);
     const [imageUploadID, setImageUploadID] = useState(null);
 
@@ -40,7 +39,6 @@ const AddMedicine = () => {
         formData.append("sideEffects", sideEffects);
         formData.append("expiryDate", expiryDate);
         formData.append("medicinalUse", medicinalUse);
-        formData.append("sales", sales);
         formData.append("imageUploadFile", imageUploadFile);
         formData.append("imageUploadID", imageUploadID);
         const jsonFormData = {};
@@ -74,7 +72,6 @@ const AddMedicine = () => {
                 setSideEffects('')
                 setExpiryDate('')
                 setMedicinalUse('')
-                setSales('')
                 setImageUploadFile(null)
                 alert("Added successfully ")
             }
@@ -153,10 +150,6 @@ const AddMedicine = () => {
                     <div className="col">
                         <input type="text" onChange={(e) => setManufacturer(e.target.value)} value={manufacturer}
                                className="form-control" placeholder="Manufacturer"/>
-                    </div>
-                    <div className="col">
-                        <input type="number" onChange={(e) => setSales(e.target.value)} value={sales}
-                               className="form-control" placeholder="Sales"/>
                     </div>
                 </div>
                 <div className="form-row row">

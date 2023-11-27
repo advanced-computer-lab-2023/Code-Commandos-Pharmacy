@@ -6,6 +6,7 @@ const Medicine = require("../model/Medicine");
 const PatientModel = require("../model/Patient")
 const OrderModel = require("../model/Order")
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+const SalesReport = require("../model/SalesReport")
 
 // Place My Order :  Confirm Order
 const placeOrder = asyncHandler(async (req, res) => {
@@ -60,6 +61,15 @@ const cancelOrder = asyncHandler(async (req,res)=>{
         if (!order) {
             return res.status(404).json({message: 'Order not found'});
         }
+        // Update the SalesReport
+        // Retrieve the month from orderId, and update the sales of this month sales - order.totalNumberOfItems
+        const orderMonth = order.orderID.toLocaleString('default', { month: 'long' }); //November
+        const salesDocument = await SalesReport.findOne();
+        const salesEntry = salesDocument.salesMonth.find(entry => entry.month === orderMonth);
+        salesEntry.sales -= order.totalNumberOfItems;
+        await salesDocument.save();
+        console.log('Sales document updated successfully.');
+
         await order.deleteOne({id})
         res.json({message: 'Order cancelled successfully'});
     } catch (error) {
@@ -94,9 +104,30 @@ const payForOrder = asyncHandler(async (req, res) => {
               subtotal: cart.subtotal,
               shipping: cart.shipping,
               totalNumberOfItems: cart.totalNumberOfItems,
-              paymentOption: 'Wallet', // Set the payment option as needed
+              paymentOption: 'Wallet',
               totalPrice: cart.subtotal + cart.shipping,
           })
+            // Retrieve the current month, loop over the cart.medicines, add their amounts in a variable
+            const currentMonth = new Date().toLocaleString('default', { month: 'long' });
+            let totalAmount = 0;
+            for (const item of cart.medicines) {
+                totalAmount += item.amount;
+            }
+            // Update or create the sales document
+            let salesDocument = await SalesReport.findOne();
+            if (!salesDocument) {
+                salesDocument = new SalesReport();
+            }
+            const salesEntry = salesDocument.salesMonth.find(entry => entry.month === currentMonth);
+            if (salesEntry) {
+                salesEntry.sales += totalAmount;
+            } else {
+                salesDocument.salesMonth.push({ month: currentMonth, sales: totalAmount });
+            }
+            await salesDocument.save();
+            console.log('Sales document updated or created successfully.');
+
+            // Empty the cart and create the order
             await Cart.findOneAndUpdate({_id:cart._id},{medicines:[],totalNumberOfItems:0,subtotal:0})
             res.status(200).json(newOrder);
         }
@@ -138,6 +169,27 @@ const payForOrder = asyncHandler(async (req, res) => {
               paymentOption: 'CashOnDelivery', // Set the payment option as needed
               totalPrice: cart.subtotal + cart.shipping,
           })
+
+          // Retrieve the current month, loop over the cart.medicines, add their amounts in a variable
+          const currentMonth = new Date().toLocaleString('default', { month: 'long' });
+          let totalAmount = 0;
+          for (const item of cart.medicines) {
+              totalAmount += item.amount;
+          }
+          // Update or create the sales document
+          let salesDocument = await SalesReport.findOne();
+          if (!salesDocument) {
+              salesDocument = new SalesReport();
+          }
+          const salesEntry = salesDocument.salesMonth.find(entry => entry.month === currentMonth);
+          if (salesEntry) {
+              salesEntry.sales += totalAmount;
+          } else {
+              salesDocument.salesMonth.push({ month: currentMonth, sales: totalAmount });
+          }
+          await salesDocument.save();
+          console.log('Sales document updated or created successfully.');
+
           await Cart.findOneAndUpdate({_id:cart._id},{medicines:[],totalNumberOfItems:0,subtotal:0})
           res.status(200).json(newOrder);
         
@@ -176,6 +228,27 @@ const completeCreditPayment = asyncHandler(async (req, res) => {
             totalPrice: cart.subtotal + cart.shipping,
             sessionID:sessionID
         })
+
+        // Retrieve the current month, loop over the cart.medicines, add their amounts in a variable
+        const currentMonth = new Date().toLocaleString('default', { month: 'long' });
+        let totalAmount = 0;
+        for (const item of cart.medicines) {
+            totalAmount += item.amount;
+        }
+        // Update or create the sales document
+        let salesDocument = await SalesReport.findOne();
+        if (!salesDocument) {
+            salesDocument = new SalesReport();
+        }
+        const salesEntry = salesDocument.salesMonth.find(entry => entry.month === currentMonth);
+        if (salesEntry) {
+            salesEntry.sales += totalAmount;
+        } else {
+            salesDocument.salesMonth.push({ month: currentMonth, sales: totalAmount });
+        }
+        await salesDocument.save();
+        console.log('Sales document updated or created successfully.');
+
         await Cart.findOneAndUpdate({_id:cart._id},{medicines:[],totalNumberOfItems:0,subtotal:0})
         res.status(200).json(newOrder)
     } else {

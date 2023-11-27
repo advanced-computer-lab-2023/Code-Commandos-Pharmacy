@@ -1,13 +1,11 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-
 const MedicineSchema = new Schema({
         name: {
             type: String,
             unique: true,
             required: true,
-
         },
         description: {
             type: String,
@@ -76,6 +74,7 @@ const MedicineSchema = new Schema({
         customerRatings: {
             type: Number
         },
+        // Should be automatically updated when I place order
         sales: {
             type: Number
         }
