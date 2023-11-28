@@ -38,7 +38,7 @@ const router = express.Router()
 router.post('/addMedicine',protect,checkPharmacistRole, upload, addOrUpdateMedicine)
 
 // View a list of all available medicines (including Picture of Medicine, Price, Description)
-router.get('/viewAvailableMedicines',protect, viewAvailableMedicines)
+router.get('/viewAvailableMedicines', viewAvailableMedicines)
 
 // View the Available quantity, and Sales of each medicine
 router.get('/viewQuantityAndSales', protect,checkPharmacistRole, viewQuantityAndSales)

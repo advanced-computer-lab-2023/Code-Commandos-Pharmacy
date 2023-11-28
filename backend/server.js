@@ -7,10 +7,12 @@ const {ErrorHandler} = require('./middleware/ErrorHandler')
 const port = process.env.PORT
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 server.use(express.json());
 server.use(express.urlencoded({extended: false}));
 server.use(cookieParser());
+server.use(cors({ origin: 'http://localhost:3000' }));
 
 server.use('/uploads', express.static('uploads'));
 server.use(bodyParser.json());
