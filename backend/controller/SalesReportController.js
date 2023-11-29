@@ -17,9 +17,11 @@ const viewSalesReportByMonth = asyncHandler(async (req,res)=>{
                     break;
                 }
             }
-            res.json({ month, sales: salesOfMonth });
+            //res.json({ month, sales: salesOfMonth });
+            res.status(200).json({ month, sales: salesOfMonth });
         } else {
-            res.status(404).json({ error: 'SalesReport not found' });
+            res.status(404).json
+            throw new Error("SalesReport not found")
         }
    }catch (error) {
        res.status(400)

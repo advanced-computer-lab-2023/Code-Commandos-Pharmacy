@@ -10,10 +10,16 @@ const MonthlySales = () => {
     useEffect(() => {
         const fetchSalesData = async () => {
             try {
-                const response = await axios.get(`/api/sales/viewReportByMonth/${month}`);
-                setSalesData(response.data);
+                const response = await fetch(`/api/sales/viewReportByMonth/${month}`);
+                if(response.ok){
+                    const result = await response.json()
+                    setSalesData(result);
+                }
+                else {
+                    alert(await response.text())
+                }
             } catch (error) {
-                console.error('Error fetching sales data:', error);
+                alert(error.message)
             }
         };
 

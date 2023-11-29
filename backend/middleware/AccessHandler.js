@@ -26,7 +26,7 @@ const checkAdminRole = asyncHandler(async (req, res, next) => {
         throw new Error('Access denied. You do not have the Admin role.')
     }
 })
-const checkPharmacistAndAdminRole = asyncHandler(async (req, res, next) => {
+const checkPharmacistOrAdminRole = asyncHandler(async (req, res, next) => {
     if ( (req.user && req.user.role === 'ADMIN') || (req.user && req.user.role === 'PHARMACIST')) {
         next();
     } else {
@@ -41,5 +41,5 @@ module.exports = {
     checkPatientRole,
     checkPharmacistRole,
     checkAdminRole,
-    checkPharmacistAndAdminRole
+    checkPharmacistOrAdminRole
 }
