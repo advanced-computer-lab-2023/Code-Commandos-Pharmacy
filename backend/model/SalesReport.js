@@ -18,6 +18,40 @@ const SalesSchema = new Schema({
             },
         ],
         default: monthEnum.map((month) => ({ month })),
+    },
+    medicinePurchase: {
+        type: [
+            {
+                medicineName: {
+                    type: String,
+                },
+                amount: {
+                    type: Number,
+                },
+                orderDate: {
+                    type: Date,
+                    default: Date.now,
+                },
+            },
+        ],
+        default: [],
+    },
+    cancelledMedicines: {
+        type: [
+            {
+                medicineName: {
+                    type: String,
+                },
+                amount: {
+                    type: Number,
+                },
+                orderDate: {
+                    type: Date,
+                    default: Date.now,
+                },
+            },
+        ],
+        default: [],
     }
 })
 

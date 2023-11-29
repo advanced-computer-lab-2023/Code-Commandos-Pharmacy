@@ -8,6 +8,7 @@ const OrderModel = require("../model/Order")
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 const SalesReport = require("../model/SalesReport")
 
+
 // Place My Order :  Confirm Order
 const placeOrder = asyncHandler(async (req, res) => {
     try {
@@ -24,7 +25,7 @@ const placeOrder = asyncHandler(async (req, res) => {
             totalPrice: cart.subtotal + cart.shipping,
             totalNumberOfItems: cart.totalNumberOfItems,
         })
-        await order.save();
+            await order.save();
         res.status(201).json(order);
     } catch (error) {
         res.status(400)
@@ -61,13 +62,29 @@ const cancelOrder = asyncHandler(async (req,res)=>{
         if (!order) {
             return res.status(404).json({message: 'Order not found'});
         }
-        // Update the SalesReport
+        // Update the Sales in SalesReport
         // Retrieve the month from orderId, and update the sales of this month sales - order.totalNumberOfItems
         const orderMonth = order.orderID.toLocaleString('default', { month: 'long' }); //November
         const salesDocument = await SalesReport.findOne();
         const salesEntry = salesDocument.salesMonth.find(entry => entry.month === orderMonth);
         salesEntry.sales -= order.totalNumberOfItems;
+
+        // Update the cancelled Medicines array in the SalesReport
+        const cartId = order.cartId;
+        const cart = await Cart.findOne({ _id: cartId });
+
+        // Loop through the medicines array and save the medicine's name, amount, and order date
+        cart.medicines.forEach((medicine) => {
+            const cancelledMedicines = {
+                medicineName: medicine.name,
+                amount: medicine.amount,
+                orderDate: new Date(),
+            };
+            salesDocument.cancelledMedicines.push(cancelledMedicines); // Add the medicinePurchase object to the existing array
+        });
+
         await salesDocument.save();
+
         console.log('Sales document updated successfully.');
 
         await order.deleteOne({id})
@@ -77,7 +94,6 @@ const cancelOrder = asyncHandler(async (req,res)=>{
         throw new Error(error.message);
     }
 });
-
 
 const payForOrder = asyncHandler(async (req, res) => {
     const { id } = req.user;
@@ -127,6 +143,19 @@ const payForOrder = asyncHandler(async (req, res) => {
             await salesDocument.save();
             console.log('Sales document updated or created successfully.');
 
+            const salesReport = await SalesReport.findOne();
+
+            // Loop through the medicines array and save the medicine's name, amount, and order date
+            cart.medicines.forEach((medicine) => {
+                const medicinePurchase = {
+                    medicineName: medicine.name,
+                    amount: medicine.amount,
+                    orderDate: new Date(),
+                };
+                salesReport.medicinePurchase.push(medicinePurchase); // Add the medicinePurchase object to the existing array
+            });
+
+            await salesReport.save();
             // Empty the cart and create the order
             await Cart.findOneAndUpdate({_id:cart._id},{medicines:[],totalNumberOfItems:0,subtotal:0})
             res.status(200).json(newOrder);
