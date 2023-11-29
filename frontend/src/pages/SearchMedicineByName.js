@@ -1,12 +1,15 @@
 import {useState,useEffect} from "react";
 import axios from "axios";
 import MedicineDetails from "../components/MedicineDetails";
+import {Link} from "react-router-dom";
 
 
 const SearchMedicineByName = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [searchedMedicine, setSearchedMedicine] = useState([]);
     const [medicines, setMedicines] = useState([])
+    // const [salesReport, setSalesReport] = useState([])
+
 
     useEffect(() => {
         const fetchMedicines = async () => {
@@ -42,6 +45,18 @@ const SearchMedicineByName = () => {
             setSearchedMedicine(null)
         }
     }
+    // const handleSalesReport = async (month) => {
+    //     try {
+    //         const response = await axios.get(`/api/sales/viewReportByMonth/${month}`);
+    //         const salesOfMonth =  response.data;
+    //         setSalesReport(salesOfMonth);
+    //     } catch (error) {
+    //         console.error("Error fetching report:", error);
+    //         alert(error.message)
+    //         setSalesReport([]);
+    //     }
+    // };
+
 
     const handleCategory = async (category) => {
         try {
@@ -83,6 +98,73 @@ const SearchMedicineByName = () => {
                         <li><a href="#" className="list-font" onClick={(e) => handleCategory('ANTIPYRETIC',e)}>Antipyretic</a></li>
                     </ul>
                 </div>
+                <div className="row">
+                    <p className="mt-4 fw-bold">Sales Report</p>
+                    <ul className="medicinal-use-list">
+                        <li>
+                            <Link to="/MonthlySales/January" className="no-underline">
+                                <a href="#" className="list-font">January</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/MonthlySales/February" className="no-underline" >
+                                <a href="#" className="list-font">February</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/MonthlySales/March" className="no-underline" >
+                                <a href="#" className="list-font">March</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/MonthlySales/April" className="no-underline" >
+                                <a href="#" className="list-font">April</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/MonthlySales/May" className="no-underline" >
+                                <a href="#" className="list-font">May</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/MonthlySales/June" className="no-underline" >
+                                <a href="#" className="list-font">June</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/MonthlySales/July"className="no-underline" >
+                                <a href="#" className="list-font">July</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/MonthlySales/August" className="no-underline" >
+                                <a href="#" className="list-font">August</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/MonthlySales/September" className="no-underline" >
+                                <a href="#" className="list-font">September</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/MonthlySales/October" className="no-underline" >
+                                <a href="#" className="list-font">October</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/MonthlySales/November"className="no-underline" >
+                                <a href="#" className="list-font">November</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/MonthlySales/December" className="no-underline" >
+                                <a href="#" className="list-font">December</a>
+                            </Link>
+                        </li>
+
+                    </ul>
+                </div>
+
             </div>
         </div>
 
@@ -95,7 +177,6 @@ const SearchMedicineByName = () => {
                 {medicines && medicines.map((medicine) => (
                     <MedicineDetails key={medicine._id} medicine={medicine}/>
                 ))}
-
             </div>
         </div>
 

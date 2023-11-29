@@ -88,7 +88,7 @@
 }
 
 .available-medicines {
-    margin-top: -350px;
+    margin-top: -770px;
     margin-right: 12px;
 }
 
@@ -342,5 +342,19 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+.sales {
+    color: #053B50;
+}
+.sales-image {
+    margin-left: 230px;
+    margin-top: -320px;
+}
+.sales-component{
+    margin-top: 100px;
+    margin-left: 515px;
+}
+.no-underline {
+    text-decoration: none;
 }
 
