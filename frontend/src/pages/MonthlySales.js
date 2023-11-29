@@ -35,8 +35,6 @@ const MonthlySales = () => {
             <img src={salesReportImage} alt="Sales Report" />
         </div>
         </body>
-
-
     );
 }
 
