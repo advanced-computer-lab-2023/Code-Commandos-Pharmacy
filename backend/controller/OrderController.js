@@ -63,29 +63,25 @@ const cancelOrder = asyncHandler(async (req,res)=>{
             return res.status(404).json({message: 'Order not found'});
         }
         // Update the Sales in SalesReport
-        // Retrieve the month from orderId, and update the sales of this month sales - order.totalNumberOfItems
         const orderMonth = order.orderID.toLocaleString('default', { month: 'long' }); //November
         const salesDocument = await SalesReport.findOne();
         const salesEntry = salesDocument.salesMonth.find(entry => entry.month === orderMonth);
+
         salesEntry.sales -= order.totalNumberOfItems;
+        await salesDocument.save();
 
         // Update the cancelled Medicines array in the SalesReport
-        const cartId = order.cartId;
-        const cart = await Cart.findOne({ _id: cartId });
-
-        // Loop through the medicines array and save the medicine's name, amount, and order date
-        cart.medicines.forEach((medicine) => {
+        const salesReport = await SalesReport.findOne();
+        order.medicines.forEach((medicine) => {
             const cancelledMedicines = {
                 medicineName: medicine.name,
                 amount: medicine.amount,
                 orderDate: new Date(),
             };
-            salesDocument.cancelledMedicines.push(cancelledMedicines); // Add the medicinePurchase object to the existing array
+            salesReport.cancelledMedicines.push(cancelledMedicines); // Add the medicinePurchase object to the existing array
         });
 
-        await salesDocument.save();
-
-        console.log('Sales document updated successfully.');
+        await salesReport.save();
 
         await order.deleteOne({id})
         res.json({message: 'Order cancelled successfully'});
