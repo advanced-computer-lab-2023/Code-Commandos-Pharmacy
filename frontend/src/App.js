@@ -26,6 +26,7 @@ import PaymentCancel from "./pages/PaymentCancel"
 import PaymentSuccess from "./pages/PaymentSuccess"
 import DisplayOrderInfo from "./pages/DisplayOrderInfo";
 import Register from "./pages/Register";
+import PrescriptionContainer from "./pages/PrescriptionContainer";
 
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
                         <Route path="/paymentSuccess" element={<PaymentSuccess/>}/>
                         <Route path="/paymentCancel" element={<PaymentCancel/>}/>
                         <Route path="/AddNewAddress" element={<AddNewAddress/>}/>
+                        <Route path="/PrescriptionContainer" element={<PrescriptionContainer/>} />
                         <Route path="/Register" element={<Register/>}/>
                         <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Login /> }/>
                         <Route path="/Home" element={<Home/>}/>
