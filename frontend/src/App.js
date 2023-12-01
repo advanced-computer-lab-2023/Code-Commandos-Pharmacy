@@ -26,6 +26,8 @@ import PaymentCancel from "./pages/PaymentCancel"
 import PaymentSuccess from "./pages/PaymentSuccess"
 import DisplayOrderInfo from "./pages/DisplayOrderInfo";
 import Register from "./pages/Register";
+import ViewMyWalletAsPatient from "./pages/ViewMyWalletAsPatient";
+import ViewMyWalletAsPharmacist from "./pages/ViewMyWalletAsPharmacist";
 
 
 function App() {
@@ -58,6 +60,8 @@ function App() {
                         <Route path="/viewMyCart" element={<MyCart/>}/>
                         <Route path="/editMedicineInCart/:medicineName" element={<EditMedicineInCart/>}/>
                         <Route path="/placeOrder" element={<PlaceOrder/>}/>
+                        <Route path="/ViewMyWalletAsPatient" element={<ViewMyWalletAsPatient/>}/>
+                        <Route path="/ViewMyWalletAsPharmacist" element={<ViewMyWalletAsPharmacist/>}/>
                         <Route path="/viewMyOrders" element={<DisplayOrderInfo/>}/>
                         <Route path="/paymentSuccess" element={<PaymentSuccess/>}/>
                         <Route path="/paymentCancel" element={<PaymentCancel/>}/>

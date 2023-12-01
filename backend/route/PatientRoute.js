@@ -9,7 +9,7 @@ const {
   updatePatient,
   addPatientAddresses,
   viewAvailableAddresses,
-  
+  getAmount
 } = require('../controller/PatientController')
 
 const {
@@ -34,7 +34,7 @@ router.put('/addPatientAddresses/',protect,checkPatientRole, addPatientAddresses
 
 router.get('/viewAvailableAddresses/',protect,checkPatientRole, viewAvailableAddresses);
 
-
+router.get('/getAmount',protect,checkPatientRole, getAmount)
 
 
 module.exports = router

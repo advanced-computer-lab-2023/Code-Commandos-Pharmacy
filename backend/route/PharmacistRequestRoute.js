@@ -7,7 +7,7 @@ const {
     addPharmacistRequest,
     viewUploadByPharmacist,
     viewAllPharmacistRequests,
-    updatePharmacistRequestStatus, acceptRequest, rejectRequest
+    updatePharmacistRequestStatus, acceptRequest, rejectRequest,
 } = require('../controller/PharmacistRequestController')
 
 

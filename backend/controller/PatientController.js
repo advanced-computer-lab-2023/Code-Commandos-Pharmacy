@@ -143,6 +143,23 @@ const viewAvailableAddresses = asyncHandler(async (req, res) => {
 });
 
 
+// req 38 - akram
+const getAmount = asyncHandler(async (req, res) => {
+  try {
+    un = req.user.username;
+    const patient = await PatientModel.findOne({username: un});
+    if (!patient) {
+      res.status(404).json({ message: 'Patient not found', userId: un });
+      return;
+    }
+    res.status(200).json(patient.wallet);
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+});
+
+
 /*//choose to pay with wallet, credit card (using Stripe) or cash on delivery
 const paymentMethod = asyncHandler(async (req, res) => {
   const { paymentMethod, amount } = req.body; // Extract payment method and amount from request body
@@ -244,6 +261,5 @@ module.exports = {
     updatePatient,
     addPatientAddresses,
     viewAvailableAddresses,
-   
-  
+    getAmount
 }
