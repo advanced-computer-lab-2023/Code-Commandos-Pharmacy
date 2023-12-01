@@ -4,11 +4,14 @@ import PrescriptionDetails from "../components/PrescriptionDetails";
 const PrescriptionContainer = () => {
   const [prescriptions, setPrescriptions] = useState([]);
   const [selectedPrescription,setSelectedPrescription] = useState(null)
-
+  const username = window.localStorage.getItem("username")
+  if(!username){
+    alert("username not found , try to logout and login again")
+  }
   useEffect(() => {
     const fetchPrescriptions = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/prescription/getPrescriptionsbyPatient/'+"ebramta3ban",{
+        const response = await fetch('http://localhost:4000/api/prescription/getPrescriptionsbyPatient/'+username,{
           method: 'GET',
           headers: {
             'Content-Type':'application/json',
@@ -17,7 +20,6 @@ const PrescriptionContainer = () => {
         if (response.ok){
           const result = await response.json()
           setPrescriptions(result)
-          console.log(result)
         }
         else{
           alert(await response.text())
