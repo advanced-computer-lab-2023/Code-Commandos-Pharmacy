@@ -72,7 +72,6 @@ const addOrUpdateMedicine = asyncHandler(async (req, res) => {
 
 // View Available Medicines
 const viewAvailableMedicines = asyncHandler(async (req, res) => {
-    console.log("from backend")
     try {
         const medicines = await Medicine.find({ quantity: {$ne: 0}, isArchived : false}).sort({createdAt: 1})
         res.status(200).json(medicines)

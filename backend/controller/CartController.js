@@ -14,7 +14,6 @@ const addToCart = asyncHandler(async (req, res) => {
 
         // Check if the patient has a cart
         let cart = await Cart.findOne({patientId});
-        console.log("from backend ",medicine)
         // If the patient does not have a cart, create a new cart for this patient.
         if (!cart) {
             cart = new Cart({
