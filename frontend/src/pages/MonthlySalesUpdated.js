@@ -120,7 +120,7 @@ const FilterReport = () => {
         <div className="row margin-left col-2">
             <div className="container">
                 <div className="row">
-                    <button onClick={fetchReport}>
+                    <button className="all-btn" onClick={fetchReport}>
                         All
                     </button>
                 </div>
@@ -191,48 +191,17 @@ const FilterReport = () => {
                 </div>
                 <div className="row">
                     <select
-                        className="form-control"
+                        className="form-control margin-bottom"
                         value={selectedMedicine}
                         onChange={handleMedicineChange}
                     >
-                        <option value="">Medicine</option>
+                        <option>Medicine</option>
                         {medicines && medicines.map((medicine, index) => (
                             <option key={index} value={medicine}>
                                 {medicine}
                             </option>
                         ))}
                     </select>
-
-                    {filteredMedicinesPurchase.length > 0 && !showFilteredReportByDate && !showAllReport&& (
-                        <div className="sales-component">
-                            <h4>Purchased Medicines:</h4>
-                            <ul>
-                                {filteredMedicinesPurchase.map((medicine) => (
-                                    <li key={medicine.orderDate}>
-                                        {medicine.amount} {medicine.medicineName} purchased on {medicine.orderDate}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
-                    {filteredCancelledMedicines.length > 0 && !showFilteredReportByDate && !showAllReport&&(
-                        <div className="sales-component">
-                            <h4>Cancelled Medicines:</h4>
-                            <ul>
-                                {filteredCancelledMedicines.map((medicine) => (
-                                    <li key={medicine.orderDate}>
-                                        {medicine.amount} {medicine.medicineName} cancelled on {medicine.orderDate}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
-
-                    {netSales !== null && !showMonthSales && !showFilteredReportByDate &&!showAllReport&& (
-                        <div className="sales-component">
-                            <h4>Net Sales: {netSales}</h4>
-                        </div>
-                    )}
                 </div>
                 <div className="row">
                     <div>
@@ -265,132 +234,171 @@ const FilterReport = () => {
                                     />
                                 </div>
                             </div>
-                            <button type="submit" className="btn btn-primary">Submit</button>
+                            <button type="submit"  className="btn submit-btn-report">Submit</button>
                         </form>
                     </div>
                 </div>
 
-                {filteredMedicinesPurchaseByDate.length > 0 && showFilteredReportByDate && (
-                    <div className="sales-component">
-                        <h4>Purchased Medicines:</h4>
+            </div>
+        </div>
+
+        <div className="sales-component">
+            {showMonthSales && salesData && !showFilteredReportByDate && (
+                <div>
+                    <h4 className="blue-color">{month}</h4>
+                    <h4 className="blue-color">Sales:
+                        <span className="span-margin">
+                          {salesData.sales}
+                    </span></h4>
+                </div>
+            )}
+            <div>
+                {showAllReport && (
+                    <div>
+                        <h5 className="blue-color">Report</h5>
+                    </div>
+                )
+                }
+
+                {showAllReport && (
+                    <div className="header">
+                        <h5 className="blue-color">Months and Sales:</h5>
+                    </div>
+                )
+                }
+                {showAllReport && allSalesMonth && allSalesMonth.map(({month, sales}) => (
+                    <p className="report-margin" key={month}>
+                        {month} - Sales: {sales}
+                    </p>
+                ))}
+
+                {showAllReport && (
+                    <div className="header">
+                        <h5 className="blue-color">Purchased Medicines:</h5></div>
+
+                )
+                }
+                {showAllReport && allMedicinePurchase && allMedicinePurchase.map(({
+                                                                                      medicineName,
+                                                                                      amount,
+                                                                                      orderDate
+                                                                                  }) => (
+                    <p className="report-margin" key={orderDate}>
+                        {amount} {medicineName}(s) purchased on {orderDate}.
+                    </p>
+                ))}
+
+                {showAllReport && (
+                    <div className="header">
+                        <h5 className="blue-color">Cancelled Medicines:</h5>
+                    </div>
+
+                )
+                }
+                {showAllReport && allCancelledMedicines && allCancelledMedicines.map(({
+                                                                                          medicineName,
+                                                                                          amount,
+                                                                                          orderDate
+                                                                                      }) => (
+                    <p className="report-margin" key={orderDate}>
+                        {amount} {medicineName}(s) cancelled on {orderDate}.
+                    </p>
+                ))}
+            </div>
+            <div>
+                {filteredMedicinesPurchase.length > 0 && !showFilteredReportByDate && !showAllReport && (
+                    <div>
+                        <h4 className="blue-color">Purchased:</h4>
                         <ul>
-                            {filteredMedicinesPurchaseByDate.map((medicine) => (
-                                <li key={medicine.orderDate}>
-                                    {medicine.amount} {medicine.medicineName} purchased on {medicine.orderDate}
-                                </li>
-                            ))}
+                            <div className="report-margin">
+                                {filteredMedicinesPurchase.map((medicine) => (
+                                    <li key={medicine.orderDate}>
+                                        {medicine.amount} {medicine.medicineName} purchased on {medicine.orderDate}
+                                    </li>
+                                ))}
+                            </div>
+
+                        </ul>
+                    </div>
+                )}
+                {filteredCancelledMedicines.length > 0 && !showFilteredReportByDate && !showAllReport && (
+                    <div>
+                        <h4 className="blue-color">Cancelled:</h4>
+                        <ul>
+                            <div className="report-margin">
+                                {filteredCancelledMedicines.map((medicine) => (
+                                    <li key={medicine.orderDate}>
+                                        {medicine.amount} {medicine.medicineName} cancelled on {medicine.orderDate}
+                                    </li>
+                                ))}
+                            </div>
+                        </ul>
+                    </div>
+                )}
+
+                {netSales !== null && !showMonthSales && !showFilteredReportByDate && !showAllReport && (
+                    <div className="report-margin">
+                        <h4 className="blue-color">Net Sales: {netSales}</h4>
+                    </div>
+                )}
+            </div>
+            <div>
+                {filteredMedicinesPurchaseByDate.length > 0 && showFilteredReportByDate && (
+                    <div>
+                        <h4 className="header blue-color">Purchased Medicines:</h4>
+                        <ul>
+                            <div className="report-margin">
+                                {filteredMedicinesPurchaseByDate.map((medicine) => (
+                                    <li key={medicine.orderDate}>
+                                        {medicine.amount} {medicine.medicineName} purchased on {medicine.orderDate}
+                                    </li>
+                                ))}
+                            </div>
                         </ul>
                     </div>
                 )}
                 {filteredCancelledMedicinesByDate.length > 0 && showFilteredReportByDate && (
-                    <div className="sales-component">
-                        <h4>Cancelled Medicines:</h4>
+                    <div>
+                        <h4 className="header blue-color">Cancelled Medicines:</h4>
                         <ul>
-                            {filteredCancelledMedicinesByDate.map((medicine) => (
-                                <li key={medicine.orderDate}>
-                                    {medicine.amount} {medicine.medicineName} cancelled on {medicine.orderDate}
-                                </li>
-                            ))}
+                            <div className="report-margin">
+                                {filteredCancelledMedicinesByDate.map((medicine) => (
+                                    <li key={medicine.orderDate}>
+                                        {medicine.amount} {medicine.medicineName} cancelled on {medicine.orderDate}
+                                    </li>
+                                ))}
+                            </div>
                         </ul>
                     </div>
                 )}
 
                 {salesPurchase !== null && showFilteredReportByDate && (
-                    <div className="sales-component">
-                        <h4>Sales Purchase: {salesPurchase}</h4>
-                    </div>
+                    <h4 className="blue-color">Sales Purchase:
+                        <span className="span-margin">
+                          {salesPurchase}
+                    </span></h4>
                 )}
 
                 {salesCancelled !== null && showFilteredReportByDate && (
-                    <div className="sales-component">
-                        <h4>Sales Cancelled: {salesCancelled}</h4>
-                    </div>
+                    <h4 className="blue-color">Cancelled Sales:
+                        <span className="span-margin">
+                          {salesCancelled}
+                    </span></h4>
                 )}
 
                 {netSalesByDate !== null && showFilteredReportByDate && (
-                    <div className="sales-component">
-                        <h4>Net Sales: {netSalesByDate}</h4>
-                    </div>
+                    <h4 className="blue-color">Net Sales:
+                        <span className="span-margin">
+                          {netSalesByDate}
+                    </span></h4>
                 )}
-
-
-                <div className="sales-component">
-                    {showAllReport && (
-                        <div className="header">
-                            <h5>Report</h5>
-                        </div>
-                    )
-                    }
-
-                    {showAllReport && (
-                        <div className="header">
-                            <h5>Months and Sales:</h5>
-                        </div>
-
-                    )
-                    }
-
-
-                    {showAllReport && allSalesMonth && allSalesMonth.map(({month, sales}) => (
-                        <p className="report-margin" key={month}>
-                            {month} - Sales: {sales}
-                        </p>
-                    ))}
-
-                    {showAllReport && (
-                        <div className="header">
-                            <h5>Purchased Medicines:</h5></div>
-
-                    )
-                    }
-                    {showAllReport && allMedicinePurchase && allMedicinePurchase.map(({
-                                                                                          medicineName,
-                                                                                          amount,
-                                                                                          orderDate
-                                                                                      }) => (
-                        <p className="report-margin" key={orderDate}>
-                            {amount} {medicineName}(s) purchased on {orderDate}.
-                        </p>
-                    ))}
-
-                    {showAllReport && (
-                        <div className="header">
-                            <h5>Cancelled Medicines:</h5>
-                        </div>
-
-                    )
-
-                    }
-
-                    {showAllReport && allCancelledMedicines && allCancelledMedicines.map(({
-                                                                                              medicineName,
-                                                                                              amount,
-                                                                                              orderDate
-                                                                                          }) => (
-                        <p className="report-margin" key={orderDate}>
-                            {amount} {medicineName}(s) cancelled on {orderDate}.
-                        </p>
-                    ))}
-
-                </div>
-
-
             </div>
-
-            {/*<div className="row">*/}
-            {/*    <div className="sales-image">*/}
-            {/*        <img src={salesReportImage} alt="Sales Report" />*/}
-            {/*    </div>*/}
-            {/*</div>*/}
         </div>
 
-        <div className="left-part col-2">
-            {showMonthSales && salesData && !showFilteredReportByDate && (
-                <div className="sales-component">
-                    <h4>{month}</h4>
-                    <h4>Sales: {salesData.sales}</h4>
-                </div>
-            )}
+        <div className="row">
+            <div className="sales-image">
+                <img src={salesReportImage} alt="Sales Report"/>
+            </div>
         </div>
 
         </body>

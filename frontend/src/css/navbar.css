@@ -122,10 +122,44 @@
 
 .submit-btn {
     width: 15%;
-    background: navy;
+    background: #176B87;
     color: white;
     margin-left: 20%;
     margin-top: 50px;
+}
+.submit-btn-report {
+    width: 40%;
+    background: #176B87;
+    color: white;
+    margin-left: 2%;
+    margin-top: 20px;
+}
+.submit-btn-report:hover {
+    width: 40%;
+    background: #164863;
+    color: white;
+    margin-left: 2%;
+    margin-top: 20px;
+
+
+}
+.all-btn {
+    width: 100%;
+    background: #176B87;
+    color: white;
+    padding: 5px;
+    border:none;
+    border-radius: 0.3rem;
+    transition-duration: 0.4s;
+}
+.all-btn:hover {
+    width: 100%;
+    background: #164863;
+    color: white;
+    padding: 5px;
+    border:none;
+    border-radius: 0.3rem;
+    transition-duration: 0.4s;
 }
 
 .submit-btn:hover {
@@ -348,8 +382,7 @@
 }
 .sales-image {
     margin-top: -520px;
-    margin-left: 270px;
-    height: 700px;
+    margin-left: 370px;
 }
 .sales-image-name {
     margin-top: -40px;
@@ -357,11 +390,11 @@
     height: 700px;
 }
 .sales-component{
-    /*border: 1px solid #000;*/
+    /*border: 2px solid black;*/
     width: 450px;
-    height: 410px;
-    margin-top: 220px;
-    margin-left: 760px;
+    height: 407px;
+    margin-top: -560px;
+    margin-left: 860px;
     overflow: hidden;
 }
 .no-underline {
@@ -375,7 +408,21 @@
 }
 .report-margin {
     font-size: 10px;
-    margin: -4px 0px ;
+    margin: -5px 0px ;
+}
+.blue-color{
+    color: #164863 ;
+}
+.span-margin {
+    margin-left: 10px;
+    color: black;
+}
+.margin-bottom{
+    margin-bottom: 15px;
+}
+.sales-container {
+    display: flex;
+    align-items: center;
 }
 /*select {*/
 /*    width: 150px;*/
