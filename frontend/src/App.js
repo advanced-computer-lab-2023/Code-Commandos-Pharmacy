@@ -25,8 +25,7 @@ import PaymentCancel from "./pages/PaymentCancel"
 import PaymentSuccess from "./pages/PaymentSuccess"
 import DisplayOrderInfo from "./pages/DisplayOrderInfo";
 import Register from "./pages/Register";
-import MonthlySales from "./pages/MonthlySales";
-
+import FilterReport from "./pages/MonthlySalesUpdated";
 
 function App() {
 
@@ -66,7 +65,8 @@ function App() {
                         <Route path="/Register" element={<Register/>}/>
                         <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Login /> }/>
                         <Route path="/Home" element={<Home/>}/>
-                        <Route path="/MonthlySales/:month" element={<MonthlySales />}/>
+                        <Route path="/MonthlySales/:month" element={<FilterReport/>}/>
+
 
                     </Routes>
                 </div>

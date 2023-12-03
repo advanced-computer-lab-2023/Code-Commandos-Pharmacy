@@ -88,7 +88,7 @@
 }
 
 .available-medicines {
-    margin-top: -720px;
+    margin-top: -360px;
     margin-right: 12px;
 }
 
@@ -347,14 +347,36 @@
     color: #053B50;
 }
 .sales-image {
-    margin-left: 230px;
-    margin-top: -320px;
+    margin-top: -520px;
+    margin-left: 270px;
+    height: 700px;
+}
+.sales-image-name {
+    margin-top: -40px;
+    margin-left: 270px;
+    height: 700px;
 }
 .sales-component{
-    margin-top: 100px;
-    margin-left: 515px;
+    /*border: 1px solid #000;*/
+    width: 450px;
+    height: 410px;
+    margin-top: 220px;
+    margin-left: 760px;
+    overflow: hidden;
 }
 .no-underline {
     text-decoration: none;
 }
-
+.header h5{
+    display: inline;
+    margin-right: 10px;
+    font-size: 18px;
+    margin-bottom: 0px;
+}
+.report-margin {
+    font-size: 10px;
+    margin: -4px 0px ;
+}
+/*select {*/
+/*    width: 150px;*/
+/*}*/
