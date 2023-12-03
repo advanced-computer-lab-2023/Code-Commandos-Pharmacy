@@ -234,7 +234,7 @@ const FilterReport = () => {
                                     />
                                 </div>
                             </div>
-                            <button type="submit"  className="btn submit-btn-report">Submit</button>
+                            <button type="submit" className="btn submit-btn-report">Submit</button>
                         </form>
                     </div>
                 </div>

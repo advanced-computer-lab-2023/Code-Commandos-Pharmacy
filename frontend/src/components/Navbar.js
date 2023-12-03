@@ -50,8 +50,16 @@ const Navbar = () => {
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Services</a>
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Blog</a>
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Blog
+                                </a>
+                                <ul className="dropdown-menu" aria-labelledby="servicesDropdown">
+
+                                    <li>
+                                        <Link to="/MonthlySales/December" className="dropdown-item">Pharmacy Sales Report</Link>
+                                    </li>
+                                </ul>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
