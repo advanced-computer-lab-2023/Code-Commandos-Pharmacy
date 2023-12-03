@@ -54,7 +54,7 @@ const viewOrderDetails = asyncHandler(async (req, res) => {
 })
 
 // Delete Order by Id
-const cancelOrder = asyncHandler(async (req,res)=>{
+const cancelOrder = asyncHandler(async (req,res)=> {
     try{
         const {id} = req.params
         const patientId = req.user.id
@@ -80,8 +80,18 @@ const cancelOrder = asyncHandler(async (req,res)=>{
             };
             salesReport.cancelledMedicines.push(cancelledMedicines); // Add the medicinePurchase object to the existing array
         });
-
         await salesReport.save();
+
+        // Update the Medicine's quantity
+        for(const medicine of order.medicines){
+            const {name , amount} = medicine;
+            const foundMedicine = await Medicine.findOne({name});
+            if(foundMedicine){
+                const newQuantity = foundMedicine.quantity + amount;
+                foundMedicine.quantity = newQuantity;
+                await foundMedicine.save();
+            }
+        }
 
         await order.deleteOne({id})
         res.json({message: 'Order cancelled successfully'});
@@ -155,6 +165,19 @@ const payForOrder = asyncHandler(async (req, res) => {
             // Empty the cart and create the order
             await Cart.findOneAndUpdate({_id:cart._id},{medicines:[],totalNumberOfItems:0,subtotal:0})
             res.status(200).json(newOrder);
+
+            // update the medicine's quantity
+            // I want to loop on the medicine's array in cart i found , and get the 'name' of the medicine, and then get this
+            // medicine by name from the Medicine model, and update the medicine's quantity by cart.medicines.amount - medicine.quantity
+            for(const medicine of cart.medicines){
+                const {name , amount} = medicine;
+                const foundMedicine = await Medicine.findOne({name});
+                if(foundMedicine){
+                    const newQuantity = foundMedicine.quantity - amount;
+                    foundMedicine.quantity = newQuantity;
+                    await foundMedicine.save();
+                }
+            }
         }
       }
       else if (paymentOption === 'CreditCard') {
