@@ -240,6 +240,31 @@ const unArchiveMedicine = asyncHandler(async (req,res)=>{
     }
 })
 
+// Loop over the ingredients in medicine and find medicines with th same ingredients
+// Get Medicine Alternatives based on an active ingredient
+const alternativeMedicines = asyncHandler(async (req,res)=> {
+    const {name} = req.params;
+    console.log("Name:", name);
+    try{
+        const medicine = await Medicine.findOne({name});
+        console.log("Medicine:", medicine);
+
+        const ingredients = medicine.ingredients[0].split(",");
+        console.log("Ingredients:", ingredients);
+
+        const alternativeMedicines = await Medicine.find({
+            _id: { $ne: medicine._id },
+            ingredients: { $in: ingredients },
+        });
+
+        console.log("Alternative Medicines:", alternativeMedicines);
+        res.status(200).json({ alternativeMedicines });
+
+
+    }catch (error) {
+        throw new Error(error.message)
+    }
+})
 module.exports = {
     addOrUpdateMedicine,
     viewAvailableMedicines,
@@ -254,5 +279,6 @@ module.exports = {
     getMedicineDetailsById,
     archiveMedicine,
     unArchiveMedicine,
-    viewArchivedMedicines
+    viewArchivedMedicines,
+    alternativeMedicines
 }

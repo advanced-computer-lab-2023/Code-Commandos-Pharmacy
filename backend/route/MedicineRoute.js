@@ -26,10 +26,11 @@ const {
     filterMedicines,
     deleteMedicine,
     archiveMedicine,
-    unArchiveMedicine
+    unArchiveMedicine,
+    alternativeMedicines
 } = require('../controller/MedicineController')
 const {protect} = require("../middleware/AuthenticationHandler");
-const {checkPharmacistRole} = require("../middleware/AccessHandler");
+const {checkPharmacistRole, checkPatientRole} = require("../middleware/AccessHandler");
 const router = express.Router()
 
 
@@ -55,13 +56,16 @@ router.put('/updateDetailsAndPrice/:name', protect,checkPharmacistRole, updateDe
 router.get('/filterMedicines/:medicinalUse', protect, filterMedicines)
 
 // Delete Medicine
-router.delete('/delete/:name' , deleteMedicine )
+router.delete('/delete/:name' , deleteMedicine);
 
 // Archive a Medicine
 router.put('/archive/:name', protect, checkPharmacistRole, archiveMedicine);
 
 // Unarchive a medicine
 router.put('/unarchive/:name',protect,checkPharmacistRole, unArchiveMedicine);
+
+// Medicine Alternatives
+router.get('/alternatives/:name', protect,checkPatientRole, alternativeMedicines);
 
 
 module.exports = router

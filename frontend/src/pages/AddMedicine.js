@@ -9,12 +9,22 @@ const AddMedicine = () => {
     const [price, setPrice] = useState('')
     const [quantity, setQuantity] = useState('')
     const [manufacturer, setManufacturer] = useState('')
-    const [ingredients, setIngredients] = useState('')
     const [sideEffects, setSideEffects] = useState('')
     const [expiryDate, setExpiryDate] = useState('')
     const [medicinalUse, setMedicinalUse] = useState('')
     const [imageUploadFile, setImageUploadFile] = useState(null);
     const [imageUploadID, setImageUploadID] = useState(null);
+    const [ingredients, setIngredients] = useState([])
+
+    const handleIngredientChange = (index, value) => {
+        const updatedIngredients = [...ingredients];
+        updatedIngredients[index] = value;
+        setIngredients(updatedIngredients);
+    };
+
+    const handleAddIngredient = () => {
+        setIngredients([...ingredients, '']);
+    };
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -68,7 +78,7 @@ const AddMedicine = () => {
                 setPrice('')
                 setQuantity('')
                 setManufacturer('')
-                setIngredients('')
+                setIngredients([])
                 setSideEffects('')
                 setExpiryDate('')
                 setMedicinalUse('')
@@ -83,7 +93,6 @@ const AddMedicine = () => {
 
     const handleImageSubmit = async () => {
         setImageUploadID( await handleFileSubmit( imageUploadFile));
-
     };
 
     const handleFileSubmit = async ( file) => {
@@ -155,7 +164,22 @@ const AddMedicine = () => {
                 <div className="form-row row">
                     <div className="form-group">
                         <label htmlFor="ingredients"></label>
-                        <textarea className="form-control" onChange={(e) => setIngredients(e.target.value)} value={ingredients} placeholder="Ingredients" id="ingredients" rows="3"></textarea>
+                        {ingredients.map((ingredient, index) => (
+                            <input
+                                type="text"
+                                className="form-control"
+                                key={index}
+                                value={ingredient}
+                                onChange={(e) => handleIngredientChange(index, e.target.value)}
+                            />
+                        ))}
+                        <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={handleAddIngredient}
+                        >
+                            Add Ingredient
+                        </button>
                     </div>
                 </div>
                 <div className="form-row row mt-4">

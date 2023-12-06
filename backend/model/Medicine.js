@@ -14,9 +14,6 @@ const MedicineSchema = new Schema({
         details: {
             type: String
         },
-        activeIngredient: {
-            type: String
-        },
         price: {
             type: Number,
             required: true
@@ -30,7 +27,7 @@ const MedicineSchema = new Schema({
             required: true
         },
         ingredients: {
-            type: String,
+            type: [String],
             required: true
         },
         sideEffects: {
