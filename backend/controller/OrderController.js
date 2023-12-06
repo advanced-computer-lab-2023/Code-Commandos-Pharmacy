@@ -8,30 +8,6 @@ const OrderModel = require("../model/Order")
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 const SalesReport = require("../model/SalesReport")
 
-
-// Place My Order :  Confirm Order
-const placeOrder = asyncHandler(async (req, res) => {
-    try {
-        const patientId = req.user.id
-        const cart = await Cart.findOne({patientId})
-        if (!cart) {
-            return res.status(404).json({message: 'Cart is empty'});
-        }
-        const order = new Order({
-            patientId: patientId,
-            cartId: cart._id,
-            subtotal: cart.subtotal,
-            shipping: cart.shipping,
-            totalPrice: cart.subtotal + cart.shipping,
-            totalNumberOfItems: cart.totalNumberOfItems,
-        })
-            await order.save();
-        res.status(201).json(order);
-    } catch (error) {
-        res.status(400)
-        throw new Error(error.message)
-    }
-})
 // View Order Details
 const viewOrderDetails = asyncHandler(async (req, res) => {
     try {
@@ -129,6 +105,9 @@ const payForOrder = asyncHandler(async (req, res) => {
               paymentOption: 'Wallet',
               totalPrice: cart.subtotal + cart.shipping,
           })
+            // Schedule the shipment
+            scheduleStatusUpdate(newOrder.orderId);
+
             // Retrieve the current month, loop over the cart.medicines, add their amounts in a variable
             const currentMonth = new Date().toLocaleString('default', { month: 'long' });
             let totalAmount = 0;
@@ -305,8 +284,42 @@ const completeCreditPayment = asyncHandler(async (req, res) => {
     }
 })
 
+const updateOrderStatus = async (orderId, newStatus) => {
+    try {
+        const order = await Order.findOneAndUpdate({ orderId }, { status: newStatus }, { new: true });
+        console.log(`Order ${orderId} status updated to ${newStatus}`);
+    } catch (error) {
+        console.error(`Error updating order ${orderId} status: ${error}`);
+    }
+};
+
+const scheduleStatusUpdate = (orderId) => {
+    setTimeout(async () => {
+        try{
+            const order = Order.findOne({orderId, status:'PENDING'});
+            if (order){
+                await updateOrderStatus(orderId, 'ONITSWAY');
+                scheduleDeliveryStatusUpdate(orderId);
+            }
+
+        }
+        catch (error) {
+            console.error('Error updating order status:', error);
+        }
+    }, 3 * 60 * 1000); // 3 minutes
+}
+
+const scheduleDeliveryStatusUpdate = (orderId) => {
+    setTimeout(async () => {
+        try {
+            await updateOrderStatus(orderId, 'DELIVERED');
+        } catch (error) {
+            console.error('Error updating order status:', error);
+        }
+    }, 5 * 60 * 1000); // 5 minutes
+};
+
 module.exports = {
-    placeOrder,
     viewOrderDetails,
     cancelOrder,
     payForOrder,

@@ -80,12 +80,25 @@
 .search-btn {
     background: #D21312;
     color: white;
+    border: none;
 }
-
 .search-btn:hover {
     color: #D21312;
     background: white;
+    border: 1px solid #053B50;
 }
+
+.search-btn-alternatives {
+    background: #176B87;
+    color: white;
+    border: none;
+}
+.search-btn-alternatives:hover {
+    color: white;
+    background: #D21312;
+    border: none;
+}
+
 
 .available-medicines {
     margin-top: -360px;

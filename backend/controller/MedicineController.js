@@ -73,7 +73,7 @@ const addOrUpdateMedicine = asyncHandler(async (req, res) => {
 // View Available Medicines
 const viewAvailableMedicines = asyncHandler(async (req, res) => {
     try {
-        const medicines = await Medicine.find({ quantity: {$ne: 0}, isArchived : false}).sort({createdAt: 1})
+        const medicines = await Medicine.find({ isArchived : false}).sort({createdAt: 1})
         res.status(200).json(medicines)
     } catch (error) {
         throw new Error(error.message)

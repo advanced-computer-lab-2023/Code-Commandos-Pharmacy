@@ -14,6 +14,9 @@ const MedicineSchema = new Schema({
         details: {
             type: String
         },
+        activeIngredient: {
+            type: String
+        },
         price: {
             type: Number,
             required: true
@@ -41,7 +44,6 @@ const MedicineSchema = new Schema({
             type: Date,
             required: true
         },
-
         // Antipyretic: Fever reducer
         // Antiemetic: Prevents nausea and vomiting
         // Sedative : Promotes relaxation and sleep
@@ -74,7 +76,6 @@ const MedicineSchema = new Schema({
         customerRatings: {
             type: Number
         },
-        // Should be automatically updated when I place order
         sales: {
             type: Number
         }

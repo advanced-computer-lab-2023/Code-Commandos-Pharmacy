@@ -1,11 +1,17 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/navbar.css'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {useEffect, useState} from "react";
+import button from "bootstrap/js/src/button";
 
 const MedicineDetails = ({medicine}) => {
-    const [idFileInfo, setIdFileInfo] = useState({ fileName: '', filePath: '' });
+    const [idFileInfo, setIdFileInfo] = useState({fileName: '', filePath: ''});
+
+    const navigate = useNavigate();
+    const handleShowAlternatives = () => {
+        navigate(`/Alternatives/${medicine.name}`);
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -60,24 +66,52 @@ const MedicineDetails = ({medicine}) => {
     return (
         <div className="col-lg-4 col-md-4 col-sm-6">
             <div className="image-container ">
-                <img src={`http://localhost:8090${idFileInfo.filePath}`} alt={medicine.name} className="med-img"/>
+                {medicine.quantity === 0 ? (
+                    <img src={require(`../images/sold-out.png`)} alt="Sold Out" className="med-img"/>
+                ) : (
+                    <img src={`http://localhost:8090${idFileInfo.filePath}`} alt={medicine.name} className="med-img"/>
+                )}
                 <div className="icon-overlay logo-container">
-                    <Link to={`/editMedicine/${medicine.name}`}>
-                        <img className="edit-logo" src={require(`../images/edit.png`)} alt="Edit"/>
-                    </Link>
-                    <button className="archive-btn" onClick={handleArchive}>
-                        <img className="edit-logo" src={require(`../images/archive.png`)} alt="Archive"/>
-                    </button>
+
+                    {medicine.quantity === 0 ? (
+                        <img src={require(`../images/white-2.png`)} alt=""/>
+                    ) : (
+                        <Link to={`/editMedicine/${medicine.name}`}>
+                            <img className="edit-logo" src={require(`../images/edit.png`)} alt="Edit"/>
+                        </Link>
+                    )}
+
+                    {medicine.quantity === 0 ? (
+                        <img src={require(`../images/white.png`)} alt=""/>
+                    ) : (
+                        <button className="archive-btn" onClick={handleArchive}>
+                            <img className="edit-logo" src={require(`../images/archive.png`)} alt="Archive"/>
+                        </button>
+                    )}
+
                     <br/>
-                <br/>
-                    <button className="addToCart-btn" onClick={handleAddToCart}>
-                        <img className="edit-addToCart" src={require(`../images/addToCart.png`)} alt="Cart"/>
-                    </button>
+                    <br/>
+                    {medicine.quantity === 0 ? (
+                        <img src={require(`../images/out-of-stock-icon.png`)} alt="Out-of-Stock"/>
+                    ) : (
+                        <button className="addToCart-btn" onClick={handleAddToCart}>
+                            <img className="edit-addToCart" src={require(`../images/addToCart.png`)} alt="Cart"/>
+                        </button>
+                    )}
+
                 </div>
             </div>
             <p>{medicine.name}</p>
             <p>{medicine.price} EGP</p>
-            <p>{medicine.description}</p>
+
+            {medicine.quantity === 0 ? (
+                <button className="btn btn-primary search-btn-alternatives" onClick={handleShowAlternatives}>
+                    Show Alternatives
+                </button>
+            ) : (
+                <p>{medicine.description}</p>
+            )}
+
         </div>
     )
 }

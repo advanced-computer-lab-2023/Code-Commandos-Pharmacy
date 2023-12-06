@@ -26,6 +26,7 @@ import PaymentSuccess from "./pages/PaymentSuccess"
 import DisplayOrderInfo from "./pages/DisplayOrderInfo";
 import Register from "./pages/Register";
 import FilterReport from "./pages/MonthlySalesUpdated";
+import AlternativeMedicines from "./pages/AlternativeMedicines";
 
 function App() {
 
@@ -66,7 +67,7 @@ function App() {
                         <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Login /> }/>
                         <Route path="/Home" element={<Home/>}/>
                         <Route path="/MonthlySales/:month" element={<FilterReport/>}/>
-
+                        <Route path="/Alternatives/:medicineName" element={<AlternativeMedicines/>}/>
 
                     </Routes>
                 </div>
