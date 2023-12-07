@@ -1,0 +1,34 @@
+.logo-edit{
+    margin-top: -100px;
+    width: 100%;
+    height: 97%;
+}
+.my-custom-background{
+    background-color: #dbedff;
+    margin-top: -100px;
+}
+.login-header-edit{
+    text-align: left;
+    margin-left: 18px;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+.welcome-text-edit{
+    margin-left: 18px;
+}
+.login-btn{
+    background-color: blue;
+    color: white;
+    padding: 9px;
+    margin-bottom: 22px;
+}
+.login-btn:hover{
+    background-color: #053B50;
+    color: white;
+}
+.link-edit{
+    color: #053B50;
+}
+.link-edit:hover{
+    color: #D21312;
+}

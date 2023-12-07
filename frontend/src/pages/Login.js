@@ -1,5 +1,6 @@
-import React, { useState} from "react";
+import React, {useState} from "react";
 import "../css/style.css"
+import '../css/login.css';
 import {Link, useNavigate} from "react-router-dom";
 
 const Login = () => {
@@ -7,16 +8,16 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const isLogged = window.localStorage.getItem("logged");
-    const handleLogin = async() => {
+    const handleLogin = async () => {
         const response = await fetch('/api/user/login', {
             method: 'POST',
-            body: JSON.stringify({username,password}),
+            body: JSON.stringify({username, password}),
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-        if(response.ok){
-            window.localStorage.setItem("logged",true)
+        if (response.ok) {
+            window.localStorage.setItem("logged", true)
             navigate('/Home')
             window.location.reload()
         }
@@ -25,18 +26,21 @@ const Login = () => {
         }
     };
 
-    const handleReset = () =>{
+    const handleReset = () => {
         console.log("here")
         navigate('/EnterEmailReset')
         window.location.reload()
     }
     // if (!isLogged) {
     return (
-        <div className="container">
+        <body className="my-custom-background">
+        <div className="container ">
             <div className="row justify-content-center">
                 <div className="col-md-6">
-                    <div className="card mt-5 border-danger box">
-                        <h1 className="text-center">Login</h1>
+                    <div className="card box login-card">
+                        <h4 className="login-header-edit">Login</h4>
+                        <h5 className="welcome-text-edit">Welcome to El7a2ni</h5>
+
                         <div className="card-body">
                             <form>
                                 <div className="form-group">
@@ -59,10 +63,10 @@ const Login = () => {
                                         onChange={(e) => setPassword(e.target.value)}
                                     />
                                 </div>
-                                <br />
+                                <br/>
                                 <button
                                     type="button"
-                                    className="btn btn-danger btn-block buttons"
+                                    className="btn btn-block buttons login-btn"
                                     onClick={handleLogin}
                                 >
                                     Login
@@ -70,18 +74,23 @@ const Login = () => {
                                 <br/>
 
                                 <p className="text-center">
-                                    <Link to="/EnterEmailReset">Forgot Password?</Link>
+                                    <Link className="link-edit" to="/EnterEmailReset">Forgot Password?</Link>
                                 </p>
                                 <p className="text-center">
-                                    <Link to="/Register">Sign Up</Link>
+                                    <Link className="link-edit" to="/Register">Sign Up</Link>
                                 </p>
 
                             </form>
                         </div>
                     </div>
                 </div>
+                <div className="col-md-6">
+                    <img src={require('../images/final-logo.gif')} alt="Sold Out" className="logo-edit" />
+                </div>
             </div>
         </div>
+        </body>
+
     );
     // } else {
     //     return (
