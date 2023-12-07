@@ -73,26 +73,20 @@ const MedicineDetails = ({medicine}) => {
                 )}
                 <div className="icon-overlay logo-container">
 
-                    {medicine.quantity === 0 ? (
-                        <img src={require(`../images/white-2.png`)} alt=""/>
-                    ) : (
-                        <Link to={`/editMedicine/${medicine.name}`}>
-                            <img className="edit-logo" src={require(`../images/edit.png`)} alt="Edit"/>
-                        </Link>
-                    )}
 
-                    {medicine.quantity === 0 ? (
-                        <img src={require(`../images/white.png`)} alt=""/>
-                    ) : (
-                        <button className="archive-btn" onClick={handleArchive}>
-                            <img className="edit-logo" src={require(`../images/archive.png`)} alt="Archive"/>
-                        </button>
-                    )}
+                    <Link to={`/editMedicine/${medicine.name}`}>
+                        <img className="edit-logo" src={require(`../images/edit.png`)} alt="Edit"/>
+                    </Link>
+
+
+                    <button className="archive-btn" onClick={handleArchive}>
+                        <img className="edit-logo" src={require(`../images/archive.png`)} alt="Archive"/>
+                    </button>
 
                     <br/>
                     <br/>
                     {medicine.quantity === 0 ? (
-                        <img src={require(`../images/out-of-stock-icon.png`)} alt="Out-of-Stock"/>
+                        <img className="cant-add-to-cart" src={require(`../images/out-of-stock-icon.png`)} alt="Out-of-Stock"/>
                     ) : (
                         <button className="addToCart-btn" onClick={handleAddToCart}>
                             <img className="edit-addToCart" src={require(`../images/addToCart.png`)} alt="Cart"/>

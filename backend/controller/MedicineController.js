@@ -253,7 +253,7 @@ const alternativeMedicines = asyncHandler(async (req,res)=> {
         console.log("Ingredients:", ingredients);
 
         let alternativeMedicines = []
-        const medicines = await Medicine.find({_id : {$ne: medicine._id}})
+        const medicines = await Medicine.find({_id : {$ne: medicine._id}, quantity : {$ne: 0}})
         for(const ing of ingredients){
             for(const med of medicines){
                 if(med.ingredients[0].includes(ing)){
