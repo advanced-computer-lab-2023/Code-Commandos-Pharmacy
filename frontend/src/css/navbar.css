@@ -317,6 +317,9 @@
 .left-part {
     margin-left: 50px;
 }
+.left-part-less {
+    margin-left: -160px;
+}
 
 .order-body {
     width: 600px;
