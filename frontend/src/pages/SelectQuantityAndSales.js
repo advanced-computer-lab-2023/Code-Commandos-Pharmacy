@@ -24,6 +24,7 @@ const SelectQuantityAndSales = () => {
     )
     return(
         <div className="medicines-quantity-sales">
+            <h2 className="margin-left">Quantity and Sales</h2>
             {medicines && medicines.map((medicine) => (
                 <MedicineInfo
                     name={medicine.name}

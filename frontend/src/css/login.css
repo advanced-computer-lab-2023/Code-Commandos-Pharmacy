@@ -35,7 +35,7 @@
 .my-patient-background{
     background-color: #dbedff;
     margin-top: -100px;
-    height: 1000px;
+    height: 874px;
 }
 .margin-edit{
     margin-top: 193px;
@@ -84,7 +84,7 @@
     font-size: 30px;
 }
 .link-editt:hover{
-    color: #071952;
+    color: #D21312;
     transition-duration: 0.3s;
 }
 .admin-gif{
