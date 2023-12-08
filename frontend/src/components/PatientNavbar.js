@@ -3,7 +3,7 @@ import logo from '../images/logo.png';
 import '../css/navbar.css';
 import {Link, useNavigate} from 'react-router-dom';
 
-const Navbar = () => {
+const PatientNavbar = () => {
 
     const navigate = useNavigate();
 
@@ -55,13 +55,6 @@ const Navbar = () => {
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Blog
                                 </a>
-                                <ul className="dropdown-menu" aria-labelledby="servicesDropdown">
-
-                                    <li>
-                                        <Link to="/MonthlySales/December" className="dropdown-item">Pharmacy Sales
-                                            Report</Link>
-                                    </li>
-                                </ul>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button"
@@ -69,47 +62,9 @@ const Navbar = () => {
                                     Pharmacy
                                 </a>
                                 <ul className="dropdown-menu" aria-labelledby="servicesDropdown">
-
-                                    <li>
-                                        <Link to="/AddAdmin" className="dropdown-item">Add admin</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/ViewAndRemovePatients" className="dropdown-item">View And Remove
-                                            Patients</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/PatientRegistration" className="dropdown-item">Patient
-                                            Registration</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/PharmacistRegistration" className="dropdown-item">Pharmacist
-                                            Registration</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/AddPharmacist" className="dropdown-item">Add Pharmacist</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/ViewAndRemovePharmacists" className="dropdown-item">View And Remove
-                                            Pharmacists</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/ViewAllPharmacistRequests" className="dropdown-item">View All
-                                            Pharmacist Requests</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/viewAllAndSearchMedicineByName" className="dropdown-item">View
-                                            Available Medicines</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/ViewArchivedMedicines" className="dropdown-item">Archived
-                                            Medicines</Link>
-                                    </li>
                                     <li>
                                         <Link to="/quantityAndSales" className="dropdown-item">View Medicines Quantity
                                             and Sales</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/addMedicine" className="dropdown-item">Add Medicine</Link>
                                     </li>
                                     <li>
                                         <Link to="/AddNewAddress" className="dropdown-item">Add New Address</Link>
@@ -173,4 +128,4 @@ const Navbar = () => {
         </header>
     )
 }
-export default Navbar
+export default PatientNavbar

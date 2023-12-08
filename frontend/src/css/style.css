@@ -35,8 +35,8 @@ body{
 }
 
 .input-danger:focus {
-    border: 1px solid red;
-    box-shadow: 0 0 5px red;
+    border: 1px solid #053B50;
+    box-shadow: 0 0 3px #053B50 ;
 }
 
 .nav-settings{

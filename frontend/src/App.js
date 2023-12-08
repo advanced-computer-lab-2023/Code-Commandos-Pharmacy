@@ -27,10 +27,16 @@ import DisplayOrderInfo from "./pages/DisplayOrderInfo";
 import Register from "./pages/Register";
 import FilterReport from "./pages/MonthlySalesUpdated";
 import AlternativeMedicines from "./pages/AlternativeMedicines";
+import PatientHome from "./pages/PatientHome";
+
 
 function App() {
 
+    const role = window.localStorage.getItem("role");
     const logged = window.localStorage.getItem("logged");
+    const name = window.localStorage.getItem("name");
+
+    const isPatient = role === "PATIENT";
 
     return (
         <div className="App">
@@ -40,7 +46,6 @@ function App() {
                     <Routes>
                         <Route path="/" element={logged ? <Home /> : <Navigate to="/login"/>}/>
                         <Route path="/viewAvailableMedicines" element={<ViewAvailableMedicines/>} />
-                        <Route path="/viewArchivedMedicines" element={<ViewArchivedMedicines/>} />
                         <Route path="/quantityAndSales" element={<SelectQuantityAndSales/>} />
                         <Route path="/viewAllAndSearchMedicineByName" element={<SearchMedicineByName/>} />
                         <Route path="/PharmacistRegistration" element={<PharmacistRegistration />}/>
@@ -56,7 +61,6 @@ function App() {
                         <Route path="/ResetPassword"  element={<ResetPassword/>}/>
                         <Route path="/ChangePassword"  element={<ChangePassword/>}/>
                         <Route path="/editMedicine/:medicineName" element={<EditMedicine/>}/>
-                        <Route path="/viewMyCart" element={<MyCart/>}/>
                         <Route path="/editMedicineInCart/:medicineName" element={<EditMedicineInCart/>}/>
                         <Route path="/placeOrder" element={<PlaceOrder/>}/>
                         <Route path="/viewMyOrders" element={<DisplayOrderInfo/>}/>
@@ -68,6 +72,27 @@ function App() {
                         <Route path="/Home" element={<Home/>}/>
                         <Route path="/MonthlySales/:month" element={<FilterReport/>}/>
                         <Route path="/Alternatives/:medicineName" element={<AlternativeMedicines/>}/>
+
+
+                        {isPatient ? (
+                            <>
+                                <Route
+                                    path="/viewMyCart"
+                                    element={<MyCart />}
+                                />
+                                <Route
+                                    path="/PatientHome"
+                                    element={<PatientHome role={role} name = {name}/>}
+                                />
+                            </>
+                        ) : (
+                            <>
+                                <Route
+                                    path="/viewArchivedMedicines"
+                                    element={<ViewArchivedMedicines />}
+                                />
+                            </>
+                        )}
 
                     </Routes>
                 </div>

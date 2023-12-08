@@ -17,9 +17,20 @@ const Login = () => {
             }
         })
         if (response.ok) {
+            const data = await response.json();
             window.localStorage.setItem("logged", true)
-            navigate('/Home')
-            window.location.reload()
+            window.localStorage.setItem("role",data.role);
+            window.localStorage.setItem("name", data.name);
+            console.log("name is", data.name);
+            console.log("role is ",data.role)
+            if(data.role === "PATIENT"){
+                console.log('inside patient home')
+                navigate('/PatientHome')
+            }
+            else{
+                navigate('/Home')
+            }
+           // window.location.reload()
         }
         if (!response.ok) {
             alert(await response.text())
