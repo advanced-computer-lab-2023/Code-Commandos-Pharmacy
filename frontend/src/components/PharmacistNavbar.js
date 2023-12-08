@@ -74,21 +74,14 @@ const PharmacistNavbar = () => {
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    PharmacyARWA
+                                    Pharmacy
                                 </a>
-                                <ul className="dropdown-menu" aria-labelledby="servicesDropdown">
-                                    <li>
-                                        <Link to="/AddNewAddress" className="dropdown-item items-dropdown">Add New Address</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/viewMyOrders" className="dropdown-item items-dropdown">My Orders</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/viewMyCart" className="dropdown-item items-dropdown">Cart</Link>
-                                    </li>
-
-
-                                </ul>
+                                {/*<ul className="dropdown-menu" aria-labelledby="servicesDropdown">*/}
+                                {/*    <li>*/}
+                                {/*        <Link to="/AddNewAddress" className="dropdown-item items-dropdown">Add New Address</Link>*/}
+                                {/*    </li>*/}
+                                {/*    */}
+                                {/*</ul>*/}
                             </li>
                         </ul>
                         {/*<div className="nav-settings">*/}

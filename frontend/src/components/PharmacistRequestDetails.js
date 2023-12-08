@@ -52,7 +52,7 @@ const PharmacistRequestDetails = ({ pharmacistRequest }) => {
                 const idFileInfoResponse = await axios.get(`/api/file/getFileById/${pharmacistRequest.ID}`);
                 const licenseFileInfoResponse = await axios.get(`/api/file/getFileById/${pharmacistRequest.workLicense}`);
                 const degreeFileInfoResponse = await axios.get(`/api/file/getFileById/${pharmacistRequest.pharmacyDegree}`);
-
+                console.log("files found")
                 // Set file names in state
                 setIdFileInfo({
                     fileName: idFileInfoResponse.data.fileName,

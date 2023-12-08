@@ -30,6 +30,10 @@ const AdminHome = ({role,name}) => {
                     <p><Link className="link-editt" to="/ViewAllPharmacistRequests" onClick={()=> navigate('/ViewAllPharmacistRequests')}>
                         View Pharmacists' Requests
                     </Link></p>
+                    <p><Link className="link-editt" to="/AddAdmin" onClick={()=> navigate('/AddAdmin')}>
+                        Add Administrator
+                    </Link></p>
+
                 </h2>
             </div>
             <div className="col-6">
