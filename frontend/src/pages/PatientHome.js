@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import PatientNavbar from "../components/PatientNavbar";
-import Navbar from "../components/Navbar";
 import React from "react";
+import PatientNavbar from "../components/PatientNavbar";
 
 const PatientHome = ({role, name}) => {
 
@@ -13,13 +12,11 @@ const PatientHome = ({role, name}) => {
     return(
 
         <body className="my-patient-background">
-        <div>
-            <Navbar />
-        </div>
+        {<PatientNavbar />}
         <div className="row">
             <div className="col-6">
                 <h2 className="margin-edit">
-                    <h1 className="red-color">Welcome {role} {name}</h1>
+                    <h2 className="red-color">Welcome {role} {name}</h2>
                     <br/>
                     <br/>
                     <br/>
@@ -37,7 +34,6 @@ const PatientHome = ({role, name}) => {
             </div>
             <div className="col-6">
                 <img className="patient-pic margin-edit" src={require(`../images/patient-home.jpg`)} alt="Pharmacy"/>
-
             </div>
         </div>
 

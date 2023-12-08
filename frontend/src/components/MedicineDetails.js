@@ -78,7 +78,6 @@ const MedicineDetails = ({medicine}) => {
                         <img className="edit-logo" src={require(`../images/edit.png`)} alt="Edit"/>
                     </Link>
 
-
                     <button className="archive-btn" onClick={handleArchive}>
                         <img className="edit-logo" src={require(`../images/archive.png`)} alt="Archive"/>
                     </button>

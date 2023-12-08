@@ -24,11 +24,13 @@ const Login = () => {
             console.log("name is", data.name);
             console.log("role is ",data.role)
             if(data.role === "PATIENT"){
-                console.log('inside patient home')
                 navigate('/PatientHome')
             }
+            else if(data.role === "PHARMACIST"){
+                navigate('/PharmacistHome')
+            }
             else{
-                navigate('/Home')
+                navigate('/AdminHome')
             }
            // window.location.reload()
         }

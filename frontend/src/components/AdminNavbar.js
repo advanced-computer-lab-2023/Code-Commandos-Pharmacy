@@ -4,7 +4,7 @@ import '../css/navbar.css';
 import {Link, useNavigate} from 'react-router-dom';
 import Swal from "sweetalert2";
 
-const PatientNavbar = () => {
+const AdminNavbar = () => {
 
     const navigate = useNavigate();
 
@@ -63,7 +63,7 @@ const PatientNavbar = () => {
                     <div className="collapse navbar-collapse items-nav col-8" id="navbarCollapse">
                         <ul class="navbar-nav">
                             <li className="nav-item">
-                                <Link to="/PatientHome" className="nav-link">Home </Link>
+                                <Link to="/AdminHome" className="nav-link">Home </Link>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Services</a>
@@ -76,19 +76,11 @@ const PatientNavbar = () => {
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Pharmacy
                                 </a>
-                                <ul className="dropdown-menu" aria-labelledby="servicesDropdown">
-                                    <li>
-                                        <Link to="/AddNewAddress" className="dropdown-item items-dropdown">Add New Address</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/viewMyOrders" className="dropdown-item items-dropdown">My Orders</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/viewMyCart" className="dropdown-item items-dropdown">Cart</Link>
-                                    </li>
-
-
-                                </ul>
+                                {/*<ul className="dropdown-menu" aria-labelledby="servicesDropdown">*/}
+                                {/*    <li>*/}
+                                {/*        <Link to="/AddNewAddress" className="dropdown-item items-dropdown">Add New Address</Link>*/}
+                                {/*    </li>*/}
+                                {/*</ul>*/}
                             </li>
                         </ul>
                         {/*<div className="nav-settings">*/}
@@ -142,4 +134,4 @@ const PatientNavbar = () => {
         </header>
     )
 }
-export default PatientNavbar
+export default AdminNavbar

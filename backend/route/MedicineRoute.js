@@ -50,7 +50,7 @@ router.get('/viewQuantityAndSales', protect,checkPharmacistRole, viewQuantityAnd
 router.get('/searchMedicineByName/:name',protect, searchMedicineByName)
 
 // Edit medicine Details and Price
-router.put('/updateDetailsAndPrice/:name', protect,checkPharmacistRole, updateDetailsAndPrice)
+router.put('/updateDetailsAndPrice/:name', protect, checkPharmacistRole, updateDetailsAndPrice)
 
 // Filter medicines based on Medicinal Use
 router.get('/filterMedicines/:medicinalUse', protect, filterMedicines)

@@ -444,3 +444,26 @@
 .cant-add-to-cart{
     margin-top: 50px;
 }
+.logout-btn{
+    border: none;
+    background-color: transparent;
+    margin-left: 10px;
+}
+.items-dropdown{
+    margin: 6px 0px;
+}
+.margin-left-pass{
+    margin-left: -10px;
+}
+.sales-image-admin{
+    margin-top: -530px;
+    margin-left: 370px;
+}
+.sales-component-admin{
+    /*border: 2px solid black;*/
+    width: 450px;
+    height: 407px;
+    margin-top: -280px;
+    margin-left: 860px;
+    overflow: hidden;
+}

@@ -1,10 +1,10 @@
-import Navbar from "../components/Navbar";
 import React from "react";
+import PatientNavbar from "../components/PatientNavbar";
 
 const PatientHomeNavbar = () => {
     return (
         <div>
-            <PatientHomeNavbar />
+            <PatientNavbar/>
         </div>
     );
 }

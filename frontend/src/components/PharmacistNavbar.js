@@ -4,7 +4,7 @@ import '../css/navbar.css';
 import {Link, useNavigate} from 'react-router-dom';
 import Swal from "sweetalert2";
 
-const PatientNavbar = () => {
+const PharmacistNavbar = () => {
 
     const navigate = useNavigate();
 
@@ -63,7 +63,7 @@ const PatientNavbar = () => {
                     <div className="collapse navbar-collapse items-nav col-8" id="navbarCollapse">
                         <ul class="navbar-nav">
                             <li className="nav-item">
-                                <Link to="/PatientHome" className="nav-link">Home </Link>
+                                <Link to="/PharmacistHome" className="nav-link">Home </Link>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Services</a>
@@ -74,7 +74,7 @@ const PatientNavbar = () => {
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Pharmacy
+                                    PharmacyARWA
                                 </a>
                                 <ul className="dropdown-menu" aria-labelledby="servicesDropdown">
                                     <li>
@@ -142,4 +142,4 @@ const PatientNavbar = () => {
         </header>
     )
 }
-export default PatientNavbar
+export default PharmacistNavbar

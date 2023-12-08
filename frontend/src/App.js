@@ -25,9 +25,15 @@ import PaymentCancel from "./pages/PaymentCancel"
 import PaymentSuccess from "./pages/PaymentSuccess"
 import DisplayOrderInfo from "./pages/DisplayOrderInfo";
 import Register from "./pages/Register";
-import FilterReport from "./pages/MonthlySalesUpdated";
+import FilterReport from "./pages/FilterReport";
 import AlternativeMedicines from "./pages/AlternativeMedicines";
 import PatientHome from "./pages/PatientHome";
+import PharmacistHome from "./pages/PharmacistHome";
+import AdminHome from "./pages/AdminHome";
+import PatientNavbar from "./components/PatientNavbar";
+import PharmacistNavbar from "./components/PharmacistNavbar";
+import AdminNavbar from "./components/AdminNavbar"
+import AdminReport from "./pages/AdminReport";
 
 
 function App() {
@@ -37,11 +43,17 @@ function App() {
     const name = window.localStorage.getItem("name");
 
     const isPatient = role === "PATIENT";
+    const isPharmacist = role === "PHARMACIST";
+    const isAdmin = role === "ADMIN"
 
     return (
         <div className="App">
             <BrowserRouter>
-                {logged ? <Home/> : null}
+                {logged && isPatient && <PatientNavbar />}
+                {logged && isPharmacist && <PharmacistNavbar />}
+                {logged && isAdmin && <AdminNavbar />}
+
+
                 <div className="pages">
                     <Routes>
                         <Route path="/" element={logged ? <Home /> : <Navigate to="/login"/>}/>
@@ -72,27 +84,13 @@ function App() {
                         <Route path="/Home" element={<Home/>}/>
                         <Route path="/MonthlySales/:month" element={<FilterReport/>}/>
                         <Route path="/Alternatives/:medicineName" element={<AlternativeMedicines/>}/>
+                        <Route path="/PharmacistHome" element={<PharmacistHome role={role} name = {name}/>}/>
+                        <Route path="/AdminHome" element={<AdminHome role={role} name = {name}/>}/>
+                        <Route path="/PatientHome" element={<PatientHome role={role} name = {name}/>}/>
+                        <Route path="/viewMyCart" element={<MyCart />}/>
+                        <Route path="/viewArchivedMedicines" element={<ViewArchivedMedicines />}/>
+                        <Route path="/AdminReport/:month" element={<AdminReport/>}/>
 
-
-                        {isPatient ? (
-                            <>
-                                <Route
-                                    path="/viewMyCart"
-                                    element={<MyCart />}
-                                />
-                                <Route
-                                    path="/PatientHome"
-                                    element={<PatientHome role={role} name = {name}/>}
-                                />
-                            </>
-                        ) : (
-                            <>
-                                <Route
-                                    path="/viewArchivedMedicines"
-                                    element={<ViewArchivedMedicines />}
-                                />
-                            </>
-                        )}
 
                     </Routes>
                 </div>
