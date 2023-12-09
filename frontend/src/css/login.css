@@ -17,7 +17,7 @@
     margin-left: 18px;
 }
 .login-btn{
-    background-color: blue;
+    background-color: #F6635C;
     color: white;
     padding: 9px;
     margin-bottom: 22px;
@@ -31,6 +31,14 @@
 }
 .link-edit:hover{
     color: #D21312;
+}
+.link-edit-register{
+    color: #053B50;
+    font-size: 23px;
+}
+.link-edit-register:hover {
+    color: blue ;
+    transition-duration: 0.3s;
 }
 .my-patient-background{
     background-color: #e6f4fc ;
@@ -100,4 +108,35 @@
     margin-left: -30px;
     margin-top: 200px;
     border-radius: 20px;
+}
+.display-edit-register{
+    display: flex;
+    margin-top: 30px;
+}
+.margin-reg-adjust{
+    margin-top: -100px;
+    margin-bottom: 100px;
+    color: blue;
+}
+.width-adjust-button{
+    width: 40%;
+}
+.margin-left-pharm{
+    margin-left: -150px;
+}
+.pharmacist-registration{
+    margin-left: 200px;
+}
+.width-adjust-auth{
+    width: 120%;
+}
+.btn-auth{
+    background-color: #7752FE;
+    border: none;
+    border-radius: 3pc;
+}
+.btn-auth:hover{
+    background-color: #190482;
+    border: none;
+    transition-duration: 0.3s;
 }

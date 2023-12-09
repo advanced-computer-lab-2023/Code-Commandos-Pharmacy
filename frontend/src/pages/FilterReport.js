@@ -120,11 +120,11 @@ const FilterReport = () => {
         <div className="row margin-left col-2">
             <div className="container">
                 <div className="row">
-                    <button className="all-btn" onClick={fetchReport}>
+                    <button className="all-btn margin-top" onClick={fetchReport}>
                         All
                     </button>
                 </div>
-                <div className="row margin-top">
+                <div className="row">
                     <p className="mt-4 fw-bold">Month</p>
                     <ul className="medicinal-use-list">
                         <li>

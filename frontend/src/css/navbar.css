@@ -498,6 +498,11 @@
 .width-adjust{
     width: 80%;
  }
+.width-adjust-register{
+    width: 125%;
+    margin-top: 50px;
+    margin-left: -100px;
+}
 .patient-gif{
     width: 60%;
     margin-left: 700px;
@@ -506,4 +511,14 @@
 .denial-edit{
     width: 70%;
     margin-top: 100px;
+}
+.margin-right{
+    margin-right: 150px;
+}
+.width-registration{
+    width: 80%;
+}
+.image-adjust-patient{
+    width: 220%;
+    margin-left: -100px;
 }
