@@ -56,7 +56,7 @@ function App() {
 
                 <div className="pages">
                     <Routes>
-                        <Route path="/" element={logged ? <Home /> : <Navigate to="/login"/>}/>
+                        <Route path="/" element={logged ? <Login /> : <Navigate to="/login"/>}/>
                         <Route path="/viewAvailableMedicines" element={<ViewAvailableMedicines/>} />
                         <Route path="/quantityAndSales" element={<SelectQuantityAndSales/>} />
                         <Route path="/viewAllAndSearchMedicineByName" element={<SearchMedicineByName/>} />

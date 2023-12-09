@@ -33,7 +33,7 @@
     color: #D21312;
 }
 .my-patient-background{
-    background-color: #dbedff;
+    background-color: #e6f4fc ;
     margin-top: -100px;
     height: 874px;
 }
@@ -77,6 +77,13 @@
     height: 70%;
     margin-left: -30px;
     margin-top: 160px;
+    border-radius: 20px;
+}
+.doctor-gif{
+    width: 90%;
+    height: 76%;
+    margin-left: -20px;
+    margin-top: 190px;
     border-radius: 20px;
 }
 .link-editt{

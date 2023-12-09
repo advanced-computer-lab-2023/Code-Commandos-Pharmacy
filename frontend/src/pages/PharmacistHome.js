@@ -29,7 +29,7 @@ const PharmacistHome = ({role,name}) => {
                 </h2>
             </div>
             <div className="col-6">
-                <img className="pharmacist-gif margin-edit" src={require(`../images/lisa-in-pharmacy.gif`)} alt="Pharmacy"/>
+                <img className="doctor-gif" src={require(`../images/doctorr.gif`)} alt="Pharmacy"/>
             </div>
         </div>
         </body>

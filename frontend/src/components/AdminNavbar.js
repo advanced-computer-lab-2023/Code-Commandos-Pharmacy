@@ -76,11 +76,6 @@ const AdminNavbar = () => {
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Pharmacy
                                 </a>
-                                {/*<ul className="dropdown-menu" aria-labelledby="servicesDropdown">*/}
-                                {/*    <li>*/}
-                                {/*        <Link to="/AddNewAddress" className="dropdown-item items-dropdown">Add New Address</Link>*/}
-                                {/*    </li>*/}
-                                {/*</ul>*/}
                             </li>
                         </ul>
 
@@ -93,9 +88,6 @@ const AdminNavbar = () => {
                                 <ul className="dropdown-menu" aria-labelledby="settingsDrop">
                                     <li>
                                         <button className="logout-btn items-dropdown">Profile</button>
-                                    </li>
-                                    <li>
-                                        <button className="logout-btn items-dropdown">Addresses</button>
                                     </li>
                                     <li>
                                         <Link to="/ChangePassword" className="dropdown-item margin-left-pass items-dropdown">Change Password</Link>

@@ -52,21 +52,31 @@ const ViewAndRemovePatients = () => {
   };
 
   return (
+
     <div className="container mt-4">
-      <h1 className="mb-4">System patients</h1>
-      <ul className="list-group">
-        {patients.map((patient) => (
-          <li key={patient._id} className="list-group-item">
-            <button
-              className="btn btn-link btn-lg"
-              onClick={() => setSelectedPatient(patient)}
-              style={{ textDecoration: "none" }}
-            >
-              {patient.name}
-            </button>
-          </li>
-        ))}
-      </ul>
+      <div className="row">
+        <div className="col-6">
+          <h1 className="mb-4">System patients</h1>
+          <ul className="list-group width-adjust">
+            {patients.map((patient) => (
+                <li key={patient._id} className="list-group-item">
+                  <button
+                      className="btn btn-link btn-lg"
+                      onClick={() => setSelectedPatient(patient)}
+                      style={{ textDecoration: "none" }}
+                  >
+                    {patient.name}
+                  </button>
+                </li>
+            ))}
+          </ul>
+        </div>
+        <div className="col-6">
+          <img className="" src={require(`../images/patient.gif`)} alt="Pharmacy"/>
+        </div>
+      </div>
+
+
       {selectedPatient && (
         <>
           <PatientDetails patient={selectedPatient} />

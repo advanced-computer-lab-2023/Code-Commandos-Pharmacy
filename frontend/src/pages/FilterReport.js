@@ -116,7 +116,7 @@ const FilterReport = () => {
     };
 
     return (
-        <body>
+        <body className="my-patient-background">
         <div className="row margin-left col-2">
             <div className="container">
                 <div className="row">
@@ -124,7 +124,7 @@ const FilterReport = () => {
                         All
                     </button>
                 </div>
-                <div className="row">
+                <div className="row margin-top">
                     <p className="mt-4 fw-bold">Month</p>
                     <ul className="medicinal-use-list">
                         <li>

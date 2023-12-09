@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const AddMedicine = () => {
@@ -231,6 +231,8 @@ const AddMedicine = () => {
                 </div>
                 <button type="submit" className="btn submit-btn">Submit</button>
             </form>
+            <img className="heart-workout-edit" src={require(`../images/heart-gig.gif`)} alt="Pharmacy"/>
+
         </div>
     )
 }

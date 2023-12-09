@@ -77,7 +77,7 @@ const AddNewAddress = () => {
               />
             </div>
             <div className="col">
-            <button type="button" className="btn btn-secondary" onClick={handleAddAddress}>
+            <button type="button" className="btn btn-danger" onClick={handleAddAddress}>
           Add Address
              </button>
             </div>

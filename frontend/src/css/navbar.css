@@ -124,12 +124,13 @@
 }
 
 .container-form {
-    margin: 120px 150px 0px 250px;
+    margin: 130px 50px 0px 150px;
+
 }
 
 .title-form {
     color: #D21312;
-    margin-left: 220px;
+    margin-left: 240px;
     margin-bottom: 40px;
 }
 
@@ -271,7 +272,6 @@
     flex-grow: 1;
     margin-right: 10px;
 }
-
 .sub-total {
     margin-left: 20px;
 }
@@ -456,14 +456,54 @@
     margin-left: -10px;
 }
 .sales-image-admin{
-    margin-top: -530px;
+    margin-top: -520px;
     margin-left: 370px;
 }
 .sales-component-admin{
     /*border: 2px solid black;*/
     width: 450px;
     height: 407px;
-    margin-top: -280px;
+    margin-top: -250px;
     margin-left: 860px;
     overflow: hidden;
+}
+.margin-top{
+    margin-top: 100px;
+}
+.medicines-quantity-sales{
+    width: 60%;
+}
+.admin-months{
+    margin-top: 70px;
+}
+.walking-med-edit{
+    height: 30%;
+    margin-top: 300px;
+    margin-left: 200px;
+}
+.margin-left-sales{
+    margin-left: 30px;
+}
+.display-edit{
+    display: flex;
+}
+.doc-edit{
+    height: 60%;
+}
+.heart-workout-edit{
+    margin-left: 900px;
+    margin-top: -1000px;
+    width: 37%;
+}
+.width-adjust{
+    width: 80%;
+ }
+.patient-gif{
+    width: 60%;
+    margin-left: 700px;
+    margin-top: -250px;
+}
+.denial-edit{
+    width: 70%;
+    margin-top: 100px;
 }

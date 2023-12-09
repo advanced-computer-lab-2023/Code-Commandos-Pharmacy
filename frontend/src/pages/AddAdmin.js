@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import AdminDetails from "../components/AdminDetails";
 
 const AddAdmin = ()=> {
@@ -34,34 +34,41 @@ const AddAdmin = ()=> {
 
     return (
         <div className="container mt-4">
-            <h1 className="mb-4">Add an admin</h1>
-            <div className="mb-3">
-                <label htmlFor="name" className="form-label">
-                    Username:
-                </label>
-                <input
-                    type="text"
-                    id="name"
-                    className="form-control"
-                    value={username !== null ? username : ""}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
+            <div className="row">
+                <div className="col-6">
+                    <h1 className="mb-4">Add an admin</h1>
+                    <div className="mb-3">
+                        <label htmlFor="name" className="form-label">
+                            Username:
+                        </label>
+                        <input
+                            type="text"
+                            id="name"
+                            className="form-control"
+                            value={username !== null ? username : ""}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="password" className="form-label">
+                            Password:
+                        </label>
+                        <input
+                            type="password"
+                            id="password"
+                            className="form-control"
+                            value={password !== null ? password : ""}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <button className="btn btn-primary" onClick={handleAddAdmin}>
+                        Add
+                    </button>
+                </div>
+                <div className="col-6">
+                    <img className="width-adjust" src={require(`../images/add-admin.gif`)} alt="Pharmacy"/>
+                </div>
             </div>
-            <div className="mb-3">
-                <label htmlFor="password" className="form-label">
-                    Password:
-                </label>
-                <input
-                    type="password"
-                    id="password"
-                    className="form-control"
-                    value={password !== null ? password : ""}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-            </div>
-            <button className="btn btn-primary" onClick={handleAddAdmin}>
-                Add
-            </button>
 
             <div className="results mt-4">
                 {admin && <AdminDetails admin={admin}/>}

@@ -1,4 +1,4 @@
-import {useState,useEffect} from "react";
+import React, {useState,useEffect} from "react";
 import PharmacistDetails from "../components/PharmacistDetails";
 
 const ViewAndRemovePharmacists = ()=> {
@@ -53,20 +53,27 @@ const ViewAndRemovePharmacists = ()=> {
 
     return (
         <div className="container mt-4">
-            <h1 className="mb-4">System Pharmacists</h1>
-            <ul className="list-group">
-                {pharmacists.map((pharmacist) => (
-                    <li key={pharmacist._id} className="list-group-item">
-                        <button
-                            className="btn btn-link btn-lg"
-                            onClick={() => setSelectedPharmacist(pharmacist)}
-                            style={{ textDecoration: "none" }}
-                        >
-                            {pharmacist.name}
-                        </button>
-                    </li>
-                ))}
-            </ul>
+            <div className="row">
+                <div className="col-6">
+                    <h1 className="mb-4">System Pharmacists</h1>
+                    <ul className="list-group width-adjust">
+                        {pharmacists.map((pharmacist) => (
+                            <li key={pharmacist._id} className="list-group-item">
+                                <button
+                                    className="btn btn-link btn-lg"
+                                    onClick={() => setSelectedPharmacist(pharmacist)}
+                                    style={{ textDecoration: "none" }}
+                                >
+                                    {pharmacist.name}
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                <div className="col-6">
+                    <img className="doc-edit" src={require(`../images/standing-doc.gif`)} alt="Pharmacy"/>
+                </div>
+            </div>
             {selectedPharmacist &&(
                 <>
                     <PharmacistDetails pharmacist={selectedPharmacist} />

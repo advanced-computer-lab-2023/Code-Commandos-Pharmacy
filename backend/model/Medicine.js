@@ -73,8 +73,13 @@ const MedicineSchema = new Schema({
         customerRatings: {
             type: Number
         },
+        // get the sales from the report
+        // loop on the medicinespurchase array in salesreport document and add the amount of this medicine
+        // loop on the cancelledmedicines array in salesreport document and add the amount of this medicine
+        // subtract the amount in medicinespurchase - the amount in cancelled medicinesand store them in sales
         sales: {
-            type: Number
+            type: Number,
+            default: 0
         }
     },
     {timestamps: true}
