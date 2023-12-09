@@ -4,6 +4,7 @@ import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import button from "bootstrap/js/src/button";
+import Swal from 'sweetalert2';
 
 const MedicineDetails = ({medicine}) => {
     const [idFileInfo, setIdFileInfo] = useState({fileName: '', filePath: ''});
@@ -39,8 +40,11 @@ const MedicineDetails = ({medicine}) => {
                 throw new Error('Failed to add medicine to cart');
             }
             const updatedCart = await response.json();
-            alert("Medicine Added to Cart Successfully!")
-            console.log(updatedCart)
+            Swal.fire({
+                icon: 'success',
+                title: 'Medicine Added to Cart Successfully!',
+            });
+            console.log(updatedCart);
         } catch (error) {
             console.error(error);
         }
@@ -55,8 +59,11 @@ const MedicineDetails = ({medicine}) => {
                 throw new Error('Failed to archive Medicine');
             }
             const archivedMed = await response.json();
-            alert("Medicine Archived Successfully!")
-            console.log(archivedMed)
+            Swal.fire({
+                icon: 'success',
+                title: 'Medicine Archived Successfully!',
+            });
+            console.log(archivedMed);
         } catch (error) {
             console.error(error);
         }

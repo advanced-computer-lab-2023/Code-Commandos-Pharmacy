@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/navbar.css'
 import {Link} from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const MedicineCartDetails = ({medicine}) => {
     const [idFileInfo, setIdFileInfo] = useState({ fileName: '', filePath: '' });
@@ -30,14 +31,23 @@ const MedicineCartDetails = ({medicine}) => {
                 method: 'PUT',
             });
             if (!response.ok) {
-                throw new Error('Error removing medicine from cart ');
+                throw new Error('Error removing medicine from cart');
             }
             const updatedCart = await response.json();
-            alert("Medicine removed from cart")
-            window.location.reload()
-            console.log(updatedCart)
+            Swal.fire({
+                icon: 'success',
+                title: 'Medicine removed from cart',
+            }).then(() => {
+                window.location.reload();
+            });
+            console.log(updatedCart);
         } catch (error) {
             console.error(error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error.message,
+            });
         }
     };
 

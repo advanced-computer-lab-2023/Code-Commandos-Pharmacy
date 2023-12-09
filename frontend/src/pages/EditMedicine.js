@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {useParams} from "react-router-dom";
+import Swal from "sweetalert2";
 
 const EditMedicine = () => {
 
@@ -9,34 +10,44 @@ const EditMedicine = () => {
 
     const {medicineName} = useParams()
 
+
     const handleEdit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         // Set the input in details and price in the medicine with name medicineName
 
         try {
-            const response = await fetch(`/api/medicine/updateDetailsAndPrice/${medicineName}`,
-                {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ details, price }),
-
-                })
+            const response = await fetch(`/api/medicine/updateDetailsAndPrice/${medicineName}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ details, price }),
+            });
 
             if (response.ok) {
-                const data = await response.json()
-                alert("Medicine updated successfully ")
+                const data = await response.json();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Medicine updated successfully',
+                });
             } else {
-                alert(await response.text())
-                console.log('Update Failed: ', response.status)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: await response.text(),
+                });
+                console.log('Update Failed: ', response.status);
             }
         } catch (error) {
-            alert(error.message)
-            console.log('Error', error)
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error.message,
+            });
+            console.log('Error', error);
         }
-    }
+    };
 
 
     return (

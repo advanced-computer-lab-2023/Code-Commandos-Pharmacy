@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import AdminDetails from "../components/AdminDetails";
+import Swal from 'sweetalert2';
 
 const AddAdmin = ()=> {
     const [username,setUsername] = useState(null);
@@ -7,27 +8,36 @@ const AddAdmin = ()=> {
     const [admin,setAdmin] = useState(null)
 
     const handleAddAdmin = async () => {
-        try{
-            const response = await fetch('api/admin/addAdmin',{
+        try {
+            const response = await fetch('api/admin/addAdmin', {
                 method: 'POST',
                 headers: {
-                    'Content-Type':'application/json',
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({username,password})
+                body: JSON.stringify({ username, password }),
             });
-            if (response.ok){
+            if (response.ok) {
                 const result = await response.json();
-                setAdmin(result)
-                alert("Admin added successfully ")
-            }
-            else {
+                setAdmin(result);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Admin added successfully',
+                });
+            } else {
                 const errorMessage = await response.text();
-                alert(errorMessage)
-                throw new Error(errorMessage)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: errorMessage,
+                });
+                throw new Error(errorMessage);
             }
-        }
-        catch (error){
-            alert(error.message)
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error.message,
+            });
         }
     };
 

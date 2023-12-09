@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Swal from "sweetalert2";
 
 const AddMedicine = () => {
     // create a state for each attribute
@@ -33,63 +34,75 @@ const AddMedicine = () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        if(!imageUploadID){
-            alert("You have to submit the image first")
-            return
+        e.preventDefault();
+        if (!imageUploadID) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Image Upload',
+                text: 'You have to submit the image first',
+            });
+            return;
         }
         const formData = new FormData();
-        formData.append("name", name);
-        formData.append("description", description);
-        formData.append("details", details);
-        formData.append("price", price);
-        formData.append("quantity", quantity);
-        formData.append("manufacturer", manufacturer);
-        formData.append("ingredients", ingredients);
-        formData.append("sideEffects", sideEffects);
-        formData.append("expiryDate", expiryDate);
-        formData.append("medicinalUse", medicinalUse);
-        formData.append("imageUploadFile", imageUploadFile);
-        formData.append("imageUploadID", imageUploadID);
+        formData.append('name', name);
+        formData.append('description', description);
+        formData.append('details', details);
+        formData.append('price', price);
+        formData.append('quantity', quantity);
+        formData.append('manufacturer', manufacturer);
+        formData.append('ingredients', ingredients);
+        formData.append('sideEffects', sideEffects);
+        formData.append('expiryDate', expiryDate);
+        formData.append('medicinalUse', medicinalUse);
+        formData.append('imageUploadFile', imageUploadFile);
+        formData.append('imageUploadID', imageUploadID);
         const jsonFormData = {};
         formData.forEach((value, key) => {
             jsonFormData[key] = value;
-            console.log(key, value)
+            console.log(key, value);
         });
-
 
         try {
             const response = await fetch('/api/medicine/addMedicine', {
                 method: 'POST',
-                //We can't send the object, we have to send a JSON
                 body: JSON.stringify(jsonFormData),
                 headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
+                    'Content-Type': 'application/json',
+                },
+            });
 
             if (!response.ok) {
-                alert(await response.text())
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: await response.text(),
+                });
             }
             if (response.ok) {
-                setName('')
-                setDescription('')
-                setDetails('')
-                setPrice('')
-                setQuantity('')
-                setManufacturer('')
-                setIngredients([])
-                setSideEffects('')
-                setExpiryDate('')
-                setMedicinalUse('')
-                setImageUploadFile(null)
-                alert("Added successfully ")
+                setName('');
+                setDescription('');
+                setDetails('');
+                setPrice('');
+                setQuantity('');
+                setManufacturer('');
+                setIngredients([]);
+                setSideEffects('');
+                setExpiryDate('');
+                setMedicinalUse('');
+                setImageUploadFile(null);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Added successfully',
+                });
             }
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error.message,
+            });
         }
-        catch (error){
-            alert(error.message)
-        }
-    }
+    };
 
     const handleImageSubmit = async () => {
         setImageUploadID( await handleFileSubmit( imageUploadFile));

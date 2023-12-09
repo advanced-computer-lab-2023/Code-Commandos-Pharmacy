@@ -1,5 +1,6 @@
 import {useState} from "react";
 import PharmacistDetails from "../components/PharmacistDetails";
+import Swal from "sweetalert2";
 
 const AddPharmacist = ()=> {
     const [name, setName] = useState('')
@@ -12,29 +13,48 @@ const AddPharmacist = ()=> {
     const [educationalBackground, setEducationalBackground] = useState('')
     const [pharmacist, setPharmacist] = useState(null)
 
+
     const handleAddPharmacist = async () => {
-        try{
-            const pharmacist = {username: username, name: name, email: email, password: password, dateOfBirth: dateOfBirth, hourlyRate: hourlyRate, affiliation: affiliation, educationalBackground: educationalBackground}
-            const response = await fetch('api/pharmacist/addPharmacist',{
+        try {
+            const pharmacist = {
+                username: username,
+                name: name,
+                email: email,
+                password: password,
+                dateOfBirth: dateOfBirth,
+                hourlyRate: hourlyRate,
+                affiliation: affiliation,
+                educationalBackground: educationalBackground,
+            };
+            const response = await fetch('api/pharmacist/addPharmacist', {
                 method: 'POST',
                 headers: {
-                    'Content-Type':'application/json',
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(pharmacist)
+                body: JSON.stringify(pharmacist),
             });
-            if (response.ok){
+            if (response.ok) {
                 const result = await response.json();
-                setPharmacist(result)
-                alert("Added successfully ")
-            }
-            else {
+                setPharmacist(result);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Added successfully',
+                });
+            } else {
                 const errorMessage = await response.text();
-                alert(errorMessage)
-                throw new Error(errorMessage)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: errorMessage,
+                });
+                throw new Error(errorMessage);
             }
-        }
-        catch (error){
-            alert(error.message)
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error.message,
+            });
         }
     };
 
