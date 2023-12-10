@@ -21,7 +21,7 @@ const Register = () => {
         <div className="container">
             <div className="row justify-content-center">
                 <div className="col-6">
-                    <img src={require('../images/register.gif')} alt="Sold Out" className="width-adjust-register" />
+                    <img src={require('../images/register.gif')} height={400} alt="Sold Out" className="width-adjust-register" />
                     <div className="row display-edit-register">
                         <div className="col-6">
                             <p>

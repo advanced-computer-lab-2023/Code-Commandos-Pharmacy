@@ -25,7 +25,7 @@ const EnterEmailReset = () => {
         <div className="container">
             <div className="row justify-content-center">
                 <div className="col-6">
-                    <img src={require('../images/authentication.png')} alt="Sold Out" className="width-adjust-auth" />
+                    <img src={require('../images/authentication.png')} height={350} alt="Sold Out" className="width-adjust-auth" />
                         <div className=" mt-5 border-danger box">
                                 <form>
                                     <div className="form-group">
