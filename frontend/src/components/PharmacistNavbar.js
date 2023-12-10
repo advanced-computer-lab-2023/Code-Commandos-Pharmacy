@@ -76,23 +76,6 @@ const PharmacistNavbar = () => {
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Pharmacy
                                 </a>
-                                <ul className="dropdown-menu" aria-labelledby="settingsDrop">
-                                    <li>
-                                        <Link to="/MonthlySales/December" className="dropdown-item margin-left-pass items-dropdown">Total Sales Report</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/viewAllAndSearchMedicineByName" className="dropdown-item margin-left-pass items-dropdown">Browse Medications</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/quantityAndSales" className="dropdown-item margin-left-pass items-dropdown">Medicine's Quantity and Sales</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/addMedicine" className="dropdown-item margin-left-pass items-dropdown">Add medicine</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/viewArchivedMedicines" className="dropdown-item margin-left-pass items-dropdown">Unarchive medicine</Link>
-                                    </li>
-                                </ul>
                             </li>
                         </ul>
                         <div className="nav-settings">

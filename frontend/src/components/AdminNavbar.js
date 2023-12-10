@@ -76,26 +76,6 @@ const AdminNavbar = () => {
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Pharmacy
                                 </a>
-                                <ul className="dropdown-menu" aria-labelledby="settingsDrop">
-                                    <li>
-                                        <Link to="/MonthlySales/December" className="dropdown-item margin-left-pass items-dropdown">Total Sales Report</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/viewAllAndSearchMedicineByName" className="dropdown-item margin-left-pass items-dropdown">Browse Medications</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/ViewAndRemovePatients" className="dropdown-item margin-left-pass items-dropdown">View And Remove Patients</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/ViewAndRemovePharmacists" className="dropdown-item margin-left-pass items-dropdown">View And Remove Pharmacists</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/ViewAllPharmacistRequests" className="dropdown-item margin-left-pass items-dropdown">Pharmacists requests</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/AddAdmin" className="dropdown-item margin-left-pass items-dropdown">Add new admin</Link>
-                                    </li>
-                                </ul>
                             </li>
                         </ul>
 
