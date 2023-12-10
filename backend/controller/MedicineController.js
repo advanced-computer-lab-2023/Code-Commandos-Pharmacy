@@ -73,12 +73,20 @@ const addOrUpdateMedicine = asyncHandler(async (req, res) => {
 // View Available Medicines
 const viewAvailableMedicines = asyncHandler(async (req, res) => {
     try {
-        const medicines = await Medicine.find({quantity: {$ne: 0}}).sort({createdAt: 1})
+        const medicines = await Medicine.find({ isArchived : false}).sort({createdAt: 1})
         res.status(200).json(medicines)
     } catch (error) {
         throw new Error(error.message)
     }
 })
+
+// View Archived Medicines
+const viewArchivedMedicines = asyncHandler(async (req, res) => {
+    const archivedMedicines = await Medicine.find({ isArchived: true });
+    res.status(200).json(archivedMedicines);
+});
+
+
 
 // Search for Medicine based on name
 const searchMedicineByName = asyncHandler(async (req, res) => {
@@ -206,7 +214,62 @@ const getMedicineDetailsById = asyncHandler(async (req,res)=>{
     }
 })
 
+// Archive Medicine
+const archiveMedicine = asyncHandler(async (req,res)=> {
+    const {name} = req.params;
+    try{
+        const medicine = await Medicine.findOne({name});
+        medicine.isArchived = true;
+        await medicine.save();
+        res.status(200).json({ message: 'Medicine archived successfully' });
+    }catch (error) {
+        throw new Error(error.message)
+    }
+})
 
+// Unarchive a Medicine
+const unArchiveMedicine = asyncHandler(async (req,res)=>{
+    const {name} = req.params;
+    try{
+        const medicine = await Medicine.findOne({name});
+        medicine.isArchived = false;
+        await medicine.save();
+        res.status(200).json({ message: 'Medicine unarchived successfully' });
+    }catch (error) {
+        throw new Error(error.message)
+    }
+})
+
+// Loop over the ingredients in medicine and find medicines with th same ingredients
+// Get Medicine Alternatives based on an active ingredient
+const alternativeMedicines = asyncHandler(async (req,res)=> {
+    const {name} = req.params;
+    console.log("Name:", name);
+    try{
+        const medicine = await Medicine.findOne({name});
+        console.log("Medicine:", medicine);
+
+        const ingredients = medicine.ingredients[0].split(",");
+        console.log("Ingredients:", ingredients);
+
+        let alternativeMedicines = []
+        const medicines = await Medicine.find({_id : {$ne: medicine._id}, quantity : {$ne: 0}})
+        for(const ing of ingredients){
+            for(const med of medicines){
+                if(med.ingredients[0].includes(ing)){
+                    alternativeMedicines.push(med)
+                }
+            }
+        }
+
+        console.log("Alternative Medicines:", alternativeMedicines);
+        res.status(200).json({ alternativeMedicines });
+
+
+    }catch (error) {
+        throw new Error(error.message)
+    }
+})
 module.exports = {
     addOrUpdateMedicine,
     viewAvailableMedicines,
@@ -218,5 +281,9 @@ module.exports = {
     viewMedicineInCart,
     updateAmount,
     removeMedicineFromCart,
-    getMedicineDetailsById
+    getMedicineDetailsById,
+    archiveMedicine,
+    unArchiveMedicine,
+    viewArchivedMedicines,
+    alternativeMedicines
 }

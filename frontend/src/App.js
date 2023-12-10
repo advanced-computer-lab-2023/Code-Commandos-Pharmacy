@@ -2,6 +2,7 @@
 
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom"
 import ViewAvailableMedicines from "./pages/ViewAvailableMedicines";
+import ViewArchivedMedicines from "./pages/ViewArchivedMedicines"
 import SelectQuantityAndSales from "./pages/SelectQuantityAndSales";
 import SearchMedicineByName from "./pages/SearchMedicineByName";
 import PharmacistRegistration from './pages/registerAsPharmacist';
@@ -27,19 +28,38 @@ import PaymentSuccess from "./pages/PaymentSuccess"
 import DisplayOrderInfo from "./pages/DisplayOrderInfo";
 import Register from "./pages/Register";
 import PrescriptionContainer from "./pages/PrescriptionContainer";
+import FilterReport from "./pages/FilterReport";
+import AlternativeMedicines from "./pages/AlternativeMedicines";
+import PatientHome from "./pages/PatientHome";
+import PharmacistHome from "./pages/PharmacistHome";
+import AdminHome from "./pages/AdminHome";
+import PatientNavbar from "./components/PatientNavbar";
+import PharmacistNavbar from "./components/PharmacistNavbar";
+import AdminNavbar from "./components/AdminNavbar"
+import AdminReport from "./pages/AdminReport";
 
 
 function App() {
 
+    const role = window.localStorage.getItem("role");
     const logged = window.localStorage.getItem("logged");
+    const name = window.localStorage.getItem("name");
+
+    const isPatient = role === "PATIENT";
+    const isPharmacist = role === "PHARMACIST";
+    const isAdmin = role === "ADMIN"
 
     return (
         <div className="App">
             <BrowserRouter>
-                {logged ? <Home/> : null}
+                {logged && isPatient && <PatientNavbar />}
+                {logged && isPharmacist && <PharmacistNavbar />}
+                {logged && isAdmin && <AdminNavbar />}
+
+
                 <div className="pages">
                     <Routes>
-                        <Route path="/" element={logged ? <Home /> : <Navigate to="/login"/>}/>
+                        <Route path="/" element={logged ? <Navigate to="/Home"/> : <Navigate to="/login"/>}/>
                         <Route path="/viewAvailableMedicines" element={<ViewAvailableMedicines/>} />
                         <Route path="/quantityAndSales" element={<SelectQuantityAndSales/>} />
                         <Route path="/viewAllAndSearchMedicineByName" element={<SearchMedicineByName/>} />
@@ -56,7 +76,6 @@ function App() {
                         <Route path="/ResetPassword/:email"  element={<ResetPassword/>}/>
                         <Route path="/ChangePassword"  element={<ChangePassword/>}/>
                         <Route path="/editMedicine/:medicineName" element={<EditMedicine/>}/>
-                        <Route path="/viewMyCart" element={<MyCart/>}/>
                         <Route path="/editMedicineInCart/:medicineName" element={<EditMedicineInCart/>}/>
                         <Route path="/placeOrder" element={<PlaceOrder/>}/>
                         <Route path="/viewMyOrders" element={<DisplayOrderInfo/>}/>
@@ -66,7 +85,16 @@ function App() {
                         <Route path="/PrescriptionContainer" element={<PrescriptionContainer/>} />
                         <Route path="/Register" element={<Register/>}/>
                         <Route path="/Login" element={logged ? <Navigate to="/Home" replace /> : <Login /> }/>
-                        <Route path="/Home" element={<Home/>}/>
+                        <Route path="/Home" element={isPatient ? <PatientHome/> : isPharmacist ? <PharmacistHome /> : <AdminHome />}/>
+                        <Route path="/MonthlySales/:month" element={<FilterReport/>}/>
+                        <Route path="/Alternatives/:medicineName" element={<AlternativeMedicines/>}/>
+                        <Route path="/PharmacistHome" element={<PharmacistHome role={role} name = {name}/>}/>
+                        <Route path="/AdminHome" element={<AdminHome role={role} name = {name}/>}/>
+                        <Route path="/PatientHome" element={<PatientHome role={role} name = {name}/>}/>
+                        <Route path="/viewMyCart" element={<MyCart />}/>
+                        <Route path="/viewArchivedMedicines" element={<ViewArchivedMedicines />}/>
+                        <Route path="/AdminReport/:month" element={<AdminReport/>}/>
+
                     </Routes>
                 </div>
             </BrowserRouter>

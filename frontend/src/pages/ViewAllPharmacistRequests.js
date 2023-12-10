@@ -1,4 +1,4 @@
-import {useState,useEffect} from "react";
+import React, {useState,useEffect} from "react";
 import PharmacistRequestDetails from "../components/PharmacistRequestDetails";
 
 const ViewAllPharmacistRequests = ()=> {
@@ -37,12 +37,20 @@ const ViewAllPharmacistRequests = ()=> {
 
     return (
         <div className="container mt-4">
-            <h1 className="mb-4">Pharmacists Requests</h1>
-            <ul className="list-group">
-                {requests && requests.map((request) => (
-                    <PharmacistRequestDetails pharmacistRequest={request} />
-                ))}
-            </ul>
+            <div className="row">
+                <div className="col-6">
+                    <h1 className="mb-4">Pharmacists Requests</h1>
+                    <ul className="list-group width-adjust">
+                        {requests && requests.map((request) => (
+                            <PharmacistRequestDetails pharmacistRequest={request} />
+                        ))}
+                    </ul>
+                </div>
+                <div className="col-6">
+                    <img className="denial-edit" src={require(`../images/denied.gif`)} alt="Pharmacy"/>
+                </div>
+            </div>
+
         </div>
     );
 };

@@ -36,7 +36,7 @@ const ResetPassword = () => {
         <div className="container">
             <div className="row justify-content-center">
                 <div className="col-md-6">
-                    <div className="card mt-5 border-danger box">
+                    <div className="card mt-5 border-danger box login-card">
                         <h1 className="text-center">An OTP has been sent to your mail</h1>
                         <div className="card-body">
                             <form>

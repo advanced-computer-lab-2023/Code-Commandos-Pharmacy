@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import Navbar from "./Navbar";
 
 const EnterEmailReset = () => {
     const [email, setEmail] = useState('');
@@ -19,38 +20,42 @@ const EnterEmailReset = () => {
     };
 
     return (
+        <body className="">
+        {<Navbar />}
         <div className="container">
             <div className="row justify-content-center">
-                <div className="col-md-6">
-                    <div className="card mt-5 border-danger box">
-                        <h1 className="text-center">Get OTP</h1>
-                        <div className="card-body">
-                            <form>
-                                <div className="form-group">
-                                    <label htmlFor="email">Email</label>
-                                    <input
-                                        required={true}
-                                        type="email"
-                                        className="form-control input-danger fontMed"
-                                        id="email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                    />
-                                </div>
-                                <br />
-                                <button
-                                    type="button"
-                                    className="btn btn-danger btn-block buttons"
-                                    onClick={handleSubmit}
-                                >
-                                    Send OTP
-                                </button>
-                            </form>
+                <div className="col-6">
+                    <img src={require('../images/authentication.png')} alt="Sold Out" className="width-adjust-auth" />
+                        <div className=" mt-5 border-danger box">
+                                <form>
+                                    <div className="form-group">
+                                        <label htmlFor="email"></label>
+                                        <input
+                                            required={true}
+                                            type="email"
+                                            className="form-control input-danger fontMed"
+                                            id="email"
+                                            value={email}
+                                            placeholder="Email"
+                                            onChange={(e) => setEmail(e.target.value)}
+                                        />
+                                    </div>
+                                    <br />
+                                    <button
+                                        type="button"
+                                        className="btn btn-danger btn-block buttons btn-auth"
+                                        onClick={handleSubmit}
+                                    >
+                                        Send OTP
+                                    </button>
+                                </form>
                         </div>
-                    </div>
                 </div>
+
             </div>
         </div>
+        </body>
+
     );
 };
 

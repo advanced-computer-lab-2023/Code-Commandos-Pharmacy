@@ -10,6 +10,21 @@ const OrderSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Cart'
     },
+    // the Medicines in cart (name, amount, and date.now)
+    medicines: [
+        {
+            name: {
+                type: String,
+            },
+            amount: {
+                type: Number,
+            },
+            orderDate: {
+                type: Date,
+                default: Date.now,
+            },
+        },
+    ],
     orderID: {
         type: Date,
         default: Date.now
@@ -42,7 +57,23 @@ const OrderSchema = new mongoose.Schema({
         type: String,
         default: 'NONE'
     }
-})
+});
+
+OrderSchema.pre('save', async function (next) {
+    const cart = await Cart.findById(this.cartId).populate('medicines.medicineId');
+    if (!cart) {
+        throw new Error('Cart not found');
+    }
+
+    const medicines = cart.medicines.map((medicine) => ({
+        name: medicine.name,
+        amount: medicine.amount,
+        orderDate: Date.now(),
+    }));
+
+    this.medicines = medicines;
+    next();
+});
 
 const Order = mongoose.model('Order', OrderSchema)
 module.exports = Order;

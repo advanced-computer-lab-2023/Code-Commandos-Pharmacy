@@ -1,25 +1,37 @@
-import React, { useState} from "react";
+import React, {useState} from "react";
 import "../css/style.css"
+import '../css/login.css';
 import {Link, useNavigate} from "react-router-dom";
+import PatientNavbar from "../components/PatientNavbar";
+import Navbar from "../components/Navbar";
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const isLogged = window.localStorage.getItem("logged");
-    const handleLogin = async() => {
+    const handleLogin = async () => {
         const response = await fetch('/api/user/login', {
             method: 'POST',
-            body: JSON.stringify({username,password}),
+            body: JSON.stringify({username, password}),
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-        if(response.ok){
-            const result = await response.json()
-            window.localStorage.setItem("logged",true)
-            window.localStorage.setItem("username",result.username)
-            navigate('/Home')
+        if (response.ok) {
+            const data = await response.json();
+            window.localStorage.setItem("logged", true)
+            window.localStorage.setItem("role",data.role);
+            window.localStorage.setItem("name", data.name);
+            if(data.role === "PATIENT"){
+                navigate('/PatientHome')
+            }
+            else if(data.role === "PHARMACIST"){
+                navigate('/PharmacistHome')
+            }
+            else{
+                navigate('/AdminHome')
+            }
             window.location.reload()
         }
         if (!response.ok) {
@@ -27,18 +39,20 @@ const Login = () => {
         }
     };
 
-    const handleReset = () =>{
+    const handleReset = () => {
         console.log("here")
         navigate('/EnterEmailReset')
         window.location.reload()
     }
-    // if (!isLogged) {
     return (
+        <body className="my-custom-background">
         <div className="container">
             <div className="row justify-content-center">
                 <div className="col-md-6">
-                    <div className="card mt-5 border-danger box">
-                        <h1 className="text-center">Login</h1>
+                    <div className="card box login-card">
+                        <h4 className="login-header-edit">Login</h4>
+                        <h5 className="welcome-text-edit">Welcome to El7a2ni</h5>
+
                         <div className="card-body">
                             <form>
                                 <div className="form-group">
@@ -61,10 +75,10 @@ const Login = () => {
                                         onChange={(e) => setPassword(e.target.value)}
                                     />
                                 </div>
-                                <br />
+                                <br/>
                                 <button
                                     type="button"
-                                    className="btn btn-danger btn-block buttons"
+                                    className="btn btn-block buttons login-btn"
                                     onClick={handleLogin}
                                 >
                                     Login
@@ -72,26 +86,24 @@ const Login = () => {
                                 <br/>
 
                                 <p className="text-center">
-                                    <Link to="/EnterEmailReset">Forgot Password?</Link>
+                                    <Link className="link-edit" to="/EnterEmailReset">Forgot Password?</Link>
                                 </p>
                                 <p className="text-center">
-                                    <Link to="/Register">Sign Up</Link>
+                                    <Link className="link-edit" to="/Register">Sign Up</Link>
                                 </p>
 
                             </form>
                         </div>
                     </div>
                 </div>
+                <div className="col-md-6">
+                    <img src={require('../images/final-logo.gif')} alt="Sold Out" className="logo-edit" />
+                </div>
             </div>
         </div>
+        </body>
+
     );
-    // } else {
-    //     return (
-    //         <div>
-    //             <Home />
-    //         </div>
-    //     );
-    // }
 };
 
 export default Login;

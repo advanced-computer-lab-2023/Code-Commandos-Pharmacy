@@ -52,39 +52,47 @@ const ViewAndRemovePatients = () => {
   };
 
   return (
+
     <div className="container mt-4">
-      <h1 className="mb-4">System patients</h1>
-      <ul className="list-group">
-        {patients.map((patient) => (
-          <li key={patient._id} className="list-group-item">
-            <button
-              className="btn btn-link btn-lg"
-              onClick={() => setSelectedPatient(patient)}
-              style={{ textDecoration: "none" }}
-            >
-              {patient.name}
-            </button>
-          </li>
-        ))}
-      </ul>
-      {selectedPatient && (
-        <>
-          <PatientDetails patient={selectedPatient} />
-          <select
-            className="form-select mt-3"
-            onChange={(e) => setSelectedAddress(e.target.value)}
-            value={selectedAddress || ""}
-          >
-            <option value="">Select Address</option>
-            {selectedPatient.addresses.map((address, index) => (
-              <option key={index} value={address.street + ', ' + address.city + ', ' + address.country}>
-                {address.street}, {address.city}, {address.country}
-              </option>
+      <div className="row">
+        <div className="col-6">
+          <h1 className="mb-4">System patients</h1>
+          <ul className="list-group width-adjust">
+            {patients.map((patient) => (
+                <li key={patient._id} className="list-group-item">
+                  <button
+                      className="btn btn-link btn-lg"
+                      onClick={() => setSelectedPatient(patient)}
+                      style={{ textDecoration: "none" }}
+                  >
+                    {patient.name}
+                  </button>
+                </li>
             ))}
-          </select>
-          <button className="btn btn-danger mt-3" onClick={() => handleRemovePatient(selectedPatient._id)}>Remove</button>
-        </>
-      )}
+          </ul>
+          {selectedPatient && (
+              <>
+                <PatientDetails patient={selectedPatient} />
+                <select
+                    className="form-select mt-3"
+                    onChange={(e) => setSelectedAddress(e.target.value)}
+                    value={selectedAddress || ""}
+                >
+                  <option value="">Select Address</option>
+                  {selectedPatient.addresses.map((address, index) => (
+                      <option key={index} value={address.street + ', ' + address.city + ', ' + address.country}>
+                        {address.street}, {address.city}, {address.country}
+                      </option>
+                  ))}
+                </select>
+                <button className="btn btn-danger mt-3" onClick={() => handleRemovePatient(selectedPatient._id)}>Remove</button>
+              </>
+          )}
+        </div>
+        <div className="col-6">
+          <img className="" src={require(`../images/patient.gif`)} alt="Pharmacy"/>
+        </div>
+      </div>
     </div>
   );
 };

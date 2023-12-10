@@ -8,7 +8,6 @@ const {checkAdminRole} = require("../middleware/AccessHandler");
 const {protect} = require("../middleware/AuthenticationHandler");
 
 
-
 router.post('/addAdmin',protect,checkAdminRole,addAdmin)
 
 module.exports = router

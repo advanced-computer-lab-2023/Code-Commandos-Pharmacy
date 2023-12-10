@@ -1,17 +1,23 @@
 import { useState } from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
+import Swal from "sweetalert2";
 
 const EditMedicine = () => {
     const { medicineName } = useParams();
     const [newAmount, setNewAmount] = useState('');
     const navigate = useNavigate()
+
     const handleEdit = async (e) => {
         e.preventDefault();
         try {
             const amount = parseInt(newAmount); // Convert newAmount to a number
 
             if (isNaN(amount)) {
-                alert('Please enter a valid amount');
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Invalid Amount',
+                    text: 'Please enter a valid amount',
+                });
                 return;
             }
 
@@ -21,15 +27,26 @@ const EditMedicine = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                alert('Amount updated successfully');
-                navigate('/viewMyCart')
-
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Amount updated successfully',
+                }).then(() => {
+                    navigate('/viewMyCart');
+                });
             } else {
-                alert(await response.text());
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: await response.text(),
+                });
                 console.log('Amount Failed:', response.status);
             }
         } catch (error) {
-            alert(error.message);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error.message,
+            });
             console.log('Error', error);
         }
     };

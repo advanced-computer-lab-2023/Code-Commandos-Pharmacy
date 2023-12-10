@@ -1,13 +1,11 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-
 const MedicineSchema = new Schema({
         name: {
             type: String,
             unique: true,
             required: true,
-
         },
         description: {
             type: String,
@@ -29,7 +27,7 @@ const MedicineSchema = new Schema({
             required: true
         },
         ingredients: {
-            type: String,
+            type: [String],
             required: true
         },
         sideEffects: {
@@ -43,7 +41,6 @@ const MedicineSchema = new Schema({
             type: Date,
             required: true
         },
-
         // Antipyretic: Fever reducer
         // Antiemetic: Prevents nausea and vomiting
         // Sedative : Promotes relaxation and sleep
@@ -66,6 +63,10 @@ const MedicineSchema = new Schema({
             ref: 'File',
             required: true,
         },
+        isArchived: {
+            type: Boolean,
+            default: false
+        },
         customerReviews: {
             type: String,
         },
@@ -73,7 +74,8 @@ const MedicineSchema = new Schema({
             type: Number
         },
         sales: {
-            type: Number
+            type: Number,
+            default: 0
         }
     },
     {timestamps: true}

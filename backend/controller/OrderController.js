@@ -6,30 +6,10 @@ const Medicine = require("../model/Medicine");
 const PatientModel = require("../model/Patient")
 const OrderModel = require("../model/Order")
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+const SalesReport = require("../model/SalesReport")
+const Pharmacist = require('../model/Pharmacist')
+const nodemailer = require("nodemailer");
 
-// Place My Order :  Confirm Order
-const placeOrder = asyncHandler(async (req, res) => {
-    try {
-        const patientId = req.user.id
-        const cart = await Cart.findOne({patientId})
-        if (!cart) {
-            return res.status(404).json({message: 'Cart is empty'});
-        }
-        const order = new Order({
-            patientId: patientId,
-            cartId: cart._id,
-            subtotal: cart.subtotal,
-            shipping: cart.shipping,
-            totalPrice: cart.subtotal + cart.shipping,
-            totalNumberOfItems: cart.totalNumberOfItems,
-        })
-        await order.save();
-        res.status(201).json(order);
-    } catch (error) {
-        res.status(400)
-        throw new Error(error.message)
-    }
-})
 // View Order Details
 const viewOrderDetails = asyncHandler(async (req, res) => {
     try {
@@ -52,7 +32,7 @@ const viewOrderDetails = asyncHandler(async (req, res) => {
 })
 
 // Delete Order by Id
-const cancelOrder = asyncHandler(async (req,res)=>{
+const cancelOrder = asyncHandler(async (req,res)=> {
     try{
         const {id} = req.params
         const patientId = req.user.id
@@ -60,6 +40,37 @@ const cancelOrder = asyncHandler(async (req,res)=>{
         if (!order) {
             return res.status(404).json({message: 'Order not found'});
         }
+        // Update the Sales in SalesReport
+        const orderMonth = order.orderID.toLocaleString('default', { month: 'long' }); //November
+        const salesDocument = await SalesReport.findOne();
+        const salesEntry = salesDocument.salesMonth.find(entry => entry.month === orderMonth);
+
+        salesEntry.sales -= order.totalNumberOfItems;
+        await salesDocument.save();
+
+        // Update the cancelled Medicines array in the SalesReport
+        const salesReport = await SalesReport.findOne();
+        order.medicines.forEach((medicine) => {
+            const cancelledMedicines = {
+                medicineName: medicine.name,
+                amount: medicine.amount,
+                orderDate: new Date(),
+            };
+            salesReport.cancelledMedicines.push(cancelledMedicines); // Add the medicinePurchase object to the existing array
+        });
+        await salesReport.save();
+
+        // Update the Medicine's quantity
+        for(const medicine of order.medicines){
+            const {name , amount} = medicine;
+            const foundMedicine = await Medicine.findOne({name});
+            if(foundMedicine){
+                const newQuantity = foundMedicine.quantity + amount;
+                foundMedicine.quantity = newQuantity;
+                await foundMedicine.save();
+            }
+        }
+
         await order.deleteOne({id})
         res.json({message: 'Order cancelled successfully'});
     } catch (error) {
@@ -67,7 +78,6 @@ const cancelOrder = asyncHandler(async (req,res)=>{
         throw new Error(error.message);
     }
 });
-
 
 const payForOrder = asyncHandler(async (req, res) => {
     const { id } = req.user;
@@ -94,9 +104,57 @@ const payForOrder = asyncHandler(async (req, res) => {
               subtotal: cart.subtotal,
               shipping: cart.shipping,
               totalNumberOfItems: cart.totalNumberOfItems,
-              paymentOption: 'Wallet', // Set the payment option as needed
+              paymentOption: 'Wallet',
               totalPrice: cart.subtotal + cart.shipping,
           })
+            // Schedule the shipment
+            scheduleStatusUpdate(newOrder.orderId);
+
+            // Retrieve the current month, loop over the cart.medicines, add their amounts in a variable
+            const currentMonth = new Date().toLocaleString('default', { month: 'long' });
+            let totalAmount = 0;
+            for (const item of cart.medicines) {
+                totalAmount += item.amount;
+            }
+            // Update or create the sales document
+            let salesDocument = await SalesReport.findOne();
+            if (!salesDocument) {
+                salesDocument = new SalesReport();
+            }
+            const salesEntry = salesDocument.salesMonth.find(entry => entry.month === currentMonth);
+            if (salesEntry) {
+                salesEntry.sales += totalAmount;
+            } else {
+                salesDocument.salesMonth.push({ month: currentMonth, sales: totalAmount });
+            }
+            await salesDocument.save();
+            console.log('Sales document updated or created successfully.');
+
+            const salesReport = await SalesReport.findOne();
+
+            // Loop through the medicines array and save the medicine's name, amount, and order date
+            cart.medicines.forEach((medicine) => {
+                const medicinePurchase = {
+                    medicineName: medicine.name,
+                    amount: medicine.amount,
+                    orderDate: new Date(),
+                };
+                salesReport.medicinePurchase.push(medicinePurchase); // Add the medicinePurchase object to the existing array
+            });
+
+            await salesReport.save();
+            // Empty the cart and create the order
+            for(const medicine of cart.medicines){
+                const {name , amount} = medicine;
+                const foundMedicine = await Medicine.findOne({name});
+                if(foundMedicine){
+                    const newQuantity = foundMedicine.quantity - amount;
+                    foundMedicine.quantity = newQuantity;
+                    await foundMedicine.save();
+                    if(foundMedicine.quantity <= 0)
+                        sendMailToPharmacists(foundMedicine.name);
+                }
+            }
             await Cart.findOneAndUpdate({_id:cart._id},{medicines:[],totalNumberOfItems:0,subtotal:0})
             res.status(200).json(newOrder);
         }
@@ -126,6 +184,17 @@ const payForOrder = asyncHandler(async (req, res) => {
             'cartID': cartId.toString()
           }
         });
+          for(const medicine of cart.medicines){
+              const {name , amount} = medicine;
+              const foundMedicine = await Medicine.findOne({name});
+              if(foundMedicine){
+                  const newQuantity = foundMedicine.quantity - amount;
+                  foundMedicine.quantity = newQuantity;
+                  await foundMedicine.save();
+                  if(foundMedicine.quantity <= 0)
+                      sendMailToPharmacists(foundMedicine.name);
+              }
+          }
         res.status(200).json(session)
       }
       else if (paymentOption === 'CashOnDelivery') {
@@ -138,6 +207,37 @@ const payForOrder = asyncHandler(async (req, res) => {
               paymentOption: 'CashOnDelivery', // Set the payment option as needed
               totalPrice: cart.subtotal + cart.shipping,
           })
+
+          // Retrieve the current month, loop over the cart.medicines, add their amounts in a variable
+          const currentMonth = new Date().toLocaleString('default', { month: 'long' });
+          let totalAmount = 0;
+          for (const item of cart.medicines) {
+              totalAmount += item.amount;
+          }
+          // Update or create the sales document
+          let salesDocument = await SalesReport.findOne();
+          if (!salesDocument) {
+              salesDocument = new SalesReport();
+          }
+          const salesEntry = salesDocument.salesMonth.find(entry => entry.month === currentMonth);
+          if (salesEntry) {
+              salesEntry.sales += totalAmount;
+          } else {
+              salesDocument.salesMonth.push({ month: currentMonth, sales: totalAmount });
+          }
+          await salesDocument.save();
+          console.log('Sales document updated or created successfully.');
+          for(const medicine of cart.medicines){
+              const {name , amount} = medicine;
+              const foundMedicine = await Medicine.findOne({name});
+              if(foundMedicine){
+                  const newQuantity = foundMedicine.quantity - amount;
+                  foundMedicine.quantity = newQuantity;
+                  await foundMedicine.save();
+                  if(foundMedicine.quantity <= 0)
+                      sendMailToPharmacists(foundMedicine.name);
+              }
+          }
           await Cart.findOneAndUpdate({_id:cart._id},{medicines:[],totalNumberOfItems:0,subtotal:0})
           res.status(200).json(newOrder);
         
@@ -150,6 +250,7 @@ const payForOrder = asyncHandler(async (req, res) => {
       res.status(500).json({ error: error.message });
     }
 });
+
 
 const completeCreditPayment = asyncHandler(async (req, res) => {
     const { sessionID } = req.params
@@ -176,6 +277,27 @@ const completeCreditPayment = asyncHandler(async (req, res) => {
             totalPrice: cart.subtotal + cart.shipping,
             sessionID:sessionID
         })
+
+        // Retrieve the current month, loop over the cart.medicines, add their amounts in a variable
+        const currentMonth = new Date().toLocaleString('default', { month: 'long' });
+        let totalAmount = 0;
+        for (const item of cart.medicines) {
+            totalAmount += item.amount;
+        }
+        // Update or create the sales document
+        let salesDocument = await SalesReport.findOne();
+        if (!salesDocument) {
+            salesDocument = new SalesReport();
+        }
+        const salesEntry = salesDocument.salesMonth.find(entry => entry.month === currentMonth);
+        if (salesEntry) {
+            salesEntry.sales += totalAmount;
+        } else {
+            salesDocument.salesMonth.push({ month: currentMonth, sales: totalAmount });
+        }
+        await salesDocument.save();
+        console.log('Sales document updated or created successfully.');
+
         await Cart.findOneAndUpdate({_id:cart._id},{medicines:[],totalNumberOfItems:0,subtotal:0})
         res.status(200).json(newOrder)
     } else {
@@ -184,8 +306,84 @@ const completeCreditPayment = asyncHandler(async (req, res) => {
     }
 })
 
+const updateOrderStatus = async (orderId, newStatus) => {
+    try {
+        const order = await Order.findOneAndUpdate({ orderId }, { status: newStatus }, { new: true });
+        console.log(`Order ${orderId} status updated to ${newStatus}`);
+    } catch (error) {
+        console.error(`Error updating order ${orderId} status: ${error}`);
+    }
+};
+
+const scheduleStatusUpdate = (orderId) => {
+    setTimeout(async () => {
+        try{
+            const order = Order.findOne({orderId, status:'PENDING'});
+            if (order){
+                await updateOrderStatus(orderId, 'ONITSWAY');
+                scheduleDeliveryStatusUpdate(orderId);
+            }
+
+        }
+        catch (error) {
+            console.error('Error updating order status:', error);
+        }
+    }, 3 * 60 * 1000); // 3 minutes
+}
+
+const scheduleDeliveryStatusUpdate = (orderId) => {
+    setTimeout(async () => {
+        try {
+            await updateOrderStatus(orderId, 'DELIVERED');
+        } catch (error) {
+            console.error('Error updating order status:', error);
+        }
+    }, 5 * 60 * 1000); // 5 minutes
+};
+
+const sendEmail =  asyncHandler(async (email,content) => {
+    let nodeConfig = {
+        service: "gmail",
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        auth: {
+            user: process.env.APP_EMAIL,
+            pass: process.env.APP_PASSWORD,
+
+        }
+    }
+    let transporter = nodemailer.createTransport(nodeConfig);
+    let message = {
+        from : {
+            name: "Code Commandos",
+            address: process.env.ETHEREAL_EMAIL
+        },
+        to: email,
+        subject : "Medicine out of stock",
+        text: content,
+    }
+    try {
+        const response = await transporter.sendMail(message)
+    }
+    catch (error){
+        throw new Error(error.message)
+    }
+})
+
+const sendMailToPharmacists = asyncHandler(async (name) => {
+    try {
+        const pharmacists = await Pharmacist.find();
+        for (const ph of pharmacists){
+            sendEmail(ph.email,`Kindly note that medicine ${name} is out of stock now`)
+        }
+    }
+    catch (error){
+        throw new Error(error.message)
+    }
+})
+
 module.exports = {
-    placeOrder,
     viewOrderDetails,
     cancelOrder,
     payForOrder,

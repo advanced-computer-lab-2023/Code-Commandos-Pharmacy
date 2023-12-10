@@ -1,12 +1,15 @@
-import {useState,useEffect} from "react";
+import React, {useState,useEffect} from "react";
 import axios from "axios";
 import MedicineDetails from "../components/MedicineDetails";
+import {Link} from "react-router-dom";
 
 
 const SearchMedicineByName = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [searchedMedicine, setSearchedMedicine] = useState([]);
     const [medicines, setMedicines] = useState([])
+    // const [salesReport, setSalesReport] = useState([])
+
 
     useEffect(() => {
         const fetchMedicines = async () => {
@@ -42,6 +45,18 @@ const SearchMedicineByName = () => {
             setSearchedMedicine(null)
         }
     }
+    // const handleSalesReport = async (month) => {
+    //     try {
+    //         const response = await axios.get(`/api/sales/viewReportByMonth/${month}`);
+    //         const salesOfMonth =  response.data;
+    //         setSalesReport(salesOfMonth);
+    //     } catch (error) {
+    //         console.error("Error fetching report:", error);
+    //         alert(error.message)
+    //         setSalesReport([]);
+    //     }
+    // };
+
 
     const handleCategory = async (category) => {
         try {
@@ -95,7 +110,6 @@ const SearchMedicineByName = () => {
                 {medicines && medicines.map((medicine) => (
                     <MedicineDetails key={medicine._id} medicine={medicine}/>
                 ))}
-
             </div>
         </div>
 

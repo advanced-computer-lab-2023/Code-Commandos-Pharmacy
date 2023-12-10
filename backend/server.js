@@ -35,6 +35,7 @@ const userRoutes= require('./route/UserRoute')
 const fileRoutes = require('./route/FileRoute')
 const cartRoute = require('./route/CartRoute')
 const orderRoute = require('./route/OrderRoute')
+const salesRoute = require('./route/SalesReportRoute')
 
 server.use('/api/pharmacist', pharmacistRoutes)
 server.use('/api/pharmacistRequest', pharmacistRequestRoutes)
@@ -46,6 +47,7 @@ server.use('/api/file',fileRoutes.routes)
 server.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 server.use('/api/cart', cartRoute)
 server.use('/api/order', orderRoute)
+server.use('/api/sales', salesRoute)
 
 server.use(ErrorHandler)
 

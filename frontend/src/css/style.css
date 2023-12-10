@@ -27,13 +27,16 @@ body{
 
 .box{
     padding: 1rem;
-    box-shadow: 0 0 5px red;
-
+}
+.login-card{
+    margin-top: 30%;
+    border-radius: 20px;
+    margin-right: 40px;
 }
 
 .input-danger:focus {
-    border: 1px solid red;
-    box-shadow: 0 0 5px red;
+    border: 1px solid #053B50;
+    box-shadow: 0 0 3px #053B50 ;
 }
 
 .nav-settings{
@@ -75,4 +78,13 @@ body{
 
 .right-payment-option, .left-payment-option, .middle-payment-option{
     text-align: center;
+}
+
+.margin-left {
+    margin-left: 15px;
+    margin-bottom: 10px;
+}
+.archive-btn {
+    border: transparent;
+    background-color: transparent;
 }

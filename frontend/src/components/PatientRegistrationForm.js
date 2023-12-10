@@ -60,7 +60,7 @@ const PatientRegistrationForm = () => {
 
   return (
     <div className="container mt-4">
-      <h1 className="mb-4">Registration:</h1>
+      <h1 className="margin-reg-adjust">Registration:</h1>
       <form className="create" onSubmit={handleSubmit}>
         {/* ... previous form inputs ... */}
         <div className="mb-3">
@@ -215,7 +215,7 @@ const PatientRegistrationForm = () => {
           </div>
         <br/>
         <br/>
-        <button className="btn btn-primary">Register</button>
+        <button className="btn btn-primary p-2 width-adjust-button">Register</button>
         <br/>
       </form>
       {newPatient && <PatientDetails patient={newPatient} />}

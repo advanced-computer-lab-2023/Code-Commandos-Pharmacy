@@ -22,7 +22,6 @@ const OrderInfo = ({id, status, numberOfItems, totalPrice, paymentOption}) => {
         <body>
         <div className="card mb-4">
             <div className="card-body">
-                <h5 className="card-title">OrderID: {id}</h5>
                 <p className="card-text">Number of Items: {numberOfItems}</p>
                 <p className="card-text">Total Price: {totalPrice}</p>
                 <p className="card-text">Payment: {paymentOption}</p>

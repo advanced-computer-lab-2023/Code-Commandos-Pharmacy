@@ -18,9 +18,17 @@
     padding: 0.6em 1.3em;
     color: white;
     font-size: 1.1rem;
-    transition-duration: 0.7s;
+    transition-duration: 0.4s;
     border: 1px solid transparent;
     margin-right:0.5rem ;
+}
+.buttonNav:hover{
+    background-color: white;
+    border: 1.3px solid navy;
+    color: #D21312;
+
+
+
 }
 
 .logout {
@@ -72,15 +80,28 @@
 .search-btn {
     background: #D21312;
     color: white;
+    border: none;
 }
-
 .search-btn:hover {
     color: #D21312;
     background: white;
+    border: 1px solid #053B50;
 }
 
+.search-btn-alternatives {
+    background: #176B87;
+    color: white;
+    border: none;
+}
+.search-btn-alternatives:hover {
+    color: white;
+    background: #D21312;
+    border: none;
+}
+
+
 .available-medicines {
-    margin-top: -350px;
+    margin-top: -360px;
     margin-right: 12px;
 }
 
@@ -103,21 +124,55 @@
 }
 
 .container-form {
-    margin: 120px 150px 0px 250px;
+    margin: 130px 50px 0px 150px;
+
 }
 
 .title-form {
     color: #D21312;
-    margin-left: 220px;
+    margin-left: 240px;
     margin-bottom: 40px;
 }
 
 .submit-btn {
     width: 15%;
-    background: navy;
+    background: #176B87;
     color: white;
     margin-left: 20%;
     margin-top: 50px;
+}
+.submit-btn-report {
+    width: 40%;
+    background: #176B87;
+    color: white;
+    margin-left: 2%;
+    margin-top: 20px;
+}
+.submit-btn-report:hover {
+    width: 40%;
+    background: #164863;
+    color: white;
+    margin-left: 2%;
+    margin-top: 20px;
+
+}
+.all-btn {
+    width: 100%;
+    background: #176B87;
+    color: white;
+    padding: 5px;
+    border:none;
+    border-radius: 0.3rem;
+    transition-duration: 0.4s;
+}
+.all-btn:hover {
+    width: 100%;
+    background: #164863;
+    color: white;
+    padding: 5px;
+    border:none;
+    border-radius: 0.3rem;
+    transition-duration: 0.4s;
 }
 
 .submit-btn:hover {
@@ -142,8 +197,7 @@
 
 .edit-addToCart {
     width: 35px;
-    margin-top: 100px;
-
+    margin-top: 45px;
 }
 
 .cart-button {
@@ -218,7 +272,6 @@
     flex-grow: 1;
     margin-right: 10px;
 }
-
 .sub-total {
     margin-left: 20px;
 }
@@ -264,6 +317,9 @@
 .left-part {
     margin-left: 50px;
 }
+.left-part-less {
+    margin-left: -160px;
+}
 
 .order-body {
     width: 600px;
@@ -286,7 +342,6 @@
 .btn-address:hover {
     background-color: #053B50;
 }
-
 
 .row-payment {
     display: flex;
@@ -330,4 +385,140 @@
     background: transparent;
     border: none;
 }
-
+.archived-medicines {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.sales {
+    color: #053B50;
+}
+.sales-image {
+    margin-top: -520px;
+    margin-left: 370px;
+}
+.sales-image-name {
+    margin-top: -40px;
+    margin-left: 270px;
+    height: 700px;
+}
+.sales-component{
+    /*border: 2px solid black;*/
+    width: 450px;
+    height: 407px;
+    margin-top: -560px;
+    margin-left: 860px;
+    overflow: hidden;
+}
+.no-underline {
+    text-decoration: none;
+}
+.header h5{
+    display: inline;
+    margin-right: 10px;
+    font-size: 18px;
+    margin-bottom: 0px;
+}
+.report-margin {
+    font-size: 10px;
+    margin: -5px 0px ;
+}
+.blue-color{
+    color: #164863 ;
+}
+.span-margin {
+    margin-left: 10px;
+    color: black;
+}
+.margin-bottom{
+    margin-bottom: 15px;
+}
+.sales-container {
+    display: flex;
+    align-items: center;
+}
+/*select {*/
+/*    width: 150px;*/
+/*}*/
+.cant-add-to-cart{
+    margin-top: 50px;
+}
+.logout-btn{
+    border: none;
+    background-color: transparent;
+    margin-left: 10px;
+}
+.items-dropdown{
+    margin: 6px 0px;
+}
+.margin-left-pass{
+    margin-left: -10px;
+}
+.sales-image-admin{
+    margin-top: -520px;
+    margin-left: 370px;
+}
+.sales-component-admin{
+    /*border: 2px solid black;*/
+    width: 450px;
+    height: 407px;
+    margin-top: -250px;
+    margin-left: 860px;
+    overflow: hidden;
+}
+.margin-top{
+    margin-top: 100px;
+}
+.medicines-quantity-sales{
+    width: 60%;
+}
+.admin-months{
+    margin-top: 70px;
+}
+.walking-med-edit{
+    height: 30%;
+    margin-top: 300px;
+    margin-left: 200px;
+}
+.margin-left-sales{
+    margin-left: 30px;
+}
+.display-edit{
+    display: flex;
+}
+.doc-edit{
+    height: 60%;
+}
+.heart-workout-edit{
+    margin-left: 900px;
+    margin-top: -1000px;
+    width: 37%;
+}
+.width-adjust{
+    width: 80%;
+ }
+.width-adjust-register{
+    width: 125%;
+    margin-top: 20%;
+    margin-left: -100px;
+}
+.patient-gif{
+    width: 60%;
+    margin-left: 700px;
+    margin-top: -250px;
+}
+.denial-edit{
+    width: 70%;
+    margin-top: 100px;
+}
+.margin-right{
+    margin-right: 150px;
+}
+.width-registration{
+    width: 80%;
+}
+.image-adjust-patient{
+    width: 220%;
+    margin-left: -100px;
+}

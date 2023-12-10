@@ -39,7 +39,7 @@ const ChangePassword = () => {
     return (
         <div className="container justify-content-center">
             <div className="row justify-content-center">
-                <div className="col-md-6 mt-5 card border-danger box">
+                <div className="col-md-6 mt-5 card border-danger box login-card">
                     <h2>Change Password</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="form-group">
@@ -81,7 +81,7 @@ const ChangePassword = () => {
                             />
                         </div>
                         <br/>
-                        <button type="submit" className="btn btn-danger buttons">
+                        <button type="submit" className="btn btn-danger buttons login-btn">
                             Change Password
                         </button>
                     </form>

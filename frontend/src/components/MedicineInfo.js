@@ -5,7 +5,7 @@ const MedicineInfo = ({ name, quantity, sales }) => {
         <div className="card mb-4">
             <div className="card-body">
                 <h5 className="card-title">{name}</h5>
-                <p className="card-text">Quantity: {quantity} available</p>
+                <p className="card-text">Quantity: {quantity}</p>
                 <p className="card-text">Sales: {sales}</p>
             </div>
         </div>
