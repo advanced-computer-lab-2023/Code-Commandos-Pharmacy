@@ -26,6 +26,9 @@ const PharmacistHome = ({role,name}) => {
                     <p><Link className="link-editt" to="/addMedicine" onClick={()=> navigate('/addMedicine')}>
                         Add Medicine
                     </Link></p>
+                    <p><Link className="link-editt" to="/viewArchivedMedicines" onClick={()=> navigate('/viewArchivedMedicines')}>
+                        Unarchive a Medicine
+                    </Link></p>
                 </h2>
             </div>
             <div className="col-6">
