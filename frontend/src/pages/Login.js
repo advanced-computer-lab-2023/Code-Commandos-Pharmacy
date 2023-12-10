@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import "../css/style.css"
 import '../css/login.css';
 import {Link, useNavigate} from "react-router-dom";
+import PatientNavbar from "../components/PatientNavbar";
+import Navbar from "../components/Navbar";
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -45,7 +47,8 @@ const Login = () => {
     // if (!isLogged) {
     return (
         <body className="my-custom-background">
-        <div className="container ">
+        {<Navbar />}
+        <div className="container margin-top-extra">
             <div className="row justify-content-center">
                 <div className="col-md-6">
                     <div className="card box login-card">

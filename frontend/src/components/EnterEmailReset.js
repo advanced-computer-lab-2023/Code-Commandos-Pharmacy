@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import Navbar from "./Navbar";
 
 const EnterEmailReset = () => {
     const [email, setEmail] = useState('');
@@ -18,6 +19,7 @@ const EnterEmailReset = () => {
 
     return (
         <body className="">
+        {<Navbar />}
         <div className="container">
             <div className="row justify-content-center">
                 <div className="col-6">

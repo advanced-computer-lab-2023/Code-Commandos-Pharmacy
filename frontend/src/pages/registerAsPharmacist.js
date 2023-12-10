@@ -2,11 +2,13 @@
 
 import PharmacistRegistrationForm from '../components/PharmacistRegistrationForm'
 import React from "react";
+import Navbar from "../components/Navbar";
 
 const PharmacistRegistration = () => {
 
     return (
         <body>
+        {<Navbar />}
         <div className="row">
             <div className="col-6">
                 <div className="pharmacist-registration">
