@@ -72,7 +72,7 @@ function SideDrawer() {
       };
 
       if(user.role==='PATIENT'){
-        const { data } = await axios.get(`/api/doctor/searchPharmacistsToChat/${search}`, config);
+        const { data } = await axios.get(`/api/pharmacist/searchPharmacistsToChat/${search}`, config);
         setLoading(false);
         setSearchResult(data);
       }
