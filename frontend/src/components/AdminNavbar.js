@@ -11,6 +11,7 @@ const AdminNavbar = () => {
     const handleLogout = async () => {
         console.log("in handle logout");
         try {
+            window.localStorage.removeItem("logged");
             const response = await fetch('api/user/logout', {
                 method: 'POST',
                 headers: {

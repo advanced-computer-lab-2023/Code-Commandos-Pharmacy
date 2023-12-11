@@ -37,7 +37,9 @@ import PatientNavbar from "./components/PatientNavbar";
 import PharmacistNavbar from "./components/PharmacistNavbar";
 import AdminNavbar from "./components/AdminNavbar"
 import AdminReport from "./pages/AdminReport";
-
+import { ChakraProvider } from "@chakra-ui/react";
+import ChatProvider from "./ChatProvider";
+import Chat from './pages/Chat';
 
 function App() {
 
@@ -94,7 +96,7 @@ function App() {
                         <Route path="/viewMyCart" element={<MyCart />}/>
                         <Route path="/viewArchivedMedicines" element={<ViewArchivedMedicines />}/>
                         <Route path="/AdminReport/:month" element={<AdminReport/>}/>
-
+                        <Route path="/Chat" element={<ChakraProvider><ChatProvider><Chat/></ChatProvider></ChakraProvider>}/>
                     </Routes>
                 </div>
             </BrowserRouter>

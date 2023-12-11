@@ -77,9 +77,33 @@ const viewAllPharmacists = asyncHandler(async (req,res) => {
     }
 })
 
+const searchPharmacistsToChat = asyncHandler(async (req, res) => {
+    const { name } = req.params;
+    let query = {};
+    
+    if (name !== "none") 
+      query = { name: { $regex: new RegExp(name, "i") } };
+    
+    try {
+      const pharmacists = await PharmacistModel.find(query);
+      let pharmacistList = []
+      for (const pharmacistJSON of pharmacists) {
+          const pharmacist = pharmacistJSON._doc
+          const user = await User.findOne({username:pharmacist.username});
+          if(user)
+              pharmacistList.push({...pharmacist,userId:user._id,role:user.role})
+      }
+      res.status(200).json(pharmacistList);
+    } catch (error) {
+      res.status(400);
+      throw new Error(error.message);
+    }
+});
+
  module.exports={
     viewPharmacist,
     removePharmacist,
     addPharmacist,
-    viewAllPharmacists
+    viewAllPharmacists,
+    searchPharmacistsToChat
  }

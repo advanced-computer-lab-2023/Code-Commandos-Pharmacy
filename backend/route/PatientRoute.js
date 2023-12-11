@@ -9,6 +9,7 @@ const {
   updatePatient,
   addPatientAddresses,
   viewAvailableAddresses,
+  searchPatientsToChat,
   
 } = require('../controller/PatientController')
 
@@ -33,6 +34,8 @@ router.patch('/updatePatient/:id',protect,checkAdminRole, updatePatient)
 router.put('/addPatientAddresses/',protect,checkPatientRole, addPatientAddresses);
 
 router.get('/viewAvailableAddresses/',protect,checkPatientRole, viewAvailableAddresses);
+
+router.get('/searchPatientsToChat/:name', protect, searchPatientsToChat)
 
 
 

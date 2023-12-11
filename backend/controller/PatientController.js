@@ -223,18 +223,27 @@ const payWithCreditCard = asyncHandler(async (req, res) => {
     }
   });*/
   
-
-
-  
- 
-
-
-
-  
-  
-
-
-
+const searchPatientsToChat = asyncHandler(async (req, res) => {
+  const { name } = req.params;
+  let query = {};
+  if (name !== "none") {
+    query = { name: { $regex: new RegExp(name, "i") } };
+  }
+  try {
+    const patients = await PatientModel.find(query);
+    let patientList = []
+    for (const patientJSON of patients) {
+      const patient = patientJSON._doc
+      const user = await User.findOne({username:patient.username});
+      if(user)
+        patientList.push({...patient, userId:user._id, role:user.role})
+    }
+    res.status(200).json(patientList);
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+});
 
 module.exports = {
     getPatients,
@@ -244,6 +253,6 @@ module.exports = {
     updatePatient,
     addPatientAddresses,
     viewAvailableAddresses,
-   
+    searchPatientsToChat
   
 }

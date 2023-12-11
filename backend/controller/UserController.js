@@ -203,11 +203,40 @@ const changePassword = async (req,res) => {
         return res.status(400).json({error:error.message})
     }
 }
+
+const getUser = asyncHandler(async (req,res) => {
+    const { username, role } = req.user;
+    try{
+        var json = null;
+        if (role=='PATIENT') {
+            json = await Patient.findOne({username: username})
+        }
+        else if (role == 'PHARMACIST') {
+            json = await Pharmacist.findOne({username: username})
+        }
+        else if (role == 'ADMIN') {
+            json = await Admin.findOne({username: username})
+        }
+        if(json){
+            const user = await User.findOne({username: username})
+            json = {...json._doc, role:user.role, userId:user._id}
+            return res.status(200).json(json)
+        }
+        else
+            throw new Error("User not found.")
+    }
+    catch (error) {
+        res.status(400)
+        throw new Error(error.message)
+    }
+})
+
 module.exports = {
     login,
     logout,
     generateOTP,
     verifyOTP,
     resetPassword,
-    changePassword
+    changePassword,
+    getUser
 }
