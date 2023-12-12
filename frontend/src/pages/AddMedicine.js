@@ -127,8 +127,10 @@ const AddMedicine = () => {
                 alert(errorMessage);
                 throw new Error(errorMessage);
             } else {
-                alert('File is uploaded successfully');
-                const fileId = await response.json();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'File is uploaded successfully',
+                });                const fileId = await response.json();
                 return fileId;
             }
         } catch (error) {

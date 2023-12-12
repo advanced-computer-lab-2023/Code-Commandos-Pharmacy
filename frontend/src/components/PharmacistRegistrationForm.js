@@ -2,6 +2,7 @@ import { useState } from 'react'
 import PatientDetails from "./PatientDetails";
 import PharmacistRequestDetails from "./PharmacistRequestDetails";
 import {useNavigate} from "react-router-dom";
+import Swal from "sweetalert2";
 
 const PharmacistRegistrationForm = () => {
   const [name, setName] = useState('')
@@ -110,7 +111,10 @@ const PharmacistRegistrationForm = () => {
         alert(errorMessage);
         throw new Error(errorMessage);
       } else {
-        alert('File is uploaded successfully');
+        Swal.fire({
+          icon: 'success',
+          title: 'File is uploaded successfully',
+        });
         const fileId = await response.json();
         return fileId;
       }
@@ -122,7 +126,7 @@ const PharmacistRegistrationForm = () => {
   return (
       <div className="container mt-4">
         <div className="">
-          <div className=" margin-left-pharm">
+          <div className="margin-left-pharm">
             <h1 className="margin-reg-adjust">Apply as a pharmacist to join the platform:</h1>
             <form className="create" onSubmit={handleSubmit}>
               <div className="mb-3">
