@@ -99,11 +99,27 @@ const searchPharmacistsToChat = asyncHandler(async (req, res) => {
       throw new Error(error.message);
     }
 });
+// req 38 -> akram
+const getAmount = asyncHandler(async (req, res) => {
+    try {
+      un = req.user.username;
+      const pharmacist = await PharmacistModel.findOne({username: un});
+      if (! pharmacist ) {
+        res.status(404).json({ message: 'Pharmacist not found', userId: un });
+        return;
+      }
+      res.status(200).json(pharmacist.wallet);
+    } catch (error) {
+      res.status(400);
+      throw new Error(error.message);
+    }
+  });
 
  module.exports={
     viewPharmacist,
     removePharmacist,
     addPharmacist,
     viewAllPharmacists,
-    searchPharmacistsToChat
+    searchPharmacistsToChat,
+     getAmount
  }
