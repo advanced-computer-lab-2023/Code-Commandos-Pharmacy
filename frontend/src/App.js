@@ -40,6 +40,8 @@ import AdminReport from "./pages/AdminReport";
 import { ChakraProvider } from "@chakra-ui/react";
 import ChatProvider from "./ChatProvider";
 import Chat from './pages/Chat';
+import ViewMyWalletAsPatient from "./pages/ViewMyWalletAsPatient";
+import ViewMyWalletAsPharmacist from "./pages/ViewMyWalletAsPharmacist";
 
 function App() {
 
