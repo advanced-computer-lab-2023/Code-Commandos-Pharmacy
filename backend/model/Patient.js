@@ -63,6 +63,7 @@ const PatientSchema = new mongoose.Schema({
   },
   wallet: {
     type: Number,
+    required: true,
     default: 0.00
   }
 },{ timestamps: true });
