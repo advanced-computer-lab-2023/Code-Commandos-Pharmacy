@@ -37,6 +37,11 @@ const cancelOrder = asyncHandler(async (req,res)=> {
         const {id} = req.params
         const patientId = req.user.id
         const order = await Order.findOne({patientId:patientId, _id: id})
+        // check order status if it is DELIVERED
+        if (order && order.status === 'DELIVERED') {
+            throw new Error('Cannot cancel a delivered order.');
+        }
+
         if (!order) {
             return res.status(404).json({message: 'Order not found'});
         }
@@ -71,6 +76,16 @@ const cancelOrder = asyncHandler(async (req,res)=> {
             }
         }
 
+        // Update the Sales of the Medicine(s)
+        // get the medicines name from the order, and add to the sales the amount of this medicine
+        for(const medicine of order.medicines){
+            const {name, amount} = medicine;
+            const foundMedicine = await Medicine.findOne({name});
+            if(foundMedicine){
+                foundMedicine.sales -= amount;
+                await foundMedicine.save();
+            }
+        }
         await order.deleteOne({id})
         res.json({message: 'Order cancelled successfully'});
     } catch (error) {
@@ -108,7 +123,7 @@ const payForOrder = asyncHandler(async (req, res) => {
               totalPrice: cart.subtotal + cart.shipping,
           })
             // Schedule the shipment
-            scheduleStatusUpdate(newOrder.orderId);
+            scheduleStatusUpdate(newOrder.orderID);
 
             // Retrieve the current month, loop over the cart.medicines, add their amounts in a variable
             const currentMonth = new Date().toLocaleString('default', { month: 'long' });
@@ -143,6 +158,18 @@ const payForOrder = asyncHandler(async (req, res) => {
             });
 
             await salesReport.save();
+
+            // Update the Sales of the Medicine(s)
+            // get the medicines name from the cart, and add to the sales the amount of this medicine
+            for(const medicine of cart.medicines){
+                const {name, amount} = medicine;
+                const foundMedicine = await Medicine.findOne({name});
+                if(foundMedicine){
+                    foundMedicine.sales += amount;
+                    await foundMedicine.save();
+                }
+            }
+
             // Empty the cart and create the order
             for(const medicine of cart.medicines){
                 const {name , amount} = medicine;
@@ -198,7 +225,7 @@ const payForOrder = asyncHandler(async (req, res) => {
         res.status(200).json(session)
       }
       else if (paymentOption === 'CashOnDelivery') {
-          const newOrder = await OrderModel.create({
+          const newOrderCash = await OrderModel.create({
               patientId: cart.patientId,
               cartId: cart._id,
               subtotal: cart.subtotal,
@@ -207,6 +234,9 @@ const payForOrder = asyncHandler(async (req, res) => {
               paymentOption: 'CashOnDelivery', // Set the payment option as needed
               totalPrice: cart.subtotal + cart.shipping,
           })
+
+          // Schedule the shipment
+          scheduleStatusUpdate(newOrderCash.orderID);
 
           // Retrieve the current month, loop over the cart.medicines, add their amounts in a variable
           const currentMonth = new Date().toLocaleString('default', { month: 'long' });
@@ -238,9 +268,46 @@ const payForOrder = asyncHandler(async (req, res) => {
                       sendMailToPharmacists(foundMedicine.name);
               }
           }
+          const salesReport = await SalesReport.findOne();
+
+          // Loop through the medicines array and save the medicine's name, amount, and order date
+          cart.medicines.forEach((medicine) => {
+              const medicinePurchase = {
+                  medicineName: medicine.name,
+                  amount: medicine.amount,
+                  orderDate: new Date(),
+              };
+              salesReport.medicinePurchase.push(medicinePurchase); // Add the medicinePurchase object to the existing array
+          });
+
+          await salesReport.save();
+
+          // Update the Sales of the Medicine(s)
+          // get the medicines name from the cart, and add to the sales the amount of this medicine
+          for(const medicine of cart.medicines){
+              const {name, amount} = medicine;
+              const foundMedicine = await Medicine.findOne({name});
+              if(foundMedicine){
+                  foundMedicine.sales += amount;
+                  await foundMedicine.save();
+              }
+          }
+          // Empty the cart and create the order
           await Cart.findOneAndUpdate({_id:cart._id},{medicines:[],totalNumberOfItems:0,subtotal:0})
-          res.status(200).json(newOrder);
-        
+          res.status(200).json(newOrderCash);
+
+          // update the medicine's quantity
+          // I want to loop on the medicine's array in cart i found , and get the 'name' of the medicine, and then get this
+          // medicine by name from the Medicine model, and update the medicine's quantity by cart.medicines.amount - medicine.quantity
+          for(const medicine of cart.medicines){
+              const {name , amount} = medicine;
+              const foundMedicine = await Medicine.findOne({name});
+              if(foundMedicine){
+                  const newQuantity = foundMedicine.quantity - amount;
+                  foundMedicine.quantity = newQuantity;
+                  await foundMedicine.save();
+              }
+          }
       } 
       else {
         return res.status(400).json({ error: 'Invalid payment method' });
@@ -267,7 +334,7 @@ const completeCreditPayment = asyncHandler(async (req, res) => {
     if(session.payment_status==="paid"){
         const cartID = session.metadata.cartID
         const cart = await Cart.findOne({_id:cartID})
-        const newOrder = await OrderModel.create({
+        const newOrderCredit = await OrderModel.create({
             patientId: cart.patientId,
             cartId: cart._id,
             subtotal: cart.subtotal,
@@ -277,6 +344,9 @@ const completeCreditPayment = asyncHandler(async (req, res) => {
             totalPrice: cart.subtotal + cart.shipping,
             sessionID:sessionID
         })
+
+        // Schedule the shipment
+        scheduleStatusUpdate(newOrderCredit.orderID);
 
         // Retrieve the current month, loop over the cart.medicines, add their amounts in a variable
         const currentMonth = new Date().toLocaleString('default', { month: 'long' });
@@ -298,47 +368,86 @@ const completeCreditPayment = asyncHandler(async (req, res) => {
         await salesDocument.save();
         console.log('Sales document updated or created successfully.');
 
+        const salesReport = await SalesReport.findOne();
+
+        // Loop through the medicines array and save the medicine's name, amount, and order date
+        cart.medicines.forEach((medicine) => {
+            const medicinePurchase = {
+                medicineName: medicine.name,
+                amount: medicine.amount,
+                orderDate: new Date(),
+            };
+            salesReport.medicinePurchase.push(medicinePurchase); // Add the medicinePurchase object to the existing array
+        });
+
+        await salesReport.save();
+
+        // Update the Sales of the Medicine(s)
+        // get the medicines name from the cart, and add to the sales the amount of this medicine
+        for(const medicine of cart.medicines){
+            const {name, amount} = medicine;
+            const foundMedicine = await Medicine.findOne({name});
+            if(foundMedicine){
+                foundMedicine.sales += amount;
+                await foundMedicine.save();
+            }
+        }
+
+        // Empty the cart and create the order
         await Cart.findOneAndUpdate({_id:cart._id},{medicines:[],totalNumberOfItems:0,subtotal:0})
-        res.status(200).json(newOrder)
+        res.status(200).json(newOrderCredit);
+
+        // update the medicine's quantity
+        // I want to loop on the medicine's array in cart i found , and get the 'name' of the medicine, and then get this
+        // medicine by name from the Medicine model, and update the medicine's quantity by cart.medicines.amount - medicine.quantity
+        for(const medicine of cart.medicines){
+            const {name , amount} = medicine;
+            const foundMedicine = await Medicine.findOne({name});
+            if(foundMedicine){
+                const newQuantity = foundMedicine.quantity - amount;
+                foundMedicine.quantity = newQuantity;
+                await foundMedicine.save();
+            }
+        }
     } else {
         res.status(400)
         throw new Error('Payment unsuccessful')
     }
 })
 
-const updateOrderStatus = async (orderId, newStatus) => {
+const updateOrderStatus = async (orderID, newStatus) => {
     try {
-        const order = await Order.findOneAndUpdate({ orderId }, { status: newStatus }, { new: true });
-        console.log(`Order ${orderId} status updated to ${newStatus}`);
+        const order = await Order.findOneAndUpdate({ orderID }, { status: newStatus }, { new: true });
+        console.log(`Order ${orderID} status updated to ${newStatus}`);
     } catch (error) {
-        console.error(`Error updating order ${orderId} status: ${error}`);
+        console.error(`Error updating order ${orderID} status: ${error}`);
     }
 };
 
-const scheduleStatusUpdate = (orderId) => {
+const scheduleStatusUpdate = (orderID) => {
     setTimeout(async () => {
         try{
-            const order = Order.findOne({orderId, status:'PENDING'});
+            const order = Order.findOne({orderID, status:'PENDING'});
             if (order){
-                await updateOrderStatus(orderId, 'ONITSWAY');
-                scheduleDeliveryStatusUpdate(orderId);
+                await updateOrderStatus(orderID, 'ONITSWAY');
+                scheduleDeliveryStatusUpdate(orderID);
             }
 
         }
         catch (error) {
             console.error('Error updating order status:', error);
         }
-    }, 3 * 60 * 1000); // 3 minutes
+    }, 1 * 60 * 1000); // 1 minute
 }
 
-const scheduleDeliveryStatusUpdate = (orderId) => {
+const scheduleDeliveryStatusUpdate = (orderID) => {
     setTimeout(async () => {
         try {
-            await updateOrderStatus(orderId, 'DELIVERED');
+            await updateOrderStatus(orderID, 'DELIVERED');
         } catch (error) {
             console.error('Error updating order status:', error);
         }
-    }, 5 * 60 * 1000); // 5 minutes
+    }, 2 * 60 * 1000); // 2 minutes
 };
 
 const sendEmail =  asyncHandler(async (email,content) => {

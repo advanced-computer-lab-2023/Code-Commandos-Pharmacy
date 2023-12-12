@@ -90,6 +90,12 @@ const PatientNavbar = () => {
                                     <li>
                                         <Link to="/PrescriptionContainer" className="dropdown-item items-dropdown">My prescriptions</Link>
                                     </li>
+                                    <li>
+                                        <Link to="/Chat" className="dropdown-item items-dropdown">Chats</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/ViewMyWalletAsPatient" className="dropdown-item items-dropdown">My wallet</Link>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>

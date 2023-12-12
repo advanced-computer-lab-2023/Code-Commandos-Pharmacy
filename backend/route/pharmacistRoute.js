@@ -2,7 +2,7 @@ const express= require('express')
 const router = express.Router()
 
 const {protect} = require('../middleware/AuthenticationHandler')
-const {checkAdminRole} = require('../middleware/AccessHandler');
+const {checkAdminRole, checkPharmacistRole} = require('../middleware/AccessHandler');
 const {
     viewPharmacist,
     removePharmacist,

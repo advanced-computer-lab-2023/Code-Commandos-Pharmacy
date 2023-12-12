@@ -1,6 +1,7 @@
 import {Link} from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const PlaceOrder = () => {
     const [addresses, setAddresses] = useState([]);
@@ -49,8 +50,10 @@ const PlaceOrder = () => {
         const response = await fetch(`/api/order/payForOrder/${cart}/CashOnDelivery`)
         if (response.ok) {
             const result = await response.json();
-            alert("Order successfully placed.");
-            navigate('/viewMyOrders')
+            Swal.fire({
+                icon: 'success',
+                title: 'Order successfully placed.',
+            });            navigate('/viewMyOrders')
         } else {
             const errorMessage = await response.text();
             alert(errorMessage);
@@ -66,8 +69,10 @@ const PlaceOrder = () => {
             if (response.ok) {
                 const result = await response.json();
                 //setWalletPayment(result);
-                alert("Order successfully placed.");
-                navigate('/paymentSuccess')
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Order successfully placed.',
+                });                navigate('/paymentSuccess')
             } else {
                 const errorMessage = await response.text();
                 alert(errorMessage);

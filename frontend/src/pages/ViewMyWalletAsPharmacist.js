@@ -35,7 +35,6 @@ const ViewMyWalletAsPharmacist = () => {
     }, []);
     return (
         <div className="bodyy">
-        <h1 class ="tittle">Your Wallet Amount:</h1>
         <div class ="bodyyy2">
         <div class ="walletcon">
         <img src={wallett} className="wallett" alt="wallet" />
