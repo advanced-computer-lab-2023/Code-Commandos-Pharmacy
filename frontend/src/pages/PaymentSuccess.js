@@ -1,6 +1,9 @@
 import { useEffect } from "react";
+import {useNavigate} from "react-router-dom";
 
 const PaymentSuccess = () => {
+    const navigate = useNavigate()
+
     useEffect(()=>{
         const subscribe = async () => {
             const urlParams = new URLSearchParams(window.location.search);
@@ -12,18 +15,14 @@ const PaymentSuccess = () => {
                         'Content-Type': 'application/json',
                     },
                 })
+                navigate('/viewMyOrders')
                 console.log(await response.json())
             }
         }
 
         subscribe()
     },[])
-    return (
-        <div>
-            <h2>Payment successful.</h2>
-            <a href="/viewMyOrders">Go to orders .</a>
-        </div>
-    );
+
 };
 
 export default PaymentSuccess

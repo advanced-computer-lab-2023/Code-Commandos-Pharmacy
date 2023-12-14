@@ -72,7 +72,7 @@ const PlaceOrder = () => {
                 Swal.fire({
                     icon: 'success',
                     title: 'Order successfully placed.',
-                });                navigate('/paymentSuccess')
+                });                navigate('/viewMyOrders')
             } else {
                 const errorMessage = await response.text();
                 alert(errorMessage);
