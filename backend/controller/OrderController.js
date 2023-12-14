@@ -9,6 +9,7 @@ const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 const SalesReport = require("../model/SalesReport")
 const Pharmacist = require('../model/Pharmacist')
 const nodemailer = require("nodemailer");
+const axios = require("axios");
 
 // View Order Details
 const viewOrderDetails = asyncHandler(async (req, res) => {
@@ -188,6 +189,21 @@ const payForOrder = asyncHandler(async (req, res) => {
                         sendMailToPharmacists(foundMedicine.name);
                 }
             }
+
+                try {
+                    const medicineNames = cart.medicines.map(med => med.name);
+                    const apiUrl = `http://localhost:4000/api/prescription/medicineIsBought/${req.user.username}`;
+                    const response = await axios.put(apiUrl,medicineNames);
+                    if (response.status === 200) {
+                        console.log(`Medicines marked as bought successfully`);
+                    } else {
+                        console.log(`Failed to mark medicines as bought`);
+                    }
+                }
+                catch (error){
+                    console.log(error.message)
+                }
+
             await Cart.findOneAndUpdate({_id:cart._id},{medicines:[],totalNumberOfItems:0,subtotal:0})
             res.status(200).json(newOrder);
         }
@@ -227,6 +243,19 @@ const payForOrder = asyncHandler(async (req, res) => {
                   if(foundMedicine.quantity <= 0)
                       sendMailToPharmacists(foundMedicine.name);
               }
+          }
+          try {
+              const medicineNames = cart.medicines.map(med => med.name);
+              const apiUrl = `http://localhost:4000/api/prescription/medicineIsBought/${req.user.username}`;
+              const response = await axios.put(apiUrl,medicineNames);
+              if (response.status === 200) {
+                  console.log(`Medicines marked as bought successfully`);
+              } else {
+                  console.log(`Failed to mark medicines as bought`);
+              }
+          }
+          catch (error){
+              console.log(error.message)
           }
         res.status(200).json(session)
       }
@@ -313,6 +342,19 @@ const payForOrder = asyncHandler(async (req, res) => {
                   foundMedicine.quantity = newQuantity;
                   await foundMedicine.save();
               }
+          }
+          try {
+              const medicineNames = cart.medicines.map(med => med.name);
+              const apiUrl = `http://localhost:4000/api/prescription/medicineIsBought/${req.user.username}`;
+              const response = await axios.put(apiUrl,medicineNames);
+              if (response.status === 200) {
+                  console.log(`Medicines marked as bought successfully`);
+              } else {
+                  console.log(`Failed to mark medicines as bought`);
+              }
+          }
+          catch (error){
+              console.log(error.message)
           }
       } 
       else {

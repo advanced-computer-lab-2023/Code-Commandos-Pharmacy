@@ -20,6 +20,24 @@ const PrescriptionDetails = ({ prescription }) => {
         }
     };
 
+    const handleAddAllToCart = async () =>{
+        try {
+            const response = await fetch('/api/cart/addAllPrescriptionMedicinesToCart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(prescription.medicines)
+            });
+            if (!response.ok) {
+                throw new Error('Failed to add medicines to cart');
+            }
+            alert("All medicines are added to cart successfully!")
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
     return (
       <div className="card">
         <div className="card-body">
@@ -28,7 +46,7 @@ const PrescriptionDetails = ({ prescription }) => {
           <p className="card-text fontMed">Status: {prescription.status}</p>
             <br/>
             <h5>Medicines</h5>
-            {prescription.medicines.map((medicine, index) => (
+            {prescription && prescription.medicines.map((medicine, index) => (
                 <div key={index} className="fontMed">
                     <button
                         className="btn btn-primary btn-sm"
@@ -47,6 +65,12 @@ const PrescriptionDetails = ({ prescription }) => {
                 </div>
 
             ))}
+            <button
+                className="btn btn-primary btn-sm"
+                onClick={() => handleAddAllToCart()}
+            >
+                Add All medicines to Cart
+            </button>
         </div>
       </div>
     );
