@@ -5,6 +5,7 @@ const PrescriptionContainer = () => {
   const [prescriptions, setPrescriptions] = useState([]);
   const [selectedPrescription,setSelectedPrescription] = useState(null)
   const username = window.localStorage.getItem("username")
+  console.log(username)
   if(!username){
     alert("username not found , try to logout and login again")
   }
@@ -19,6 +20,7 @@ const PrescriptionContainer = () => {
         });
         if (response.ok){
           const result = await response.json()
+          console.log(result)
           setPrescriptions(result)
         }
         else{

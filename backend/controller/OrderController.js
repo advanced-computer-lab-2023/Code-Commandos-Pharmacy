@@ -36,6 +36,7 @@ const cancelOrder = asyncHandler(async (req,res)=> {
     try{
         const {id} = req.params
         const patientId = req.user.id
+        const patient = await PatientModel.findById(patientId)
         const order = await Order.findOne({patientId:patientId, _id: id})
         // check order status if it is DELIVERED
         if (order && order.status === 'DELIVERED') {
@@ -73,6 +74,11 @@ const cancelOrder = asyncHandler(async (req,res)=> {
                 const newQuantity = foundMedicine.quantity + amount;
                 foundMedicine.quantity = newQuantity;
                 await foundMedicine.save();
+                if(order.paymentOption === 'Wallet'){
+                    const newWallet = patient.wallet + foundMedicine.price
+                    patient.wallet = newWallet
+                    await patient.save()
+                }
             }
         }
 

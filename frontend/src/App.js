@@ -92,11 +92,11 @@ function App() {
                         <Route path="/Home" element={isPatient ? <PatientHome/> : isPharmacist ? <PharmacistHome /> : <AdminHome />}/>
                         <Route path="/MonthlySales/:month" element={<FilterReport/>}/>
                         <Route path="/Alternatives/:medicineName" element={<AlternativeMedicines/>}/>
-                        <Route path="/PharmacistHome" element={<PharmacistHome role={role} name = {name}/>}/>
+                        <Route path="/PharmacistHome" element={<PharmacistHome/>}/>
                         <Route path="/ViewMyWalletAsPatient" element={<ViewMyWalletAsPatient/>}/>
                         <Route path="/ViewMyWalletAsPharmacist" element={<ViewMyWalletAsPharmacist/>}/>
-                        <Route path="/AdminHome" element={<AdminHome role={role} name = {name}/>}/>
-                        <Route path="/PatientHome" element={<PatientHome role={role} name = {name}/>}/>
+                        <Route path="/AdminHome" element={<AdminHome/>}/>
+                        <Route path="/PatientHome" element={<PatientHome/>}/>
                         <Route path="/viewMyCart" element={<MyCart />}/>
                         <Route path="/viewArchivedMedicines" element={<ViewArchivedMedicines />}/>
                         <Route path="/AdminReport/:month" element={<AdminReport/>}/>

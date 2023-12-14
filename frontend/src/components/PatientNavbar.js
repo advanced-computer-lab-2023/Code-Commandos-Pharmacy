@@ -26,6 +26,9 @@ const PatientNavbar = () => {
                     showConfirmButton: true
                 });
                 window.localStorage.removeItem("logged");
+                window.localStorage.removeItem("username")
+                window.localStorage.removeItem("role");
+                window.localStorage.removeItem("name");
                 navigate('/Login');
                 window.location.reload();
             } else {

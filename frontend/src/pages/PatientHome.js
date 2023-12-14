@@ -2,7 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import React from "react";
 import PatientNavbar from "../components/PatientNavbar";
 
-const PatientHome = ({role, name}) => {
+const PatientHome = () => {
+    const name = window.localStorage.getItem("name")
 
     const navigate = useNavigate();
 

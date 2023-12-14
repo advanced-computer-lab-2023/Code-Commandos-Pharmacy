@@ -3,8 +3,9 @@ import React from "react";
 import PharmacistNavbar from "../components/PharmacistNavbar";
 import AdminNavbar from "../components/AdminNavbar";
 
-const AdminHome = ({role,name}) => {
+const AdminHome = () => {
     const navigate = useNavigate();
+    const name = window.localStorage.getItem("name")
 
     return(
         <body className="my-patient-background">

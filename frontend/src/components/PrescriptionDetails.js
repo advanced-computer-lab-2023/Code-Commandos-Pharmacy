@@ -37,7 +37,11 @@ const PrescriptionDetails = ({ prescription }) => {
                         Add to Cart
                     </button>
                     &nbsp;
-                    {medicine.name} - Dosage : {medicine.dosage}
+                    {medicine.name}
+                    <br/>
+                    Dosage: {medicine.dosage}
+                    <br/>
+                    Dosage description : {medicine.dosageDescription}
                     <br/>
                     <br/>
                 </div>

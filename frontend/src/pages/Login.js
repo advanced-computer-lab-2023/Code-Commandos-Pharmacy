@@ -23,6 +23,7 @@ const Login = () => {
             window.localStorage.setItem("logged", true)
             window.localStorage.setItem("role",data.role);
             window.localStorage.setItem("name", data.name);
+            window.localStorage.setItem("username",data.username)
             if(data.role === "PATIENT"){
                 navigate('/PatientHome')
             }

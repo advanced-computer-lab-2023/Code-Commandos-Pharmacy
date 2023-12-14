@@ -2,9 +2,9 @@ import {Link, useNavigate} from "react-router-dom";
 import React from "react";
 import PharmacistNavbar from "../components/PharmacistNavbar";
 
-const PharmacistHome = ({role,name}) => {
+const PharmacistHome = () => {
     const navigate = useNavigate();
-
+    const name = window.localStorage.getItem("name")
     return(
         <body className="my-patient-background">
         {<PharmacistNavbar />}
