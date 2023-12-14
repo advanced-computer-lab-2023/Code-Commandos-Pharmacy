@@ -169,9 +169,14 @@ const updateAmountInCart = asyncHandler(async (req, res) => {
     }
 })
 
+const addAllPrescriptionMedicinesToCart = asyncHandler(async (req, res) => {
+
+})
+
 module.exports = {
     addToCart,
     viewCart,
     removeMedicine,
-    updateAmountInCart
+    updateAmountInCart,
+    addAllPrescriptionMedicinesToCart
 }
