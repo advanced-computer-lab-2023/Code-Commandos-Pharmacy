@@ -170,7 +170,47 @@ const updateAmountInCart = asyncHandler(async (req, res) => {
 })
 
 const addAllPrescriptionMedicinesToCart = asyncHandler(async (req, res) => {
+    const medicines = req.body
+    try {
+        const patientId = req.user.id
+        let cart = await Cart.findOne({patientId});
+        if (!cart) {
+            cart = new Cart({
+                patientId,
+                medicines: [
 
+                ]
+            })
+        }
+        else {
+            for (const med of medicines) {
+                const medicine = await Medicine.findOne({name: med.name})
+                // I want to check if the medicine is already in cart, an alert appears that says medicine already in cart
+                const existingMedicine = cart.medicines.find((item) => item.medicineId.equals(medicine._id))
+
+                if (!existingMedicine) {
+                    cart.medicines.push({
+                        medicineId: medicine._id,
+                        amount: 1,
+                        price: medicine.price,
+                        description: medicine.description,
+                        name: medicine.name,
+                        imageUploadID: medicine.imageUploadID
+                    });
+                    cart.totalNumberOfItems = cart.medicines.reduce(
+                        (total, item) => total + item.amount,
+                        0
+                    );
+                    cart.subtotal += medicine.price;
+                    await cart.save();
+                }
+            }
+        }
+        res.status(201).json(cart);
+    } catch (error) {
+        res.status(400)
+        throw new Error(error.message)
+    }
 })
 
 module.exports = {
