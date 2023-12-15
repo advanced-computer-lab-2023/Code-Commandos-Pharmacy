@@ -39,7 +39,7 @@ const login = asyncHandler(async (req,res) => {
     else if(user.role == 'ADMIN'){
         const admin = await Admin.findOne({username})
         id = admin._id
-        name = admin.name
+        name = admin.username
     }
     const token = generateToken(user.username,user.role,id)
     res.cookie('token', token, {
