@@ -77,7 +77,7 @@ const ViewAndRemovePharmacists = ()=> {
                     )}
                 </div>
                 <div className="col-6">
-                    <img className="doc-edit" src={require(`../images/standing-doc.gif`)} alt="Pharmacy"/>
+                    <img className="doc-edit-pharmacist" src={require(`../images/standing-doc.gif`)} alt="Pharmacy"/>
                 </div>
             </div>
 

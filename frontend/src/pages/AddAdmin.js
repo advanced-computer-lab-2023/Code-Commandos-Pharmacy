@@ -46,52 +46,61 @@ const AddAdmin = ()=> {
 
     return (
         <div className="container mt-4">
-            <h1 className="mb-4">Add an admin</h1>
-            <div className="mb-3">
-                <label htmlFor="name" className="form-label">
-                    Username:
-                </label>
-                <input
-                    required={true}
-                    type="text"
-                    id="name"
-                    className="form-control"
-                    value={username !== null ? username : ""}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
+            <div className="row">
+                <div className="col-8 width-adjust-add-admin">
+                    <h1 className="mb-4">Add an admin</h1>
+                    <div className="mb-3">
+                        <label htmlFor="name" className="form-label">
+                            Username:
+                        </label>
+                        <input
+                            required={true}
+                            type="text"
+                            id="name"
+                            className="form-control"
+                            value={username !== null ? username : ""}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="password" className="form-label">
+                            Password:
+                        </label>
+                        <input
+                            required={true}
+                            type="password"
+                            id="password"
+                            className="form-control"
+                            value={password !== null ? password : ""}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="email" className="form-label">
+                            Email:
+                        </label>
+                        <input
+                            required={true}
+                            type="email"
+                            id="email"
+                            className="form-control"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
+                    <button className="btn btn-primary" onClick={handleAddAdmin}>
+                        Add
+                    </button>
+                    <div className="results mt-4">
+                        {admin && <AdminDetails admin={admin}/>}
+                    </div>
+                </div>
+                <div className="col-4">
+                    <img className="add-admin" src={require(`../images/add-admin.gif`)} alt="Admin"/>
+
+                </div>
             </div>
-            <div className="mb-3">
-                <label htmlFor="password" className="form-label">
-                    Password:
-                </label>
-                <input
-                    required={true}
-                    type="password"
-                    id="password"
-                    className="form-control"
-                    value={password !== null ? password : ""}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-            </div>
-            <div className="mb-3">
-                <label htmlFor="email" className="form-label">
-                    Email:
-                </label>
-                <input
-                    required={true}
-                    type="email"
-                    id="email"
-                    className="form-control"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-            </div>
-            <button className="btn btn-primary" onClick={handleAddAdmin}>
-                Add
-            </button>
-            <div className="results mt-4">
-                {admin && <AdminDetails admin={admin}/>}
-            </div>
+
         </div>
     );
 };

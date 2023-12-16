@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../css/ViewMyWalletAsPatient.css";
 import wallett from '../images/wallet.jpg';
 import swal from 'sweetalert';
@@ -35,12 +35,13 @@ const ViewMyWalletAsPharmacist = () => {
     }, []);
     return (
         <div className="bodyy">
-        <div class ="bodyyy2">
-        <div class ="walletcon">
-        <img src={wallett} className="wallett" alt="wallet" />
-        <h4 class="ammouunt">Amount of money in your wallet : {wallet} <span class ="dollar">$ </span></h4>
-        </div>
-        </div>
+            <div className ="bodyyy2">
+                <div className ="walletcon">
+                    <img className="wallett" src={require(`../images/wallet.gif`)} alt="Wallet"/>
+                    {/*<img src={wallett} className="wallett" alt="wallet" />*/}
+                    <h4 className="ammouunt">Amount of Money in Your Wallet:  {wallet} <span className ="dollar">$ </span></h4>
+                </div>
+            </div>
         </div>
 
     );

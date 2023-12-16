@@ -142,7 +142,7 @@ const AddMedicine = () => {
     // 2) I need to trigger the addMedicine when I submit : OnSubmit
     return (
         <div className="container container-form">
-            <h2 className="title-form">Add Medicine</h2>
+            <h2 className="title-form-medicine">Add Medicine</h2>
             <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <div className="form-row row">
                     <div className="col">

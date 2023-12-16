@@ -17,7 +17,7 @@ const PatientHome = () => {
         <div className="row">
             <div className="col-6">
                 <h2 className="margin-edit">
-                    <h2 className="red-color">Welcome {name}</h2>
+                    <h2 className="red-color">Welcome Patient {name}</h2>
                     <br/>
                     <br/>
                     <br/>

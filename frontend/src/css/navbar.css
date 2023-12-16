@@ -130,10 +130,14 @@
 
 .title-form {
     color: #D21312;
-    margin-left: 240px;
+    margin-left: 180px;
     margin-bottom: 40px;
 }
-
+.title-form-medicine {
+    color: #D21312;
+    margin-left: 260px;
+    margin-bottom: 40px;
+}
 .submit-btn {
     width: 15%;
     background: #176B87;
@@ -477,7 +481,7 @@
     margin-top: 70px;
 }
 .walking-med-edit{
-    height: 30%;
+    height: 10%;
     margin-top: 300px;
     margin-left: 200px;
 }
@@ -488,6 +492,9 @@
     display: flex;
 }
 .doc-edit{
+    height: 20%;
+}
+.doc-edit-pharmacist{
     height: 60%;
 }
 .heart-workout-edit{
@@ -498,7 +505,14 @@
 .width-adjust{
     width: 80%;
  }
+.width-adjust-add-admin{
+    width: 50%;
+}
+.add-admin{
+    height: 110%;
+}
 .width-adjust-register{
+    height: 70%;
     width: 125%;
     margin-top: 20%;
     margin-left: -100px;
@@ -521,4 +535,11 @@
 .image-adjust-patient{
     width: 220%;
     margin-left: -100px;
+}
+.address-img{
+    margin-left: -20%;
+}
+.address-form{
+    margin-top: 10%;
+    margin-left: 15%;
 }

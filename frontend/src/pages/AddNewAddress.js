@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 // this to add new address in case I already registered
 const AddNewAddress = () => {
@@ -40,54 +40,62 @@ const AddNewAddress = () => {
   };
 
   return (
-    <div className="container container-form">
-      <h2 className="title-form">Add New Address </h2>
-      <form onSubmit={handleEdit}>
-        {addresses.map((address, index) => (
-          <div key={index} className="form-row row">
-            
-            <div className="col">
-              <input
-                type="text"
-                required="true"
-                value={address.street}
-                onChange={(e) => handleAddressChange(index, 'street', e.target.value)}
-                className="form-control"
-                placeholder="Street"
-              />
-            </div>
-            <div className="col">
-              <input
-                type="text"
-                required="true"
-                value={address.city}
-                onChange={(e) => handleAddressChange(index, 'city', e.target.value)}
-                className="form-control"
-                placeholder="City"
-              />
-            </div>
-            <div className="col">
-              <input
-                type="text"
-                required="true"
-                value={address.country}
-                onChange={(e) => handleAddressChange(index, 'country', e.target.value)}
-                className="form-control"
-                placeholder="Country"
-              />
-            </div>
-            <div className="col">
-            <button type="button" className="btn btn-danger" onClick={handleAddAddress}>
-          Add Address
-             </button>
-            </div>
-          </div>
-        ))}
-        
-        <button type="submit" className="btn submit-btn">
-          Submit
-        </button>
-      </form>
+    <div className="container container-form address-form">
+      <div className="row">
+        <div className="col-10">
+          <h2 className="title-form">Add New Address </h2>
+          <form onSubmit={handleEdit}>
+            {addresses.map((address, index) => (
+                <div key={index} className="form-row row">
+
+                  <div className="col">
+                    <input
+                        type="text"
+                        required="true"
+                        value={address.street}
+                        onChange={(e) => handleAddressChange(index, 'street', e.target.value)}
+                        className="form-control"
+                        placeholder="Street"
+                    />
+                  </div>
+                  <div className="col">
+                    <input
+                        type="text"
+                        required="true"
+                        value={address.city}
+                        onChange={(e) => handleAddressChange(index, 'city', e.target.value)}
+                        className="form-control"
+                        placeholder="City"
+                    />
+                  </div>
+                  <div className="col">
+                    <input
+                        type="text"
+                        required="true"
+                        value={address.country}
+                        onChange={(e) => handleAddressChange(index, 'country', e.target.value)}
+                        className="form-control"
+                        placeholder="Country"
+                    />
+                  </div>
+                  <div className="col">
+                    <button type="button" className="btn btn-danger" onClick={handleAddAddress}>
+                      Add Address
+                    </button>
+                  </div>
+                </div>
+            ))}
+
+            <button type="submit" className="btn submit-btn">
+              Submit
+            </button>
+          </form>
+        </div>
+        <div className="col-2 address-img">
+          <img className="" src={require(`../images/add-address.gif`)} alt="Wallet"/>
+        </div>
+      </div>
+
     </div>
   );
 };

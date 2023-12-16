@@ -10,7 +10,7 @@
 .walletcon{
     display: flex;
     flex-direction: column;
-    border: #d21312 1.4px solid;
+    /*border: #d21312 1.4px solid;*/
     align-items: center;
     border-radius: 1%;
     width: 50%;
@@ -19,14 +19,14 @@
 }
 .wallett{
     margin-bottom: 2%;
-    width: 30%;
-    height: 30%;
-    margin-top: 2%;
+    width: 100%;
+    height: 100%;
+    margin-top: -14%;
 }
 .ammouunt{
     margin-bottom: 2%;
     color :#6f8195 ;
 }
 .dollar{
-    color: #89bd6a;
+    color: #519468;
 }

@@ -13,7 +13,7 @@ const AdminHome = () => {
         <div className="row">
             <div className="col-6">
                 <h2 className="margin-edit">
-                    <h2 className="red-color">Welcome {name}</h2>
+                    <h2 className="red-color">Welcome Admin {name}</h2>
                     <br/>
                     <br/>
                     <p><Link className="link-editt" to="/AdminReport/December" onClick={()=> navigate('/MonthlySales/December')}>
