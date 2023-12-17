@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import Navbar from "./Navbar";
+import Swal from "sweetalert2";
 
 const EnterEmailReset = () => {
     const [email, setEmail] = useState('');
@@ -15,7 +16,11 @@ const EnterEmailReset = () => {
             }
         }
         catch (error){
-            alert("No user found for such an email")
+            Swal.fire({
+                icon: 'error',
+                title: 'Logout Error',
+                text: "No user found for such an email",
+            })
         }
     };
 

@@ -4,6 +4,7 @@ import '../css/login.css';
 import {Link, useNavigate} from "react-router-dom";
 import PatientNavbar from "../components/PatientNavbar";
 import Navbar from "../components/Navbar";
+import Swal from "sweetalert2";
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -36,7 +37,11 @@ const Login = () => {
             window.location.reload()
         }
         if (!response.ok) {
-            alert(await response.text())
+            Swal.fire({
+                icon: 'error',
+                title: 'login Error',
+                text: await response.text(),
+            })
         }
     };
 
