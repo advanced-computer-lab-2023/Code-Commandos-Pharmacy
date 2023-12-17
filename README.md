@@ -30,142 +30,227 @@ Eslint : in the backend and the frontend to write the most optimum clean code po
 
 ## API Reference:
 *Admin routes
-  Add admin
-  Post/api/admin/addAdmin
+####  Add admin
+
+http
+POST /api/admin/addAdmin
+
 
 | Parameter | Type     |        Description        |
 | :-------- | :------- | :------------------------- |
-| `username` | `string` |Required.username of user |
-| `email` | `string` |Required.email of user |
-| `password` | `string` |Required.password of user |
+| username | string |Required.username of user |
+| email | string |Required.email of user |
+| password | string |Required.password of user |
 
 *Patient Routes
- -Get Patient Information
-  Get/api/patient/getPatient/:id
-| Parameter | Type     |        Description        |
-| :-------- | :------- | :------------------------- |
-| `Id` | `integer` |Required.id of user |
+####  Get Patient Information
 
--Create Patient 
-Post/api/patient/createPatient
+http
+GET /api/patient/getPatient/:id
 
 
 | Parameter | Type     |        Description        |
 | :-------- | :------- | :------------------------- |
-| `username` | `string` |Required.username of user |
-| `name` | `string` |Required.name of user |
-| `email` | `string` |Required.email of user |
-| `password` | `string` |Required.password of user |
-| `date of birth` | `date` |Required.dateOfBirth of user |
-| `gender` | `string` |Required.gender of user |
-| `mobile number` | `string` |Required.mobileNumber of user |
-| `addresses` | `string` |Required.addresses of user |
-| `emergency contact` | `string` |Required.emergencyContact of user |
+| Id | integer |Required.id of user |
 
--Delete Patient 
-delete/api/patient/deletePatient
+
+####  Create Patient
+
+http
+POST /api/patient/createPatient
+
+
 | Parameter | Type     |        Description        |
 | :-------- | :------- | :------------------------- |
-| `Id` | `integer` |Required.id of user |
+| username | string |Required.username of user |
+| name | string |Required.name of user |
+| email | string |Required.email of user |
+| password | string |Required.password of user |
+| date of birth | date |Required.dateOfBirth of user |
+| gender | string |Required.gender of user |
+| mobile number | string |Required.mobileNumber of user |
+| addresses | string |Required.addresses of user |
+| emergency contact | string |Required.emergencyContact of user |
+
+####  Delete Patient
+
+http
+DELETE /api/patient/deletePatient
 
 
--View available addresses
-get/api/patient/viewAvailableAddresses
 | Parameter | Type     |        Description        |
 | :-------- | :------- | :------------------------- |
-| `Id` | `integer` |Required.id of user |
+| Id | integer |Required.id of user |
 
-*File Routes
--Upload file
-post/api/file/addSingleFile
+#### View available addresses
 
--Add single file
-post/api/file/addSingleFileGuest/:username
+http
+GET /api/patient/viewAvailableAddresses
+
+
 | Parameter | Type     |        Description        |
 | :-------- | :------- | :------------------------- |
-| `Username` | `String` |Required.username of user |
+| Id | integer |Required.id of user |
 
--Get single file
-get/api/file/getSingleFiles/:id
+
+#### File Routes
+
+http
+POST /api/file/addSingleFile
+
+
+
+#### Add single file
+
+http
+POST /api/file/addSingleFileGuest/:username
+
+
 | Parameter | Type     |        Description        |
 | :-------- | :------- | :------------------------- |
-| `Id` | `integer` |Required.id of user |
+| Username | String |Required.username of user |
 
--Upload multiple files
-post/api/file/addMultipleFiles
 
--Get all single files
-get/api/file/getMultipleFiles
 
--Delete single file
-delete/api/file/deleteSingleFile/:id
+#### Get single file
+
+http
+GET /api/file/getSingleFiles/:id
+
+
 | Parameter | Type     |        Description        |
 | :-------- | :------- | :------------------------- |
-| `Id` | `integer` |Required.id of user |
+| Id | integer |Required.id of user |
 
--Delete all single files
-delete/api/file/deleteAllSingleFiles
+
+
+#### Upload multiple files
+
+http
+POST /api/file/addMultipleFiles
+
+
+#### Get all single files
+
+http
+GET /api/file/getMultipleFiles
+
+
+#### Delete single file
+
+http
+DELETE /api/file/deleteSingleFile/:id
+
+| Parameter | Type     |        Description        |
+| :-------- | :------- | :------------------------- |
+| Id | integer |Required.id of user |
+
+
+#### Delete all single files
+
+http
+DELETE /api/file/deleteAllSingleFiles
+
+
 
 *User Routes
--Login
-post/api/user/login
+
+
+#### Login
+
+http
+POST /api/user/login
+
+
 | Parameter | Type     |        Description        |
 | :-------- | :------- | :------------------------- |
-| `username` | `string` |Required.username of user |
-| `password` | `string` |Required.password of user |
+| username | string |Required.username of user |
+| password | string |Required.password of user |
 
--Logout
-post/api/user/logout
 
--Generate OTP
-post/api/user/generateOTP
+#### Logout
+
+http
+POST /api/user/logout
+
+
+#### Generate OTP
+
+http
+POST /api/user/generateOTP
+
+
 | Parameter | Type     |        Description        |
 | :-------- | :------- | :------------------------- |
-| `email` | `String` |Required.email of user |
+| email | String |Required.email of user |
 
--Reset password
-post/api/user/resetPassword
+#### Reset password
+
+http
+POST /api/user/resetPassword
+
 | Parameter | Type     |        Description        |
 | :-------- | :------- | :------------------------- |
-| `username` | `string` |Required.username of user |
-| `password` | `string` |Required.password of user |
+| username | string |Required.username of user |
+| password | string |Required.password of user |
 
--Change password
-post/api/user/changePassword
+
+#### Change password
+
+http
+POST /api/user/changePassword
+
 | Parameter | Type     |        Description        |
 | :-------- | :------- | :------------------------- |
-| `username` | `string` |Required.username of user |
-| `role` | `enum` |Required.role of user |
+| username | string |Required.username of user |
+| role | enum |Required.role of user |
 
 *Pharmacist Routes
 
--View pharmacist
-get/api/pharmacist/viewPharmacist/:id
+#### View pharmacist
+
+http
+GET /api/pharmacist/viewPharmacist/:id
+
+
 | Parameter | Type     |        Description        |
 | :-------- | :------- | :------------------------- |
-| `Id` | `integer` |Required.id of user |
+| Id | integer |Required.id of user |
 
--Remove pharmacist
-delete/api/pharmacist/removePharmacist/:id
+
+#### Remove pharmacist
+
+http
+DELETE /api/pharmacist/removePharmacist/:id
+
+
 | Parameter | Type     |        Description        |
 | :-------- | :------- | :------------------------- |
-| `Id` | `integer` |Required.id of user |
+| Id | integer |Required.id of user |
 
--Add pharmacist
-post/api/pharmacist/addPharmacist
+
+#### Add pharmacist
+
+http
+POST /api/pharmacist/addPharmacist
+
+
 | Parameter | Type     |        Description        |
 | :-------- | :------- | :------------------------- |
-| `username` | `string` |Required.username of user |
-| `name` | `String` |Required.name of user |
-| `email` | `string` |Required.email of user |
-| `password` | `string` |Required.password of user |
-| `date of birth` | `date` |Required.dateOfBirth of user |
-| `Hourly rate` | `number` |Required.hourlyRate of user |
-| `Affiliation` | `string` |Required.affiliation of user |
-| `Educational background` | `string` |Required.educationalBackground of user |
+| username | string |Required.username of user |
+| name | String |Required.name of user |
+| email | string |Required.email of user |
+| password | string |Required.password of user |
+| date of birth | date |Required.dateOfBirth of user |
+| Hourly rate | number |Required.hourlyRate of user |
+| Affiliation | string |Required.affiliation of user |
+| Educational background | string |Required.educationalBackground of user |
 
--View all pharmacists
-get/api/pharmacist/viewPharmacists
+
+#### View all pharmacists
+
+http
+GET /api/pharmacist/viewPharmacists
 
 *Cart Routes
 
