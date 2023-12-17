@@ -10,7 +10,7 @@ const SalesReport = require("../model/SalesReport")
 const Pharmacist = require('../model/Pharmacist')
 const nodemailer = require("nodemailer");
 const axios = require("axios");
-
+const Notification = require('../model/Notification')
 // View Order Details
 const viewOrderDetails = asyncHandler(async (req, res) => {
     try {
@@ -533,6 +533,11 @@ const sendMailToPharmacists = asyncHandler(async (name) => {
         const pharmacists = await Pharmacist.find();
         for (const ph of pharmacists){
             sendEmail(ph.email,`Kindly note that medicine ${name} is out of stock now`)
+            await Notification.create({
+                userId: ph._id,
+                title: "Medicine out of stock",
+                content: `Kindly note that medicine ${name} is out of stock now`,
+            })
         }
     }
     catch (error){

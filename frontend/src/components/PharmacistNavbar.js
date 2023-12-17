@@ -96,6 +96,9 @@ const PharmacistNavbar = () => {
                                         <Link to="/ChangePassword" className="dropdown-item margin-left-pass items-dropdown">Change Password</Link>
                                     </li>
                                     <li>
+                                        <Link to="/Notifications" className="dropdown-item">Notifications</Link>
+                                    </li>
+                                    <li>
                                         <button onClick={handleLogout} className="logout-btn items-dropdown">Log out</button>
                                     </li>
                                 </ul>

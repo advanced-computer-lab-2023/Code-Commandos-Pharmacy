@@ -42,6 +42,7 @@ import ChatProvider from "./ChatProvider";
 import Chat from './pages/Chat';
 import ViewMyWalletAsPatient from "./pages/ViewMyWalletAsPatient";
 import ViewMyWalletAsPharmacist from "./pages/ViewMyWalletAsPharmacist";
+import NotificationPage from "./pages/NotificationPage";
 
 function App() {
 
@@ -101,6 +102,8 @@ function App() {
                         <Route path="/viewArchivedMedicines" element={<ViewArchivedMedicines />}/>
                         <Route path="/AdminReport/:month" element={<AdminReport/>}/>
                         <Route path="/Chat" element={<ChakraProvider><ChatProvider><Chat/></ChatProvider></ChakraProvider>}/>
+                        <Route path="/Notifications" element={<NotificationPage/>}/>
+
                     </Routes>
                 </div>
             </BrowserRouter>

@@ -13,7 +13,9 @@ const dotenv = require("dotenv").config();
 
 const login = asyncHandler(async (req,res) => {
     const {username, password} = req.body
+
     const user = await User.findOne({username})
+    console.log()
     if(!user){
         res.status(400)
         throw new Error('Invalid username')

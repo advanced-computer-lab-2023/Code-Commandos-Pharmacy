@@ -39,6 +39,7 @@ const orderRoute = require('./route/OrderRoute')
 const salesRoute = require('./route/SalesReportRoute')
 const messageRoutes = require('./route/MessageRoute')
 const chatRoutes = require('./route/ChatRoute')
+const notificationRoutes = require('./route/NotificationRoute')
 
 server.use('/api/pharmacist', pharmacistRoutes)
 server.use('/api/pharmacistRequest', pharmacistRequestRoutes)
@@ -53,6 +54,7 @@ server.use('/api/order', orderRoute)
 server.use('/api/sales', salesRoute)
 server.use('/api/message',messageRoutes)
 server.use('/api/chat',chatRoutes)
+server.use('/api/notification',notificationRoutes)
 
 server.use(ErrorHandler)
 
