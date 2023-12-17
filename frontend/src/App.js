@@ -43,6 +43,7 @@ import Chat from './pages/Chat';
 import ViewMyWalletAsPatient from "./pages/ViewMyWalletAsPatient";
 import ViewMyWalletAsPharmacist from "./pages/ViewMyWalletAsPharmacist";
 import NotificationPage from "./pages/NotificationPage";
+import Footer from "./components/Footer";
 
 function App() {
 
@@ -105,6 +106,9 @@ function App() {
                         <Route path="/Notifications" element={<NotificationPage/>}/>
 
                     </Routes>
+                </div>
+                <div>
+                    <Footer/>
                 </div>
             </BrowserRouter>
         </div>
